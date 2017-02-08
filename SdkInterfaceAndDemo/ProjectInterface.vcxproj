@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7E6E93CD-8A13-4CD2-B46C-D2E1F6159E0A}</ProjectGuid>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>ProjectInterface</RootNamespace>
+    <ProjectName>SdkInterfaceAndDemo</ProjectName>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <PlatformToolset>v140</PlatformToolset>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <PlatformToolset>v140</PlatformToolset>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)websockets\cjson;$(SolutionDir)websockets\WIN32;$(SolutionDir)websockets\lz4;$(SolutionDir)websockets\libwebsocket;$(SolutionDir)websockets;$(SolutionDir)commonSrc;$(SolutionDir)opencv\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)opencv\x86\vc14\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)bin\windows\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)\objs\windows\$(Configuration)\</IntDir>
+    <LibraryWPath>$(SolutionDir)opencv\x86\vc14\lib;$(LibraryWPath)</LibraryWPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <OutDir>$(SolutionDir)bin\android\</OutDir>
+    <IntDir>$(ProjectDir)objs\android\</IntDir>
+    <IncludePath>$(NDK_ROOT)\platforms\android-21\arch-arm\usr\include;$(NDK_ROOT)\sources\cxx-stl\stlport\stlport;$(ProjectDir)..\commonSrc;$(ProjectDir)src;$(ProjectDir)src\navigation;$(ProjectDir)src\navigation\ptg;$(ProjectDir)src\navigation\pathPlan;$(ProjectDir)src\navigation\vff;$(ProjectDir)src\navigation\charge;$(ProjectDir)src\slam;$(ProjectDir)src\slam\icp_slam;$(ProjectDir)src\slam\Eigen;$(ProjectDir)src\slam\location_fusion;$(ProjectDir)src\sensors;$(ProjectDir)src\commander;$(OPENCV_PATH)\include</IncludePath>
+    <NMakeBuildCommandLine>$(NDK_ROOT)\ndk-build NDK_PROJECT_PATH=$(ProjectDir) NDK_APPLICATION_MK=./Android/Application.mk APP_BUILD_SCRIPT=./Android/Android.mk</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>$(NDK_ROOT)\ndk-build -B NDK_PROJECT_PATH=$(ProjectDir) NDK_APPLICATION_MK=./Android/Application.mk APP_BUILD_SCRIPT=./Android/Android.mk</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>$(NDK_ROOT)\ndk-build NDK_PROJECT_PATH=$(ProjectDir) NDK_APPLICATION_MK=./Android/Application.mk APP_BUILD_SCRIPT=./Android/Android.mk clean</NMakeCleanCommandLine>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <OutDir>$(SolutionDir)bin\android\</OutDir>
+    <IntDir>$(ProjectDir)objs\android\</IntDir>
+    <IncludePath>$(NDK_ROOT)\platforms\android-21\arch-arm\usr\include;$(NDK_ROOT)\sources\cxx-stl\stlport\stlport;$(ProjectDir)..\commonSrc;$(ProjectDir)src;$(ProjectDir)src\navigation;$(ProjectDir)src\navigation\ptg;$(ProjectDir)src\navigation\pathPlan;$(ProjectDir)src\navigation\vff;$(ProjectDir)src\navigation\charge;$(ProjectDir)src\slam;$(ProjectDir)src\slam\icp_slam;$(ProjectDir)src\slam\Eigen;$(ProjectDir)src\slam\location_fusion;$(ProjectDir)src\sensors;$(ProjectDir)src\commander;$(OPENCV_PATH)\include</IncludePath>
+    <NMakeBuildCommandLine>$(NDK_ROOT)\ndk-build NDK_PROJECT_PATH=$(ProjectDir) NDK_APPLICATION_MK=./Android/Application.mk APP_BUILD_SCRIPT=./Android/Android.mk</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>$(NDK_ROOT)\ndk-build -B NDK_PROJECT_PATH=$(ProjectDir) NDK_APPLICATION_MK=./Android/Application.mk APP_BUILD_SCRIPT=./Android/Android.mk</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>$(NDK_ROOT)\ndk-build NDK_PROJECT_PATH=$(ProjectDir) NDK_APPLICATION_MK=./Android/Application.mk APP_BUILD_SCRIPT=./Android/Android.mk clean</NMakeCleanCommandLine>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;NAVIPACK_WIN;WIN32_LEAN_AND_MEAN;_WINSOCK_DEPRECATED_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opencv_world310.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opencv_world310.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\commonSrc\errordeal\ErrorEvent.cpp" />
+    <ClCompile Include="..\commonSrc\hardware_interface\BufferProtocol.cpp" />
+    <ClCompile Include="..\commonSrc\hardware_interface\HardwareInterface.cpp" />
+    <ClCompile Include="..\commonSrc\hardware_interface\InterfaceStreamWriter.cpp" />
+    <ClCompile Include="..\commonSrc\hardware_interface\Protocol.cpp" />
+    <ClCompile Include="..\commonSrc\hardware_interface\SerialPackageProtocol.cpp" />
+    <ClCompile Include="..\commonSrc\hardware_interface\SerialPortInterface.cpp" />
+    <ClCompile Include="..\commonSrc\hardware_interface\TCPClientInterface.cpp" />
+    <ClCompile Include="..\commonSrc\hardware_interface\TCPServerInterface.cpp" />
+    <ClCompile Include="..\commonSrc\tools\BmpFile.cpp" />
+    <ClCompile Include="..\commonSrc\tools\CfgTxtFile.cpp" />
+    <ClCompile Include="..\commonSrc\tools\CFile.cpp" />
+    <ClCompile Include="..\commonSrc\tools\CFrameList.cpp" />
+    <ClCompile Include="..\commonSrc\tools\CMapDataManager.cpp" />
+    <ClCompile Include="..\commonSrc\tools\CommonFunctions.cpp" />
+    <ClCompile Include="..\commonSrc\tools\CriticalSection.cpp" />
+    <ClCompile Include="..\commonSrc\tools\DateTime.cpp" />
+    <ClCompile Include="..\commonSrc\tools\Event.cpp" />
+    <ClCompile Include="..\commonSrc\tools\FifoBuffer.cpp" />
+    <ClCompile Include="..\commonSrc\tools\file_dir.cpp" />
+    <ClCompile Include="..\commonSrc\tools\GeomDef.cpp" />
+    <ClCompile Include="..\commonSrc\tools\LogFile.cpp" />
+    <ClCompile Include="..\commonSrc\tools\SDKProtocolPrivate.h" />
+    <ClCompile Include="..\commonSrc\tools\Shelly_support.cpp" />
+    <ClCompile Include="..\commonSrc\tools\systemenc\Compress.cpp" />
+    <ClCompile Include="..\commonSrc\tools\systemenc\Des.cpp" />
+    <ClCompile Include="..\commonSrc\tools\systemenc\md5.cpp" />
+    <ClCompile Include="..\commonSrc\tools\Thread.cpp" />
+    <ClCompile Include="..\commonSrc\visualScrop\VisualScope.cpp" />
+    <ClCompile Include="Android\NaviPackSdkJni.cpp" />
+    <ClCompile Include="Android\SdkBase\JniSdkBase.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="MyFunc.cpp" />
+    <ClCompile Include="NavipackInterface.cpp" />
+    <ClCompile Include="NaviPackSDK.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\commonSrc\errordeal\ErrorEvent.h" />
+    <ClInclude Include="..\commonSrc\hardware_interface\BufferProtocol.h" />
+    <ClInclude Include="..\commonSrc\hardware_interface\FileStreamReaderInterface.h" />
+    <ClInclude Include="..\commonSrc\hardware_interface\HardwareInterface.h" />
+    <ClInclude Include="..\commonSrc\hardware_interface\InterfaceStreamWriter.h" />
+    <ClInclude Include="..\commonSrc\hardware_interface\Protocol.h" />
+    <ClInclude Include="..\commonSrc\hardware_interface\SerialPackageProtocol.h" />
+    <ClInclude Include="..\commonSrc\hardware_interface\SerialPortInterface.h" />
+    <ClInclude Include="..\commonSrc\hardware_interface\TCPClientInterface.h" />
+    <ClInclude Include="..\commonSrc\hardware_interface\TCPServerInterface.h" />
+    <ClInclude Include="..\commonSrc\tools\BmpFile.h" />
+    <ClInclude Include="..\commonSrc\tools\CfgTxtFile.h" />
+    <ClInclude Include="..\commonSrc\tools\CFile.h" />
+    <ClInclude Include="..\commonSrc\tools\CFrameList.h" />
+    <ClInclude Include="..\commonSrc\tools\CMapDataManager.h" />
+    <ClInclude Include="..\commonSrc\tools\CommonFunctions.h" />
+    <ClInclude Include="..\commonSrc\tools\CParamIniFile.h" />
+    <ClInclude Include="..\commonSrc\tools\CriticalSection.h" />
+    <ClInclude Include="..\commonSrc\tools\DateTime.h" />
+    <ClInclude Include="..\commonSrc\tools\error_code.h" />
+    <ClInclude Include="..\commonSrc\tools\Event.h" />
+    <ClInclude Include="..\commonSrc\tools\FifoBuffer.h" />
+    <ClInclude Include="..\commonSrc\tools\file_dir.h" />
+    <ClInclude Include="..\commonSrc\tools\GeomDef.h" />
+    <ClInclude Include="..\commonSrc\tools\LogFile.h" />
+    <ClInclude Include="..\commonSrc\tools\SDKProtocol.h" />
+    <ClInclude Include="..\commonSrc\tools\Shelly_support.h" />
+    <ClInclude Include="..\commonSrc\tools\systemenc\Compress.h" />
+    <ClInclude Include="..\commonSrc\tools\systemenc\Des.h" />
+    <ClInclude Include="..\commonSrc\tools\systemenc\md5.h" />
+    <ClInclude Include="..\commonSrc\tools\Thread.h" />
+    <ClInclude Include="..\commonSrc\tools\windowsdef.h" />
+    <ClInclude Include="..\commonSrc\visualScrop\VisualScope.h" />
+    <ClInclude Include="Android\com_imscv_NaviPackSdk_NaviPackSdk.h" />
+    <ClInclude Include="Android\SdkBase\JniSdkBase.h" />
+    <ClInclude Include="MyForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="MyFunc.h" />
+    <ClInclude Include="NavipackInterface.h" />
+    <ClInclude Include="NaviPackSDK.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MyForm.resx">
+      <DependentUpon>MyForm.h</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Android\Android.mk" />
+    <None Include="Android\Application.mk" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

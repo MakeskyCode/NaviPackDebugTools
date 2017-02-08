@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="MyFunc.cpp" />
+    <ClCompile Include="..\commonSrc\visualScrop\VisualScope.cpp">
+      <Filter>visualScrop</Filter>
+    </ClCompile>
+    <ClCompile Include="NavipackInterface.cpp" />
+    <ClCompile Include="NaviPackSDK.cpp" />
+    <ClCompile Include="..\commonSrc\hardware_interface\InterfaceStreamWriter.cpp">
+      <Filter>lib\hardware_interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\hardware_interface\HardwareInterface.cpp">
+      <Filter>lib\hardware_interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\hardware_interface\TCPServerInterface.cpp">
+      <Filter>lib\hardware_interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\hardware_interface\TCPClientInterface.cpp">
+      <Filter>lib\hardware_interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\hardware_interface\SerialPortInterface.cpp">
+      <Filter>lib\hardware_interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\hardware_interface\SerialPackageProtocol.cpp">
+      <Filter>lib\hardware_interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\hardware_interface\Protocol.cpp">
+      <Filter>lib\hardware_interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\BmpFile.cpp">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\CfgTxtFile.cpp">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\CFile.cpp">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\CFrameList.cpp">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\CMapDataManager.cpp">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\CriticalSection.cpp">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\FifoBuffer.cpp">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\file_dir.cpp">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\GeomDef.cpp">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\LogFile.cpp">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\Shelly_support.cpp">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\Thread.cpp">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\systemenc\md5.cpp">
+      <Filter>lib\tools\systemEnc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\systemenc\Des.cpp">
+      <Filter>lib\tools\systemEnc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\systemenc\Compress.cpp">
+      <Filter>lib\tools\systemEnc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\DateTime.cpp">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\Event.cpp">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\CommonFunctions.cpp">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\errordeal\ErrorEvent.cpp">
+      <Filter>lib\errorDeal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\hardware_interface\BufferProtocol.cpp">
+      <Filter>lib\hardware_interface</Filter>
+    </ClCompile>
+    <ClCompile Include="..\commonSrc\tools\SDKProtocolPrivate.h">
+      <Filter>lib\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Android\NaviPackSdkJni.cpp">
+      <Filter>Android</Filter>
+    </ClCompile>
+    <ClCompile Include="Android\SdkBase\JniSdkBase.cpp">
+      <Filter>Android</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MyForm.h" />
+    <ClInclude Include="MyFunc.h" />
+    <ClInclude Include="..\commonSrc\visualScrop\VisualScope.h">
+      <Filter>visualScrop</Filter>
+    </ClInclude>
+    <ClInclude Include="NavipackInterface.h" />
+    <ClInclude Include="NaviPackSDK.h" />
+    <ClInclude Include="..\commonSrc\hardware_interface\FileStreamReaderInterface.h">
+      <Filter>lib\hardware_interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\hardware_interface\InterfaceStreamWriter.h">
+      <Filter>lib\hardware_interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\hardware_interface\HardwareInterface.h">
+      <Filter>lib\hardware_interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\hardware_interface\TCPServerInterface.h">
+      <Filter>lib\hardware_interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\hardware_interface\TCPClientInterface.h">
+      <Filter>lib\hardware_interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\hardware_interface\SerialPortInterface.h">
+      <Filter>lib\hardware_interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\hardware_interface\SerialPackageProtocol.h">
+      <Filter>lib\hardware_interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\hardware_interface\Protocol.h">
+      <Filter>lib\hardware_interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\BmpFile.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\CfgTxtFile.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\CFile.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\CFrameList.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\CMapDataManager.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\CParamIniFile.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\CommonFunctions.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\CriticalSection.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\error_code.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\FifoBuffer.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\file_dir.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\GeomDef.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\LogFile.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\Shelly_support.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\Thread.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\windowsdef.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\systemenc\md5.h">
+      <Filter>lib\tools\systemEnc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\systemenc\Compress.h">
+      <Filter>lib\tools\systemEnc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\systemenc\Des.h">
+      <Filter>lib\tools\systemEnc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\DateTime.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\Event.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\errordeal\ErrorEvent.h">
+      <Filter>lib\errorDeal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\hardware_interface\BufferProtocol.h">
+      <Filter>lib\hardware_interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\commonSrc\tools\SDKProtocol.h">
+      <Filter>lib\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Android\com_imscv_NaviPackSdk_NaviPackSdk.h">
+      <Filter>Android</Filter>
+    </ClInclude>
+    <ClInclude Include="Android\SdkBase\JniSdkBase.h">
+      <Filter>Android</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MyForm.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="visualScrop">
+      <UniqueIdentifier>{11d40c7b-2ddd-4841-99c1-2e65c60ca73e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{36bfdd3c-467a-435f-9d9d-db06130f477b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\hardware_interface">
+      <UniqueIdentifier>{bcd984b9-3724-4e3a-af05-bd48cf959f4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\errorDeal">
+      <UniqueIdentifier>{6c0f3558-9ac4-4079-a66a-503dc9fb9cbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\tools">
+      <UniqueIdentifier>{78ea0821-062a-4b2d-81ad-389110ee55ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\tools\systemEnc">
+      <UniqueIdentifier>{5e5d570d-33d4-419b-996b-916f459a7036}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Android">
+      <UniqueIdentifier>{c2d5d535-7ee8-4155-b0ab-845d48ef8360}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Android\Application.mk">
+      <Filter>Android</Filter>
+    </None>
+    <None Include="Android\Android.mk">
+      <Filter>Android</Filter>
+    </None>
+  </ItemGroup>
+</Project>

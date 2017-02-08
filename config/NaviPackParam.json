@@ -1,0 +1,369 @@
+{
+  "section": [
+    {
+      "secName": "ChassisParam",
+      "keys": [
+        {
+          "name": "chassisCoording",
+          "desc": "chassisShapeParamXY",
+          "info": "请依次填入在此坐标系中外接集合体X点的位置，顺时针或者逆时针",
+          "type": "editPoints",
+          "dim": 2,
+          "value": [
+            [
+              180,
+              180
+            ],
+            [
+              -180,
+              180
+            ],
+            [
+              -180,
+              -180
+            ],
+            [
+              180,
+              -180
+            ]
+          ]
+        },
+        {
+            "name":"maxLinearVelocity",
+            "desc":"maxLinearVelocity",
+            "info":"载体允许的最大线速度",
+            "type":"editNum",
+            "value":500
+        },
+        {
+            "name":"minLinearVelocity",
+            "desc":"minLinearVelocity",
+            "info":"载体允许的最小线速度",
+            "type":"editNum",
+            "value":100
+        },
+        {
+            "name":"maxAngularVelocity",
+            "desc":"maxAngularVelocity",
+            "info":"载体允许的最大角速度",
+            "type":"editNum",
+            "value":45
+        },
+        {
+            "name":"minAngularVelocity",
+            "desc":"minAngularVelocity",
+            "info":"载体允许的最小角速度",
+            "type":"editNum",
+            "value":0
+        },
+        {
+            "name":"LinearAcceleration",
+            "desc":"LinearAcceleration",
+            "info":"载体运动的线加速度",
+            "type":"editNum",
+            "value":200
+        },
+        {
+            "name":"AngularAcceleration",
+            "desc":"AngularAcceleration",
+            "info":"载体运动的角加速度",
+            "type":"editNum",
+            "value":20
+        },
+        {
+          "name": "bAngularPosFromLidarIMUSensor",
+          "desc": "bAngularPosFromLidarIMUSensor",
+          "info": "是否使用雷达上的IMU传感器计算车体旋转角度",
+          "type": "checkBox",
+          "value": 1
+        },
+        {
+          "name": "WheelDistance",
+          "desc": "WheelDistance",
+          "info": "车轮间距",
+          "type": "editNum",
+          "value": 232
+        }
+      ]
+    },
+    {
+      "secName": "LidarSensorParam",
+      "keys": [
+        {
+          "name": "lidarSensorX",
+          "desc": "lidarSensorX",
+          "info": "激光雷达传感器相对轮轴中心安装X位置",
+          "type": "editNum",
+          "value":50
+
+        },
+        {
+          "name": "lidarSensorY",
+          "desc": "lidarSensorY",
+          "info": "激光雷达传感器相对轮轴中心安装Y位置",
+          "type": "editNum",
+          "value":0
+
+        },
+        {
+          "name": "lidarSensorZ",
+          "desc": "lidarSensorZ",
+          "info": "激光雷达传感器相对轮轴中心安装Z位置",
+          "type": "editNum",
+          "value":120
+
+        },
+        {
+          "name": "lidarSensorOrientationAngle",
+          "desc": "lidarSensorOrientationAngle",
+          "info": "激光雷达尖角朝向",
+          "type": "editNum",
+          "value":90
+
+        },
+        {
+          "name": "lidarBlindRadius",
+          "desc": "lidarBlindRadius",
+          "info": "盲区距离，设置为雷达到载体边缘的最远距离,该值不能小于雷达的机械盲区距离",
+          "type": "editNum",
+          "value":160
+        },
+        {
+          "name": "lidarValidDistance",
+          "desc": "lidarValidDistance",
+          "info": "设置使用的有效距离，超过有效距离的数据认为是无效数据,该值不能大于雷达的机械可测量距离",
+          "type": "editNum",
+          "value":8000
+        },
+        {
+          "name": "lidarShelter",
+          "desc": "lidarShelter",
+          "info": "遮挡区域",
+          "type": "editPoints",
+          "dim": 2,
+          "value": [
+          ]
+        }
+      ]
+    },
+    {
+      "secName": "UltraSensorParam",
+      "keys": [
+        {
+          "name": "bUseForNavigation",
+          "desc": "bUseForNavigation",
+          "info": "是否用于导航",
+          "type": "checkBox",
+          "value": 0
+        },
+        {
+          "name": "dataMemoryTime",
+          "desc": "dataMemoryTime",
+          "info": "传感器数据记忆时间（秒）",
+          "type": "editNum",
+          "value": 5
+        },
+        {
+          "name": "ultrasoundCoording",
+          "desc": "ultrasoundParamXYTheta",
+          "info": "请依次填入超声波传感器在此坐标系中位置，顺时针或者逆时针,分别填入(x,y,theta)",
+          "type": "editPoints",
+          "dim": 3,
+          "value":
+            [[1,2,3],[4,5,6],[7,8,9]]
+        },
+        {
+          "name": "ultrasoundSensorMinMeasureDistance",
+          "desc": "ultrasoundSensorMinMeasureDistance",
+          "info": "超声波用于NaviPack的最小视距",
+          "type": "editNum",
+          "value": 30
+        },
+        {
+          "name": "ultrasoundSensorMaxMeasureDistance",
+          "desc": "ultrasoundSensorMaxMeasureDistance",
+          "info": "超声波用于NaviPack的最大视距",
+          "type": "editNum",
+          "value": 600
+        },
+        {
+          "name": "ultrasoundSensorFOV",
+          "desc": "ultrasoundSensorFOV",
+          "info": "超声波视场角",
+          "type": "editNum",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "secName": "DropSensorParam",
+      "keys": [
+        {
+          "name": "bUseForNavigation",
+          "desc": "bUseForNavigation",
+          "info": "是否用于导航",
+          "type": "checkBox",
+          "value": 0
+        },
+        {
+          "name": "dataMemoryTime",
+          "desc": "dataMemoryTime",
+          "info": "传感器数据记忆时间（秒）",
+          "type": "editNum",
+          "value": 60
+        },
+        {
+          "name": "dropSensorCooding",
+          "desc": "dropSensorParamXY",
+          "info": "跌落传感器参数",
+          "type": "editNum",
+          "dim": 2,
+          "value": []
+        }
+      ]
+    },
+    {
+      "secName": "CollisionSensorParam",
+      "keys": [
+        {
+          "name": "bUseForNavigation",
+          "desc": "bUseForNavigation",
+          "info": "是否用于导航",
+          "type": "checkBox",
+          "value": 0
+        },
+        {
+          "name": "dataMemoryTime",
+          "desc": "dataMemoryTime",
+          "info": "传感器数据记忆时间（秒）",
+          "type": "editNum",
+          "value": 60
+        },
+        {
+          "name": "collisionSensorParamXY",
+          "desc": "collisionSensorParamXY",
+          "info": "跌落传感器参数",
+          "type": "editPoints",
+          "dim": 2,
+          "value": []
+        }
+      ]
+    },
+    {
+      "secName": "IrSensorParam",
+      "keys": [
+        {
+          "name": "bUseForNavigation",
+          "desc": "bUseForNavigation",
+          "info": "是否用于导航",
+          "type": "checkBox",
+          "value": 0
+        },
+        {
+          "name": "dataMemoryTime",
+          "desc": "dataMemoryTime",
+          "info": "传感器数据记忆时间（秒）",
+          "type": "editNum",
+          "value": 60
+        },
+        {
+          "name": "iRSensorParamXY",
+          "desc": "iRSensorParamXY",
+          "info": "红外传感器参数",
+          "type": "editPoints",
+          "dim": 2,
+          "value": []
+        }
+      ]
+    },
+    {
+      "secName": "DSensorParam",
+      "keys": [
+        {
+          "name": "bUseForNavigation",
+          "desc": "bUseForNavigation",
+          "info": "是否用于导航",
+          "type": "checkBox",
+          "value": 0
+        },
+        {
+          "name": "dataMemoryTime",
+          "desc": "dataMemoryTime",
+          "info": "传感器数据记忆时间（秒）",
+          "type": "editNum",
+          "value": 2
+        },
+        {
+          "name": "DSensorX",
+          "desc": "DSensorX",
+          "info": "传感器相对轮轴中心安装位置X",
+          "type": "editNum",
+          "value": 50
+        },
+        {
+          "name": "DSensorY",
+          "desc": "DSensorY",
+          "info": "传感器相对轮轴中心安装位置Y",
+          "type": "editNum",
+          "value": 50
+        },
+        {
+          "name": "DSensorZ",
+          "desc": "DSensorZ",
+          "info": "传感器相对轮轴中心安装位置Z",          
+          "type": "editNum",
+          "value": 370
+        },
+        {
+          "name": "DSensorYaw",
+          "desc": "DSensorYaw",
+       "info": "传感器相对轮轴中心安装位置YAW",
+          "type": "editNum",
+          "value": 0
+        },
+        {
+          "name": "DSensorPitch",
+          "desc": "DSensorPitch",
+            "info": "传感器相对轮轴中心安装位置PITCH",
+          "type": "editNum",
+          "value": 0
+        },
+        {
+          "name": "DSensorRoll",
+          "desc": "DSensorRoll",
+           "info": "传感器相对轮轴中心安装位置ROLL",
+          "type": "editNum",
+          "value": 0
+        },
+        {
+          "name": "DSensorMaxDistance",
+          "desc": "DSensorMaxDistance",
+          "info": "设置使用的最大距离",
+          "type": "editNum",
+          "value": 3000
+        },
+        {
+          "name": "DSensorMinDistance",
+          "desc": "DSensorMinDistance",
+          "info": "设置使用的最小距离",
+          "type": "editNum",
+          "value": 300
+        },
+        {
+          "name": "DSensorMaxHeight",
+          "desc": "DSensorMaxHeight",
+          "info": "设置最大高度",
+          "type": "editNum",
+          "value": 1000
+        },
+           {
+          "name": "DSensorMinHeight",
+          "desc": "DSensorMinHeight",
+          "info": "设置最小高度",
+          "type": "editNum",
+          "value": 1000
+        }
+      ]
+    }
+  ]
+}
