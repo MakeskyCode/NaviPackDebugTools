@@ -11,7 +11,6 @@
 
 
 #include "Protocol.h"
-#include "InterfaceStreamWriter.h"
 #include "tools/Thread.h"
 #include "tools/Event.h"
 #include "tools/CriticalSection.h"
@@ -65,10 +64,6 @@ public:
 	uint64_t GetTotalTxByteCount() { return mTotalTxBytes; }
 	void ResetCounters();
 
-	void EnableStreamToFile(const char *stream_file_name);
-	void DisableStreamToFile();
-
-
 protected:
 	int mIsOpened, mSysErrCode;
 	Thread mRxThread;
@@ -77,16 +72,12 @@ protected:
 	FifoBuffer *mTxBufferFifo;
 	char mFileName[128];
 	int32_t mId;
-	int32_t mIsNeedWriteToFile;
 	CriticalSection mCS;
 	Protocol *mProtocolArray[MAX_PROTOCOL_NUM];
 	int32_t mProtocolArraySize;
-	static InterfaceStreamWriter *mInterfaceStreamWriter;
 private:
 	void initInterfaceParam(uint32_t MaxTxBufferSize);
 	static int32_t mIdCounter;
-
-
 
 	uint64_t mTotalRxBytes, mTotalTxBytes;
 	

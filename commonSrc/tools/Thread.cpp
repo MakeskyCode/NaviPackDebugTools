@@ -1,8 +1,8 @@
-﻿#include  "tools/Thread.h"
+﻿#include  "Thread.h"
 
-#include "tools/windowsdef.h"
-#include "tools/LogFile.h"
-using namespace std;
+#include "windowsdef.h"
+#include "LogFile.h"
+
 
 //std::list<Thread *> Thread::mThreadList;
 Thread* Thread::mThreadList[MAX_THREAD_NUM];

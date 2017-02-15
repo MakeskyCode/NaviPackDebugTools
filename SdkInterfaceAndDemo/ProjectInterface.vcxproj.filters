@@ -108,9 +108,6 @@
     </ClInclude>
     <ClInclude Include="NavipackInterface.h" />
     <ClInclude Include="NaviPackSDK.h" />
-    <ClInclude Include="..\commonSrc\hardware_interface\FileStreamReaderInterface.h">
-      <Filter>lib\hardware_interface</Filter>
-    </ClInclude>
     <ClInclude Include="..\commonSrc\hardware_interface\InterfaceStreamWriter.h">
       <Filter>lib\hardware_interface</Filter>
     </ClInclude>
@@ -244,5 +241,8 @@
     <None Include="Android\Android.mk">
       <Filter>Android</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\CMakeLists.txt" />
   </ItemGroup>
 </Project>

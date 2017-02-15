@@ -8,7 +8,7 @@ typedef struct UnifiedSensor_S
 {
 	SdkProtocolHeader header;
 	UnifiedSensorInfo sensorInfo;
-};
+}UnifiedSensor;
 
 #pragma pack(pop)
 

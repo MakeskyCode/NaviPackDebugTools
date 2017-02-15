@@ -9,8 +9,8 @@
 #endif
 #include <string.h>
 #include <time.h>
-#include "tools/LogFile.h"
-#include "tools/DateTime.h"
+#include "LogFile.h"
+#include "DateTime.h"
 
 typedef int (*ThreadCallback)(void *param);
 
