@@ -1,0 +1,17 @@
+#compile just for linux
+
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT (SdkDemo)
+SET(SRCDIR ${CMAKE_CURRENT_SOURCE_DIR})
+SET(CMAKE_CXX_FLAGS "-std=c++11 -Werror ${CMAKE_CXX_FLAGS}")
+
+# Set Source Files
+file(GLOB_RECURSE SRC_LIST
+"${SRCDIR}/main.cpp"
+)
+
+
+ADD_EXECUTABLE(SdkDemo ${SRC_LIST})
+
+TARGET_LINK_LIBRARIES(SdkDemo ${SRCDIR}/libSdkInterface.so)
