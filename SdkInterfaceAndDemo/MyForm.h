@@ -36,147 +36,64 @@ namespace ProjectInterface {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Panel^  panel1;
-	private: System::Windows::Forms::Panel^  panel2;
-	private: System::Windows::Forms::Panel^  panel3;
-	private: System::Windows::Forms::MenuStrip^  menuStrip1;
-	private: System::Windows::Forms::ToolStripMenuItem^  fileToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^  editToolStripMenuItem;
+	private: System::Windows::Forms::Panel^  panel_all;
+	private: System::Windows::Forms::Panel^  panel_display;
+	private: System::Windows::Forms::Panel^  panel_control;
+	protected:
 
 
-	private: System::Windows::Forms::TabControl^  tabControl1;
-	private: System::Windows::Forms::TabPage^  tabPage1;
-	private: System::Windows::Forms::TabPage^  tabPage2;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	private: System::Windows::Forms::PictureBox^  pictureBoxMap;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-private: System::Windows::Forms::Panel^  panel9;
 
 private: System::Windows::Forms::StatusStrip^  statusStrip1;
 
 private: System::Windows::Forms::ToolStripStatusLabel^  toolStripStatusLabel2;
 private: System::Windows::Forms::ToolStripStatusLabel^  toolStripStatusLabel1;
 private: System::Windows::Forms::ToolStripStatusLabel^  toolStripStatusLabel3;
+	private: System::Windows::Forms::TabControl^  tabControl_control;
+	private: System::Windows::Forms::TabPage^  tabPage_basic;
 
 
 
 
+	private: System::Windows::Forms::CheckBox^  cb_tcp_or_com;
+	private: System::Windows::Forms::Button^  btn_imu_calibrate;
+	private: System::Windows::Forms::Button^  btn_record_video;
 
 
 
 
+	private: System::Windows::Forms::CheckBox^  cb_connect_mpu;
+	private: System::Windows::Forms::Button^  btn_init_location;
+	private: System::Windows::Forms::Button^  btn_save_map;
 
 
 
 
 
 
+	private: System::Windows::Forms::Button^  btn_build_map;
 
+	private: System::Windows::Forms::TrackBar^  trackBar_map_scale;
+	private: System::Windows::Forms::Button^  btn_set_map_scale;
+	private: System::Windows::Forms::TextBox^  textBox_map_scale;
 
 
 
 
 
 
+	private: System::Windows::Forms::TextBox^  textBox_ip_or_com;
+	private: System::Windows::Forms::TextBox^  textBox_port_or_baud_rate;
+	private: System::Windows::Forms::Button^  btn_connect;
 
 
 
 
 
+	private: System::Windows::Forms::Label^  label_port_or_baud_rate;
 
+	private: System::Windows::Forms::Label^  label_ip_or_com;
+	private: System::Windows::Forms::TabPage^  tabPage_speed_control;
 
 
 
@@ -201,80 +118,84 @@ private: System::Windows::Forms::ToolStripStatusLabel^  toolStripStatusLabel3;
 
 
 
+private: System::Windows::Forms::TabPage^  tab_advanced;
+	private: System::Windows::Forms::CheckBox^  cb_only_mpu;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+private: System::Windows::Forms::Button^  btn_update_map_flag;
 private: System::Windows::Forms::Timer^  send_speed_timer;
 private: System::Windows::Forms::Timer^  MainTimer;
-private: System::Windows::Forms::TabControl^  tabControl2;
-private: System::Windows::Forms::TabPage^  tp_comFunc;
-private: System::Windows::Forms::Button^  btn_update_map_flag;
-private: System::Windows::Forms::CheckBox^  CB_ONLY_MPU;
-private: System::Windows::Forms::Button^  BTN_UnifiedSensor;
-private: System::Windows::Forms::CheckBox^  CB_UseTcp;
-private: System::Windows::Forms::Button^  button_IMU_calibrate;
-private: System::Windows::Forms::Button^  button_video_record;
-private: System::Windows::Forms::Button^  button1;
-private: System::Windows::Forms::CheckBox^  cb_connectMpu;
-private: System::Windows::Forms::Button^  back_charge;
-private: System::Windows::Forms::Button^  button_start_build_map_auto;
-private: System::Windows::Forms::Button^  button_init_map;
-private: System::Windows::Forms::Button^  button_stop_build_map;
-private: System::Windows::Forms::Button^  button_start_build_map;
-private: System::Windows::Forms::TrackBar^  trackBar1;
-private: System::Windows::Forms::Label^  label5;
-private: System::Windows::Forms::Button^  set_pic_show_scale;
-private: System::Windows::Forms::TextBox^  pic_scale;
-private: System::Windows::Forms::TextBox^  tb_ip;
-private: System::Windows::Forms::TextBox^  tb_port;
-private: System::Windows::Forms::Button^  button_connect;
-private: System::Windows::Forms::Label^  label2;
-private: System::Windows::Forms::Label^  label1;
-private: System::Windows::Forms::TabPage^  tp_directionCtrl;
-private: System::Windows::Forms::Panel^  panel11;
-private: System::Windows::Forms::Label^  label40;
-private: System::Windows::Forms::Label^  label41;
-private: System::Windows::Forms::TextBox^  textBox_roll_step;
-private: System::Windows::Forms::TextBox^  textBox_head_roll_control;
+private: System::Windows::Forms::CheckBox^  cb_enable_drawing_pen;
+private: System::Windows::Forms::Button^  btn_clear_virtual_obstacles;
+private: System::Windows::Forms::Button^  btn_send_virtual_obstacles;
 
-private: System::Windows::Forms::Label^  label35;
-private: System::Windows::Forms::Label^  label34;
-private: System::Windows::Forms::Label^  label32;
-private: System::Windows::Forms::Label^  label33;
-private: System::Windows::Forms::Label^  label31;
-private: System::Windows::Forms::TextBox^  textBox_yaw_step;
+
+
+
+private: System::Windows::Forms::GroupBox^  groupBox_virtual_obstacles;
+
+
+
+
+
+
+private: System::Windows::Forms::Button^  btn_optimize_map;
+private: System::Windows::Forms::Button^  btn_do_clean_task;
+private: System::Windows::Forms::Button^  btn_update_lidar;
+
+
+private: System::Windows::Forms::Button^  btn_send_unified_sensor_data;
+
+	private: System::Windows::Forms::Button^  btn_update_navipack;
+private: System::Windows::Forms::Button^  btn_back_to_charge;
+
+
+private: System::Windows::Forms::Button^  btn_auto_build_map;
+
+private: System::Windows::Forms::TabControl^  tabControl_display;
+private: System::Windows::Forms::TabPage^  tabPage_map_display;
+
+private: System::Windows::Forms::Panel^  panel9;
+private: System::Windows::Forms::PictureBox^  pictureBoxMap;
+private: System::Windows::Forms::GroupBox^  groupBox_connection;
+private: System::Windows::Forms::GroupBox^  groupBox_map;
+private: System::Windows::Forms::Panel^  panel_speed_control;
+private: System::Windows::Forms::Label^  label_focus_here;
+private: System::Windows::Forms::Label^  label_w_step;
+
+
+
+private: System::Windows::Forms::Label^  label_v_step;
+
 private: System::Windows::Forms::TextBox^  textBox_v_step;
-private: System::Windows::Forms::TextBox^  textBox_pitch_step;
 private: System::Windows::Forms::TextBox^  textBox_w_step;
-private: System::Windows::Forms::Panel^  panel8;
-private: System::Windows::Forms::Label^  label14;
-private: System::Windows::Forms::Panel^  panel6;
-private: System::Windows::Forms::Label^  label12;
-private: System::Windows::Forms::Panel^  panel5;
-private: System::Windows::Forms::Label^  label9;
-private: System::Windows::Forms::Panel^  panel7;
-private: System::Windows::Forms::Label^  label13;
+private: System::Windows::Forms::Panel^  panel_D;
 
-private: System::Windows::Forms::TextBox^  textBox_key;
+private: System::Windows::Forms::Label^  label_D;
+private: System::Windows::Forms::Panel^  panel_w;
+
+
+private: System::Windows::Forms::Label^  label_W;
+private: System::Windows::Forms::Panel^  panel_A;
+
+
+private: System::Windows::Forms::Label^  label_A;
+private: System::Windows::Forms::Panel^  panel_S;
+
+
+private: System::Windows::Forms::Label^  label_S;
+private: System::Windows::Forms::TextBox^  textBox_speed_control_key;
+
+
+private: System::Windows::Forms::Panel^  panel_space;
+private: System::Windows::Forms::Label^  label_space;
+private: System::Windows::Forms::GroupBox^  groupBox_update_firmware;
+private: System::Windows::Forms::GroupBox^  groupBox_tasks;
+
+
+
+
+
 	private: System::ComponentModel::IContainer^  components;
 	protected:
 
@@ -292,132 +213,138 @@ private: System::Windows::Forms::TextBox^  textBox_key;
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
-			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->panel2 = (gcnew System::Windows::Forms::Panel());
-			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
-			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
+			this->panel_all = (gcnew System::Windows::Forms::Panel());
+			this->panel_display = (gcnew System::Windows::Forms::Panel());
+			this->tabControl_display = (gcnew System::Windows::Forms::TabControl());
+			this->tabPage_map_display = (gcnew System::Windows::Forms::TabPage());
 			this->panel9 = (gcnew System::Windows::Forms::Panel());
 			this->pictureBoxMap = (gcnew System::Windows::Forms::PictureBox());
-			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
-			this->panel3 = (gcnew System::Windows::Forms::Panel());
-			this->tabControl2 = (gcnew System::Windows::Forms::TabControl());
-			this->tp_comFunc = (gcnew System::Windows::Forms::TabPage());
+			this->panel_control = (gcnew System::Windows::Forms::Panel());
+			this->tabControl_control = (gcnew System::Windows::Forms::TabControl());
+			this->tabPage_basic = (gcnew System::Windows::Forms::TabPage());
+			this->groupBox_map = (gcnew System::Windows::Forms::GroupBox());
+			this->btn_set_map_scale = (gcnew System::Windows::Forms::Button());
+			this->textBox_map_scale = (gcnew System::Windows::Forms::TextBox());
 			this->btn_update_map_flag = (gcnew System::Windows::Forms::Button());
-			this->CB_ONLY_MPU = (gcnew System::Windows::Forms::CheckBox());
-			this->BTN_UnifiedSensor = (gcnew System::Windows::Forms::Button());
-			this->CB_UseTcp = (gcnew System::Windows::Forms::CheckBox());
-			this->button_IMU_calibrate = (gcnew System::Windows::Forms::Button());
-			this->button_video_record = (gcnew System::Windows::Forms::Button());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->cb_connectMpu = (gcnew System::Windows::Forms::CheckBox());
-			this->back_charge = (gcnew System::Windows::Forms::Button());
-			this->button_start_build_map_auto = (gcnew System::Windows::Forms::Button());
-			this->button_init_map = (gcnew System::Windows::Forms::Button());
-			this->button_stop_build_map = (gcnew System::Windows::Forms::Button());
-			this->button_start_build_map = (gcnew System::Windows::Forms::Button());
-			this->trackBar1 = (gcnew System::Windows::Forms::TrackBar());
-			this->label5 = (gcnew System::Windows::Forms::Label());
-			this->set_pic_show_scale = (gcnew System::Windows::Forms::Button());
-			this->pic_scale = (gcnew System::Windows::Forms::TextBox());
-			this->tb_ip = (gcnew System::Windows::Forms::TextBox());
-			this->tb_port = (gcnew System::Windows::Forms::TextBox());
-			this->button_connect = (gcnew System::Windows::Forms::Button());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->tp_directionCtrl = (gcnew System::Windows::Forms::TabPage());
-			this->panel11 = (gcnew System::Windows::Forms::Panel());
-			this->label40 = (gcnew System::Windows::Forms::Label());
-			this->label41 = (gcnew System::Windows::Forms::Label());
-			this->textBox_roll_step = (gcnew System::Windows::Forms::TextBox());
-			this->textBox_head_roll_control = (gcnew System::Windows::Forms::TextBox());
-			this->label35 = (gcnew System::Windows::Forms::Label());
-			this->label34 = (gcnew System::Windows::Forms::Label());
-			this->label32 = (gcnew System::Windows::Forms::Label());
-			this->label33 = (gcnew System::Windows::Forms::Label());
-			this->label31 = (gcnew System::Windows::Forms::Label());
-			this->textBox_yaw_step = (gcnew System::Windows::Forms::TextBox());
+			this->trackBar_map_scale = (gcnew System::Windows::Forms::TrackBar());
+			this->btn_build_map = (gcnew System::Windows::Forms::Button());
+			this->btn_save_map = (gcnew System::Windows::Forms::Button());
+			this->groupBox_connection = (gcnew System::Windows::Forms::GroupBox());
+			this->label_ip_or_com = (gcnew System::Windows::Forms::Label());
+			this->label_port_or_baud_rate = (gcnew System::Windows::Forms::Label());
+			this->cb_only_mpu = (gcnew System::Windows::Forms::CheckBox());
+			this->btn_connect = (gcnew System::Windows::Forms::Button());
+			this->cb_tcp_or_com = (gcnew System::Windows::Forms::CheckBox());
+			this->textBox_port_or_baud_rate = (gcnew System::Windows::Forms::TextBox());
+			this->textBox_ip_or_com = (gcnew System::Windows::Forms::TextBox());
+			this->cb_connect_mpu = (gcnew System::Windows::Forms::CheckBox());
+			this->btn_imu_calibrate = (gcnew System::Windows::Forms::Button());
+			this->btn_record_video = (gcnew System::Windows::Forms::Button());
+			this->btn_init_location = (gcnew System::Windows::Forms::Button());
+			this->tabPage_speed_control = (gcnew System::Windows::Forms::TabPage());
+			this->panel_speed_control = (gcnew System::Windows::Forms::Panel());
+			this->panel_space = (gcnew System::Windows::Forms::Panel());
+			this->label_space = (gcnew System::Windows::Forms::Label());
+			this->label_focus_here = (gcnew System::Windows::Forms::Label());
+			this->label_w_step = (gcnew System::Windows::Forms::Label());
+			this->label_v_step = (gcnew System::Windows::Forms::Label());
 			this->textBox_v_step = (gcnew System::Windows::Forms::TextBox());
-			this->textBox_pitch_step = (gcnew System::Windows::Forms::TextBox());
 			this->textBox_w_step = (gcnew System::Windows::Forms::TextBox());
-			this->panel8 = (gcnew System::Windows::Forms::Panel());
-			this->label14 = (gcnew System::Windows::Forms::Label());
-			this->panel6 = (gcnew System::Windows::Forms::Panel());
-			this->label12 = (gcnew System::Windows::Forms::Label());
-			this->panel5 = (gcnew System::Windows::Forms::Panel());
-			this->label9 = (gcnew System::Windows::Forms::Label());
-			this->panel7 = (gcnew System::Windows::Forms::Panel());
-			this->label13 = (gcnew System::Windows::Forms::Label());
-			this->textBox_key = (gcnew System::Windows::Forms::TextBox());
-			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
-			this->fileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->editToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->panel_D = (gcnew System::Windows::Forms::Panel());
+			this->label_D = (gcnew System::Windows::Forms::Label());
+			this->panel_w = (gcnew System::Windows::Forms::Panel());
+			this->label_W = (gcnew System::Windows::Forms::Label());
+			this->panel_A = (gcnew System::Windows::Forms::Panel());
+			this->label_A = (gcnew System::Windows::Forms::Label());
+			this->panel_S = (gcnew System::Windows::Forms::Panel());
+			this->label_S = (gcnew System::Windows::Forms::Label());
+			this->textBox_speed_control_key = (gcnew System::Windows::Forms::TextBox());
+			this->tab_advanced = (gcnew System::Windows::Forms::TabPage());
+			this->groupBox_update_firmware = (gcnew System::Windows::Forms::GroupBox());
+			this->btn_update_navipack = (gcnew System::Windows::Forms::Button());
+			this->btn_update_lidar = (gcnew System::Windows::Forms::Button());
+			this->groupBox_tasks = (gcnew System::Windows::Forms::GroupBox());
+			this->btn_auto_build_map = (gcnew System::Windows::Forms::Button());
+			this->btn_back_to_charge = (gcnew System::Windows::Forms::Button());
+			this->btn_do_clean_task = (gcnew System::Windows::Forms::Button());
+			this->btn_optimize_map = (gcnew System::Windows::Forms::Button());
+			this->btn_send_unified_sensor_data = (gcnew System::Windows::Forms::Button());
+			this->groupBox_virtual_obstacles = (gcnew System::Windows::Forms::GroupBox());
+			this->btn_clear_virtual_obstacles = (gcnew System::Windows::Forms::Button());
+			this->cb_enable_drawing_pen = (gcnew System::Windows::Forms::CheckBox());
+			this->btn_send_virtual_obstacles = (gcnew System::Windows::Forms::Button());
 			this->statusStrip1 = (gcnew System::Windows::Forms::StatusStrip());
 			this->toolStripStatusLabel1 = (gcnew System::Windows::Forms::ToolStripStatusLabel());
 			this->toolStripStatusLabel2 = (gcnew System::Windows::Forms::ToolStripStatusLabel());
 			this->toolStripStatusLabel3 = (gcnew System::Windows::Forms::ToolStripStatusLabel());
 			this->send_speed_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->MainTimer = (gcnew System::Windows::Forms::Timer(this->components));
-			this->panel1->SuspendLayout();
-			this->panel2->SuspendLayout();
-			this->tabControl1->SuspendLayout();
-			this->tabPage1->SuspendLayout();
+			this->panel_all->SuspendLayout();
+			this->panel_display->SuspendLayout();
+			this->tabControl_display->SuspendLayout();
+			this->tabPage_map_display->SuspendLayout();
 			this->panel9->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxMap))->BeginInit();
-			this->panel3->SuspendLayout();
-			this->tabControl2->SuspendLayout();
-			this->tp_comFunc->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar1))->BeginInit();
-			this->tp_directionCtrl->SuspendLayout();
-			this->panel11->SuspendLayout();
-			this->panel8->SuspendLayout();
-			this->panel6->SuspendLayout();
-			this->panel5->SuspendLayout();
-			this->panel7->SuspendLayout();
-			this->menuStrip1->SuspendLayout();
+			this->panel_control->SuspendLayout();
+			this->tabControl_control->SuspendLayout();
+			this->tabPage_basic->SuspendLayout();
+			this->groupBox_map->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar_map_scale))->BeginInit();
+			this->groupBox_connection->SuspendLayout();
+			this->tabPage_speed_control->SuspendLayout();
+			this->panel_speed_control->SuspendLayout();
+			this->panel_space->SuspendLayout();
+			this->panel_D->SuspendLayout();
+			this->panel_w->SuspendLayout();
+			this->panel_A->SuspendLayout();
+			this->panel_S->SuspendLayout();
+			this->tab_advanced->SuspendLayout();
+			this->groupBox_update_firmware->SuspendLayout();
+			this->groupBox_tasks->SuspendLayout();
+			this->groupBox_virtual_obstacles->SuspendLayout();
 			this->statusStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
-			// panel1
+			// panel_all
 			// 
-			this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
-			this->panel1->Controls->Add(this->panel2);
-			this->panel1->Controls->Add(this->panel3);
-			this->panel1->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->panel1->Location = System::Drawing::Point(0, 25);
-			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(1155, 616);
-			this->panel1->TabIndex = 0;
+			this->panel_all->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->panel_all->Controls->Add(this->panel_display);
+			this->panel_all->Controls->Add(this->panel_control);
+			this->panel_all->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->panel_all->Location = System::Drawing::Point(0, 0);
+			this->panel_all->Name = L"panel_all";
+			this->panel_all->Size = System::Drawing::Size(1155, 641);
+			this->panel_all->TabIndex = 0;
 			// 
-			// panel2
+			// panel_display
 			// 
-			this->panel2->Controls->Add(this->tabControl1);
-			this->panel2->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->panel2->Location = System::Drawing::Point(0, 0);
-			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(871, 612);
-			this->panel2->TabIndex = 0;
+			this->panel_display->Controls->Add(this->tabControl_display);
+			this->panel_display->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->panel_display->Location = System::Drawing::Point(0, 0);
+			this->panel_display->Name = L"panel_display";
+			this->panel_display->Size = System::Drawing::Size(831, 637);
+			this->panel_display->TabIndex = 0;
 			// 
-			// tabControl1
+			// tabControl_display
 			// 
-			this->tabControl1->Controls->Add(this->tabPage1);
-			this->tabControl1->Controls->Add(this->tabPage2);
-			this->tabControl1->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->tabControl1->Location = System::Drawing::Point(0, 0);
-			this->tabControl1->Name = L"tabControl1";
-			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(871, 612);
-			this->tabControl1->TabIndex = 0;
+			this->tabControl_display->Controls->Add(this->tabPage_map_display);
+			this->tabControl_display->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->tabControl_display->Location = System::Drawing::Point(0, 0);
+			this->tabControl_display->Name = L"tabControl_display";
+			this->tabControl_display->SelectedIndex = 0;
+			this->tabControl_display->Size = System::Drawing::Size(831, 637);
+			this->tabControl_display->TabIndex = 0;
 			// 
-			// tabPage1
+			// tabPage_map_display
 			// 
-			this->tabPage1->Controls->Add(this->panel9);
-			this->tabPage1->Location = System::Drawing::Point(4, 22);
-			this->tabPage1->Name = L"tabPage1";
-			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage1->Size = System::Drawing::Size(863, 586);
-			this->tabPage1->TabIndex = 0;
-			this->tabPage1->Text = L"tabPage1";
-			this->tabPage1->UseVisualStyleBackColor = true;
+			this->tabPage_map_display->Controls->Add(this->panel9);
+			this->tabPage_map_display->Location = System::Drawing::Point(4, 22);
+			this->tabPage_map_display->Name = L"tabPage_map_display";
+			this->tabPage_map_display->Padding = System::Windows::Forms::Padding(3);
+			this->tabPage_map_display->Size = System::Drawing::Size(823, 611);
+			this->tabPage_map_display->TabIndex = 0;
+			this->tabPage_map_display->Text = L"Map Display";
+			this->tabPage_map_display->UseVisualStyleBackColor = true;
 			// 
 			// panel9
 			// 
@@ -426,7 +353,7 @@ private: System::Windows::Forms::TextBox^  textBox_key;
 			this->panel9->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->panel9->Location = System::Drawing::Point(3, 3);
 			this->panel9->Name = L"panel9";
-			this->panel9->Size = System::Drawing::Size(857, 580);
+			this->panel9->Size = System::Drawing::Size(817, 605);
 			this->panel9->TabIndex = 1;
 			// 
 			// pictureBoxMap
@@ -441,567 +368,595 @@ private: System::Windows::Forms::TextBox^  textBox_key;
 			this->pictureBoxMap->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::pictureBoxMap_MouseMove);
 			this->pictureBoxMap->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::pictureBoxMap_MouseUp);
 			// 
-			// tabPage2
+			// panel_control
 			// 
-			this->tabPage2->Location = System::Drawing::Point(4, 22);
-			this->tabPage2->Name = L"tabPage2";
-			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(863, 586);
-			this->tabPage2->TabIndex = 1;
-			this->tabPage2->Text = L"tabPage2";
-			this->tabPage2->UseVisualStyleBackColor = true;
+			this->panel_control->Controls->Add(this->tabControl_control);
+			this->panel_control->Dock = System::Windows::Forms::DockStyle::Right;
+			this->panel_control->Location = System::Drawing::Point(831, 0);
+			this->panel_control->Name = L"panel_control";
+			this->panel_control->Size = System::Drawing::Size(320, 637);
+			this->panel_control->TabIndex = 1;
 			// 
-			// panel3
+			// tabControl_control
 			// 
-			this->panel3->Controls->Add(this->tabControl2);
-			this->panel3->Dock = System::Windows::Forms::DockStyle::Right;
-			this->panel3->Location = System::Drawing::Point(871, 0);
-			this->panel3->Name = L"panel3";
-			this->panel3->Size = System::Drawing::Size(280, 612);
-			this->panel3->TabIndex = 1;
-			// 
-			// tabControl2
-			// 
-			this->tabControl2->Controls->Add(this->tp_comFunc);
-			this->tabControl2->Controls->Add(this->tp_directionCtrl);
-			this->tabControl2->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->tabControl2->Font = (gcnew System::Drawing::Font(L"宋体", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->tabControl_control->Controls->Add(this->tabPage_basic);
+			this->tabControl_control->Controls->Add(this->tabPage_speed_control);
+			this->tabControl_control->Controls->Add(this->tab_advanced);
+			this->tabControl_control->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->tabControl_control->Font = (gcnew System::Drawing::Font(L"宋体", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(134)));
-			this->tabControl2->Location = System::Drawing::Point(0, 0);
-			this->tabControl2->Name = L"tabControl2";
-			this->tabControl2->SelectedIndex = 0;
-			this->tabControl2->Size = System::Drawing::Size(280, 612);
-			this->tabControl2->TabIndex = 0;
+			this->tabControl_control->Location = System::Drawing::Point(0, 0);
+			this->tabControl_control->Name = L"tabControl_control";
+			this->tabControl_control->SelectedIndex = 0;
+			this->tabControl_control->Size = System::Drawing::Size(320, 637);
+			this->tabControl_control->TabIndex = 0;
 			// 
-			// tp_comFunc
+			// tabPage_basic
 			// 
-			this->tp_comFunc->Controls->Add(this->btn_update_map_flag);
-			this->tp_comFunc->Controls->Add(this->CB_ONLY_MPU);
-			this->tp_comFunc->Controls->Add(this->BTN_UnifiedSensor);
-			this->tp_comFunc->Controls->Add(this->CB_UseTcp);
-			this->tp_comFunc->Controls->Add(this->button_IMU_calibrate);
-			this->tp_comFunc->Controls->Add(this->button_video_record);
-			this->tp_comFunc->Controls->Add(this->button1);
-			this->tp_comFunc->Controls->Add(this->cb_connectMpu);
-			this->tp_comFunc->Controls->Add(this->back_charge);
-			this->tp_comFunc->Controls->Add(this->button_start_build_map_auto);
-			this->tp_comFunc->Controls->Add(this->button_init_map);
-			this->tp_comFunc->Controls->Add(this->button_stop_build_map);
-			this->tp_comFunc->Controls->Add(this->button_start_build_map);
-			this->tp_comFunc->Controls->Add(this->trackBar1);
-			this->tp_comFunc->Controls->Add(this->label5);
-			this->tp_comFunc->Controls->Add(this->set_pic_show_scale);
-			this->tp_comFunc->Controls->Add(this->pic_scale);
-			this->tp_comFunc->Controls->Add(this->tb_ip);
-			this->tp_comFunc->Controls->Add(this->tb_port);
-			this->tp_comFunc->Controls->Add(this->button_connect);
-			this->tp_comFunc->Controls->Add(this->label2);
-			this->tp_comFunc->Controls->Add(this->label1);
-			this->tp_comFunc->Location = System::Drawing::Point(4, 22);
-			this->tp_comFunc->Name = L"tp_comFunc";
-			this->tp_comFunc->Padding = System::Windows::Forms::Padding(3);
-			this->tp_comFunc->Size = System::Drawing::Size(272, 586);
-			this->tp_comFunc->TabIndex = 0;
-			this->tp_comFunc->Text = L"NormalCtrl";
-			this->tp_comFunc->UseVisualStyleBackColor = true;
+			this->tabPage_basic->Controls->Add(this->groupBox_map);
+			this->tabPage_basic->Controls->Add(this->groupBox_connection);
+			this->tabPage_basic->Controls->Add(this->btn_imu_calibrate);
+			this->tabPage_basic->Controls->Add(this->btn_record_video);
+			this->tabPage_basic->Controls->Add(this->btn_init_location);
+			this->tabPage_basic->Location = System::Drawing::Point(4, 22);
+			this->tabPage_basic->Name = L"tabPage_basic";
+			this->tabPage_basic->Padding = System::Windows::Forms::Padding(3);
+			this->tabPage_basic->Size = System::Drawing::Size(312, 611);
+			this->tabPage_basic->TabIndex = 0;
+			this->tabPage_basic->Text = L"Basic";
+			this->tabPage_basic->UseVisualStyleBackColor = true;
+			// 
+			// groupBox_map
+			// 
+			this->groupBox_map->Controls->Add(this->btn_set_map_scale);
+			this->groupBox_map->Controls->Add(this->textBox_map_scale);
+			this->groupBox_map->Controls->Add(this->btn_update_map_flag);
+			this->groupBox_map->Controls->Add(this->trackBar_map_scale);
+			this->groupBox_map->Controls->Add(this->btn_build_map);
+			this->groupBox_map->Controls->Add(this->btn_save_map);
+			this->groupBox_map->Location = System::Drawing::Point(6, 147);
+			this->groupBox_map->Name = L"groupBox_map";
+			this->groupBox_map->Size = System::Drawing::Size(300, 210);
+			this->groupBox_map->TabIndex = 54;
+			this->groupBox_map->TabStop = false;
+			this->groupBox_map->Text = L"MAP";
+			// 
+			// btn_set_map_scale
+			// 
+			this->btn_set_map_scale->Location = System::Drawing::Point(12, 29);
+			this->btn_set_map_scale->Margin = System::Windows::Forms::Padding(2);
+			this->btn_set_map_scale->Name = L"btn_set_map_scale";
+			this->btn_set_map_scale->Size = System::Drawing::Size(125, 25);
+			this->btn_set_map_scale->TabIndex = 36;
+			this->btn_set_map_scale->Text = L"Set Map Scale";
+			this->btn_set_map_scale->UseVisualStyleBackColor = true;
+			this->btn_set_map_scale->Click += gcnew System::EventHandler(this, &MyForm::set_pic_show_scale_Click);
+			// 
+			// textBox_map_scale
+			// 
+			this->textBox_map_scale->Location = System::Drawing::Point(141, 32);
+			this->textBox_map_scale->Margin = System::Windows::Forms::Padding(2);
+			this->textBox_map_scale->Name = L"textBox_map_scale";
+			this->textBox_map_scale->Size = System::Drawing::Size(35, 21);
+			this->textBox_map_scale->TabIndex = 37;
+			this->textBox_map_scale->Text = L"2";
 			// 
 			// btn_update_map_flag
 			// 
-			this->btn_update_map_flag->Location = System::Drawing::Point(19, 265);
+			this->btn_update_map_flag->Location = System::Drawing::Point(10, 169);
 			this->btn_update_map_flag->Name = L"btn_update_map_flag";
-			this->btn_update_map_flag->Size = System::Drawing::Size(228, 23);
+			this->btn_update_map_flag->Size = System::Drawing::Size(157, 23);
 			this->btn_update_map_flag->TabIndex = 52;
-			this->btn_update_map_flag->Text = L"Enable Map Upgrade";
+			this->btn_update_map_flag->Text = L"Enable Update Map";
 			this->btn_update_map_flag->UseVisualStyleBackColor = true;
 			this->btn_update_map_flag->Click += gcnew System::EventHandler(this, &MyForm::btn_update_map_flag_Click);
 			// 
-			// CB_ONLY_MPU
-			// 
-			this->CB_ONLY_MPU->AutoSize = true;
-			this->CB_ONLY_MPU->Enabled = false;
-			this->CB_ONLY_MPU->Location = System::Drawing::Point(100, 75);
-			this->CB_ONLY_MPU->Name = L"CB_ONLY_MPU";
-			this->CB_ONLY_MPU->Size = System::Drawing::Size(72, 16);
-			this->CB_ONLY_MPU->TabIndex = 51;
-			this->CB_ONLY_MPU->Text = L"ONLY_MPU";
-			this->CB_ONLY_MPU->UseVisualStyleBackColor = true;
-			// 
-			// BTN_UnifiedSensor
-			// 
-			this->BTN_UnifiedSensor->Location = System::Drawing::Point(19, 441);
-			this->BTN_UnifiedSensor->Name = L"BTN_UnifiedSensor";
-			this->BTN_UnifiedSensor->Size = System::Drawing::Size(228, 23);
-			this->BTN_UnifiedSensor->TabIndex = 50;
-			this->BTN_UnifiedSensor->Text = L"Sensor Transfer By Yourself";
-			this->BTN_UnifiedSensor->UseVisualStyleBackColor = true;
-			this->BTN_UnifiedSensor->Click += gcnew System::EventHandler(this, &MyForm::BTN_UnifiedSensor_Click);
-			// 
-			// CB_UseTcp
-			// 
-			this->CB_UseTcp->AutoSize = true;
-			this->CB_UseTcp->Checked = true;
-			this->CB_UseTcp->CheckState = System::Windows::Forms::CheckState::Checked;
-			this->CB_UseTcp->Location = System::Drawing::Point(201, 16);
-			this->CB_UseTcp->Name = L"CB_UseTcp";
-			this->CB_UseTcp->Size = System::Drawing::Size(66, 16);
-			this->CB_UseTcp->TabIndex = 49;
-			this->CB_UseTcp->Text = L"USE_TCP";
-			this->CB_UseTcp->UseVisualStyleBackColor = true;
-			this->CB_UseTcp->CheckedChanged += gcnew System::EventHandler(this, &MyForm::CB_UseTcp_CheckedChanged);
-			// 
-			// button_IMU_calibrate
-			// 
-			this->button_IMU_calibrate->Location = System::Drawing::Point(19, 383);
-			this->button_IMU_calibrate->Name = L"button_IMU_calibrate";
-			this->button_IMU_calibrate->Size = System::Drawing::Size(228, 23);
-			this->button_IMU_calibrate->TabIndex = 48;
-			this->button_IMU_calibrate->Text = L"IMU Calibrate";
-			this->button_IMU_calibrate->UseVisualStyleBackColor = true;
-			this->button_IMU_calibrate->Click += gcnew System::EventHandler(this, &MyForm::button_IMU_calibrate_Click);
-			// 
-			// button_video_record
-			// 
-			this->button_video_record->Location = System::Drawing::Point(19, 412);
-			this->button_video_record->Name = L"button_video_record";
-			this->button_video_record->Size = System::Drawing::Size(228, 23);
-			this->button_video_record->TabIndex = 47;
-			this->button_video_record->Text = L"Start Recording Video";
-			this->button_video_record->UseVisualStyleBackColor = true;
-			this->button_video_record->Click += gcnew System::EventHandler(this, &MyForm::button_video_record_Click);
-			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(19, 323);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(228, 23);
-			this->button1->TabIndex = 46;
-			this->button1->Text = L"Update Navipack";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
-			// 
-			// cb_connectMpu
-			// 
-			this->cb_connectMpu->AutoSize = true;
-			this->cb_connectMpu->Location = System::Drawing::Point(12, 75);
-			this->cb_connectMpu->Name = L"cb_connectMpu";
-			this->cb_connectMpu->Size = System::Drawing::Size(90, 16);
-			this->cb_connectMpu->TabIndex = 45;
-			this->cb_connectMpu->Text = L"Connect MPU";
-			this->cb_connectMpu->UseVisualStyleBackColor = true;
-			this->cb_connectMpu->CheckedChanged += gcnew System::EventHandler(this, &MyForm::cb_connectMpu_CheckedChanged);
-			// 
-			// back_charge
-			// 
-			this->back_charge->Location = System::Drawing::Point(19, 354);
-			this->back_charge->Name = L"back_charge";
-			this->back_charge->Size = System::Drawing::Size(228, 23);
-			this->back_charge->TabIndex = 44;
-			this->back_charge->Text = L"Back Charge";
-			this->back_charge->UseVisualStyleBackColor = true;
-			this->back_charge->Click += gcnew System::EventHandler(this, &MyForm::back_charge_Click);
-			// 
-			// button_start_build_map_auto
-			// 
-			this->button_start_build_map_auto->Location = System::Drawing::Point(19, 207);
-			this->button_start_build_map_auto->Name = L"button_start_build_map_auto";
-			this->button_start_build_map_auto->Size = System::Drawing::Size(228, 23);
-			this->button_start_build_map_auto->TabIndex = 43;
-			this->button_start_build_map_auto->Text = L"Auto BuildMap(NOT USE)";
-			this->button_start_build_map_auto->UseVisualStyleBackColor = true;
-			this->button_start_build_map_auto->Click += gcnew System::EventHandler(this, &MyForm::button_start_build_map_auto_Click);
-			// 
-			// button_init_map
-			// 
-			this->button_init_map->Location = System::Drawing::Point(19, 294);
-			this->button_init_map->Name = L"button_init_map";
-			this->button_init_map->Size = System::Drawing::Size(228, 23);
-			this->button_init_map->TabIndex = 42;
-			this->button_init_map->Text = L"Init Location";
-			this->button_init_map->UseVisualStyleBackColor = true;
-			this->button_init_map->Click += gcnew System::EventHandler(this, &MyForm::button_init_map_Click);
-			// 
-			// button_stop_build_map
-			// 
-			this->button_stop_build_map->Location = System::Drawing::Point(19, 236);
-			this->button_stop_build_map->Name = L"button_stop_build_map";
-			this->button_stop_build_map->Size = System::Drawing::Size(228, 23);
-			this->button_stop_build_map->TabIndex = 41;
-			this->button_stop_build_map->Text = L"Stop Building & Save Map";
-			this->button_stop_build_map->UseVisualStyleBackColor = true;
-			this->button_stop_build_map->Click += gcnew System::EventHandler(this, &MyForm::button_stop_build_map_Click);
-			// 
-			// button_start_build_map
-			// 
-			this->button_start_build_map->Location = System::Drawing::Point(19, 173);
-			this->button_start_build_map->Name = L"button_start_build_map";
-			this->button_start_build_map->Size = System::Drawing::Size(228, 23);
-			this->button_start_build_map->TabIndex = 40;
-			this->button_start_build_map->Text = L"Manual BuildMap";
-			this->button_start_build_map->UseVisualStyleBackColor = true;
-			this->button_start_build_map->Click += gcnew System::EventHandler(this, &MyForm::button_start_build_map_Click);
-			// 
-			// trackBar1
-			// 
-			this->trackBar1->Location = System::Drawing::Point(4, 103);
-			this->trackBar1->Maximum = 100;
-			this->trackBar1->Minimum = 1;
-			this->trackBar1->Name = L"trackBar1";
-			this->trackBar1->Size = System::Drawing::Size(268, 45);
-			this->trackBar1->TabIndex = 39;
-			this->trackBar1->Value = 1;
-			this->trackBar1->Scroll += gcnew System::EventHandler(this, &MyForm::trackBar1_Scroll);
-			// 
-			// label5
-			// 
-			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(10, 150);
-			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(83, 12);
-			this->label5->TabIndex = 38;
-			this->label5->Text = L"Dispaly Ratio";
-			// 
-			// set_pic_show_scale
-			// 
-			this->set_pic_show_scale->Location = System::Drawing::Point(182, 144);
-			this->set_pic_show_scale->Margin = System::Windows::Forms::Padding(2);
-			this->set_pic_show_scale->Name = L"set_pic_show_scale";
-			this->set_pic_show_scale->Size = System::Drawing::Size(90, 25);
-			this->set_pic_show_scale->TabIndex = 36;
-			this->set_pic_show_scale->Text = L" Set Scale";
-			this->set_pic_show_scale->UseVisualStyleBackColor = true;
-			this->set_pic_show_scale->Click += gcnew System::EventHandler(this, &MyForm::set_pic_show_scale_Click);
-			// 
-			// pic_scale
-			// 
-			this->pic_scale->Location = System::Drawing::Point(101, 147);
-			this->pic_scale->Margin = System::Windows::Forms::Padding(2);
-			this->pic_scale->Name = L"pic_scale";
-			this->pic_scale->Size = System::Drawing::Size(67, 21);
-			this->pic_scale->TabIndex = 37;
-			this->pic_scale->Text = L"2";
-			// 
-			// tb_ip
-			// 
-			this->tb_ip->Location = System::Drawing::Point(96, 12);
-			this->tb_ip->Margin = System::Windows::Forms::Padding(2);
-			this->tb_ip->Name = L"tb_ip";
-			this->tb_ip->Size = System::Drawing::Size(100, 21);
-			this->tb_ip->TabIndex = 22;
-			this->tb_ip->Text = L"192.168.17.1";
-			// 
-			// tb_port
-			// 
-			this->tb_port->Location = System::Drawing::Point(97, 43);
-			this->tb_port->Margin = System::Windows::Forms::Padding(2);
-			this->tb_port->Name = L"tb_port";
-			this->tb_port->Size = System::Drawing::Size(100, 21);
-			this->tb_port->TabIndex = 23;
-			this->tb_port->Text = L"9977";
-			// 
-			// button_connect
-			// 
-			this->button_connect->Location = System::Drawing::Point(177, 75);
-			this->button_connect->Margin = System::Windows::Forms::Padding(2);
-			this->button_connect->Name = L"button_connect";
-			this->button_connect->Size = System::Drawing::Size(90, 25);
-			this->button_connect->TabIndex = 21;
-			this->button_connect->Text = L"Connect";
-			this->button_connect->UseVisualStyleBackColor = true;
-			this->button_connect->Click += gcnew System::EventHandler(this, &MyForm::button_connect_Click);
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(17, 45);
-			this->label2->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(29, 12);
-			this->label2->TabIndex = 25;
-			this->label2->Text = L"Port";
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(10, 16);
-			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(95, 12);
-			this->label1->TabIndex = 24;
-			this->label1->Text = L"IP Address/Port";
-			// 
-			// tp_directionCtrl
-			// 
-			this->tp_directionCtrl->Controls->Add(this->panel11);
-			this->tp_directionCtrl->Location = System::Drawing::Point(4, 22);
-			this->tp_directionCtrl->Name = L"tp_directionCtrl";
-			this->tp_directionCtrl->Padding = System::Windows::Forms::Padding(3);
-			this->tp_directionCtrl->Size = System::Drawing::Size(272, 586);
-			this->tp_directionCtrl->TabIndex = 1;
-			this->tp_directionCtrl->Text = L"SpeedControl";
-			this->tp_directionCtrl->UseVisualStyleBackColor = true;
-			// 
-			// panel11
-			// 
-			this->panel11->AccessibleName = L"";
-			this->panel11->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->panel11->Controls->Add(this->label40);
-			this->panel11->Controls->Add(this->label41);
-			this->panel11->Controls->Add(this->textBox_roll_step);
-			this->panel11->Controls->Add(this->textBox_head_roll_control);
-			this->panel11->Controls->Add(this->label35);
-			this->panel11->Controls->Add(this->label34);
-			this->panel11->Controls->Add(this->label32);
-			this->panel11->Controls->Add(this->label33);
-			this->panel11->Controls->Add(this->label31);
-			this->panel11->Controls->Add(this->textBox_yaw_step);
-			this->panel11->Controls->Add(this->textBox_v_step);
-			this->panel11->Controls->Add(this->textBox_pitch_step);
-			this->panel11->Controls->Add(this->textBox_w_step);
-			this->panel11->Controls->Add(this->panel8);
-			this->panel11->Controls->Add(this->panel6);
-			this->panel11->Controls->Add(this->panel5);
-			this->panel11->Controls->Add(this->panel7);
-			this->panel11->Controls->Add(this->textBox_key);
-			this->panel11->Location = System::Drawing::Point(6, 25);
-			this->panel11->Name = L"panel11";
-			this->panel11->Size = System::Drawing::Size(262, 330);
-			this->panel11->TabIndex = 50;
-			// 
-			// label40
-			// 
-			this->label40->AutoSize = true;
-			this->label40->Location = System::Drawing::Point(17, 213);
-			this->label40->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label40->Name = L"label40";
-			this->label40->Size = System::Drawing::Size(89, 12);
-			this->label40->TabIndex = 56;
-			this->label40->Text = L"HeadCtrl(roll)";
-			// 
-			// label41
-			// 
-			this->label41->AutoSize = true;
-			this->label41->Location = System::Drawing::Point(105, 213);
-			this->label41->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label41->Name = L"label41";
-			this->label41->Size = System::Drawing::Size(29, 12);
-			this->label41->TabIndex = 55;
-			this->label41->Text = L"roll";
-			// 
-			// textBox_roll_step
-			// 
-			this->textBox_roll_step->Location = System::Drawing::Point(107, 227);
-			this->textBox_roll_step->Margin = System::Windows::Forms::Padding(2);
-			this->textBox_roll_step->Name = L"textBox_roll_step";
-			this->textBox_roll_step->Size = System::Drawing::Size(76, 21);
-			this->textBox_roll_step->TabIndex = 54;
-			this->textBox_roll_step->Text = L"10";
-			// 
-			// textBox_head_roll_control
-			// 
-			this->textBox_head_roll_control->Location = System::Drawing::Point(18, 227);
-			this->textBox_head_roll_control->Margin = System::Windows::Forms::Padding(2);
-			this->textBox_head_roll_control->Name = L"textBox_head_roll_control";
-			this->textBox_head_roll_control->Size = System::Drawing::Size(76, 21);
-			this->textBox_head_roll_control->TabIndex = 53;
-			// 
-			// label35
-			// 
-			this->label35->AutoSize = true;
-			this->label35->Location = System::Drawing::Point(16, 24);
-			this->label35->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label35->Name = L"label35";
-			this->label35->Size = System::Drawing::Size(95, 12);
-			this->label35->TabIndex = 52;
-			this->label35->Text = L"Carrier Control";
-			// 
-			// label34
-			// 
-			this->label34->AutoSize = true;
-			this->label34->Location = System::Drawing::Point(93, 142);
-			this->label34->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label34->Name = L"label34";
-			this->label34->Size = System::Drawing::Size(35, 12);
-			this->label34->TabIndex = 51;
-			this->label34->Text = L"pitch";
-			// 
-			// label32
-			// 
-			this->label32->AutoSize = true;
-			this->label32->Location = System::Drawing::Point(93, 70);
-			this->label32->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label32->Name = L"label32";
-			this->label32->Size = System::Drawing::Size(41, 12);
-			this->label32->TabIndex = 51;
-			this->label32->Text = L"w_step";
-			// 
-			// label33
-			// 
-			this->label33->AutoSize = true;
-			this->label33->Location = System::Drawing::Point(18, 142);
-			this->label33->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label33->Name = L"label33";
-			this->label33->Size = System::Drawing::Size(23, 12);
-			this->label33->TabIndex = 50;
-			this->label33->Text = L"yaw";
-			// 
-			// label31
-			// 
-			this->label31->AutoSize = true;
-			this->label31->Location = System::Drawing::Point(18, 70);
-			this->label31->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label31->Name = L"label31";
-			this->label31->Size = System::Drawing::Size(41, 12);
-			this->label31->TabIndex = 50;
-			this->label31->Text = L"v_step";
-			// 
-			// textBox_yaw_step
-			// 
-			this->textBox_yaw_step->Location = System::Drawing::Point(17, 165);
-			this->textBox_yaw_step->Margin = System::Windows::Forms::Padding(2);
-			this->textBox_yaw_step->Name = L"textBox_yaw_step";
-			this->textBox_yaw_step->Size = System::Drawing::Size(76, 21);
-			this->textBox_yaw_step->TabIndex = 40;
-			this->textBox_yaw_step->Text = L"100";
+			// trackBar_map_scale
+			// 
+			this->trackBar_map_scale->Location = System::Drawing::Point(10, 60);
+			this->trackBar_map_scale->Maximum = 100;
+			this->trackBar_map_scale->Minimum = 1;
+			this->trackBar_map_scale->Name = L"trackBar_map_scale";
+			this->trackBar_map_scale->Size = System::Drawing::Size(268, 45);
+			this->trackBar_map_scale->TabIndex = 39;
+			this->trackBar_map_scale->Value = 1;
+			this->trackBar_map_scale->Scroll += gcnew System::EventHandler(this, &MyForm::trackBar_map_scale_Scroll);
+			// 
+			// btn_build_map
+			// 
+			this->btn_build_map->Location = System::Drawing::Point(10, 111);
+			this->btn_build_map->Name = L"btn_build_map";
+			this->btn_build_map->Size = System::Drawing::Size(157, 23);
+			this->btn_build_map->TabIndex = 40;
+			this->btn_build_map->Text = L"Build Map";
+			this->btn_build_map->UseVisualStyleBackColor = true;
+			this->btn_build_map->Click += gcnew System::EventHandler(this, &MyForm::btn_build_map_Click);
+			// 
+			// btn_save_map
+			// 
+			this->btn_save_map->Location = System::Drawing::Point(10, 140);
+			this->btn_save_map->Name = L"btn_save_map";
+			this->btn_save_map->Size = System::Drawing::Size(157, 23);
+			this->btn_save_map->TabIndex = 41;
+			this->btn_save_map->Text = L"Save Map";
+			this->btn_save_map->UseVisualStyleBackColor = true;
+			this->btn_save_map->Click += gcnew System::EventHandler(this, &MyForm::btn_save_map_Click);
+			// 
+			// groupBox_connection
+			// 
+			this->groupBox_connection->Controls->Add(this->label_ip_or_com);
+			this->groupBox_connection->Controls->Add(this->label_port_or_baud_rate);
+			this->groupBox_connection->Controls->Add(this->cb_only_mpu);
+			this->groupBox_connection->Controls->Add(this->btn_connect);
+			this->groupBox_connection->Controls->Add(this->cb_tcp_or_com);
+			this->groupBox_connection->Controls->Add(this->textBox_port_or_baud_rate);
+			this->groupBox_connection->Controls->Add(this->textBox_ip_or_com);
+			this->groupBox_connection->Controls->Add(this->cb_connect_mpu);
+			this->groupBox_connection->Location = System::Drawing::Point(6, 10);
+			this->groupBox_connection->Name = L"groupBox_connection";
+			this->groupBox_connection->Size = System::Drawing::Size(300, 131);
+			this->groupBox_connection->TabIndex = 53;
+			this->groupBox_connection->TabStop = false;
+			this->groupBox_connection->Text = L"CONNECTION";
+			// 
+			// label_ip_or_com
+			// 
+			this->label_ip_or_com->AutoSize = true;
+			this->label_ip_or_com->Location = System::Drawing::Point(15, 31);
+			this->label_ip_or_com->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label_ip_or_com->Name = L"label_ip_or_com";
+			this->label_ip_or_com->Size = System::Drawing::Size(17, 12);
+			this->label_ip_or_com->TabIndex = 24;
+			this->label_ip_or_com->Text = L"IP";
+			// 
+			// label_port_or_baud_rate
+			// 
+			this->label_port_or_baud_rate->AutoSize = true;
+			this->label_port_or_baud_rate->Location = System::Drawing::Point(13, 65);
+			this->label_port_or_baud_rate->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label_port_or_baud_rate->Name = L"label_port_or_baud_rate";
+			this->label_port_or_baud_rate->Size = System::Drawing::Size(29, 12);
+			this->label_port_or_baud_rate->TabIndex = 25;
+			this->label_port_or_baud_rate->Text = L"PORT";
+			// 
+			// cb_only_mpu
+			// 
+			this->cb_only_mpu->AutoSize = true;
+			this->cb_only_mpu->Enabled = false;
+			this->cb_only_mpu->Location = System::Drawing::Point(191, 89);
+			this->cb_only_mpu->Name = L"cb_only_mpu";
+			this->cb_only_mpu->Size = System::Drawing::Size(72, 16);
+			this->cb_only_mpu->TabIndex = 51;
+			this->cb_only_mpu->Text = L"ONLY_MPU";
+			this->cb_only_mpu->UseVisualStyleBackColor = true;
+			this->cb_only_mpu->Visible = false;
+			// 
+			// btn_connect
+			// 
+			this->btn_connect->Location = System::Drawing::Point(13, 90);
+			this->btn_connect->Margin = System::Windows::Forms::Padding(2);
+			this->btn_connect->Name = L"btn_connect";
+			this->btn_connect->Size = System::Drawing::Size(163, 25);
+			this->btn_connect->TabIndex = 21;
+			this->btn_connect->Text = L"Connect";
+			this->btn_connect->UseVisualStyleBackColor = true;
+			this->btn_connect->Click += gcnew System::EventHandler(this, &MyForm::btn_connect_Click);
+			// 
+			// cb_tcp_or_com
+			// 
+			this->cb_tcp_or_com->AutoSize = true;
+			this->cb_tcp_or_com->Checked = true;
+			this->cb_tcp_or_com->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->cb_tcp_or_com->Location = System::Drawing::Point(191, 34);
+			this->cb_tcp_or_com->Name = L"cb_tcp_or_com";
+			this->cb_tcp_or_com->Size = System::Drawing::Size(84, 16);
+			this->cb_tcp_or_com->TabIndex = 49;
+			this->cb_tcp_or_com->Text = L"TCP_or_COM";
+			this->cb_tcp_or_com->UseVisualStyleBackColor = true;
+			this->cb_tcp_or_com->CheckedChanged += gcnew System::EventHandler(this, &MyForm::cb_tcp_or_com_CheckedChanged);
+			// 
+			// textBox_port_or_baud_rate
+			// 
+			this->textBox_port_or_baud_rate->Location = System::Drawing::Point(77, 59);
+			this->textBox_port_or_baud_rate->Margin = System::Windows::Forms::Padding(2);
+			this->textBox_port_or_baud_rate->Name = L"textBox_port_or_baud_rate";
+			this->textBox_port_or_baud_rate->Size = System::Drawing::Size(100, 21);
+			this->textBox_port_or_baud_rate->TabIndex = 23;
+			this->textBox_port_or_baud_rate->Text = L"9977";
+			// 
+			// textBox_ip_or_com
+			// 
+			this->textBox_ip_or_com->Location = System::Drawing::Point(77, 31);
+			this->textBox_ip_or_com->Margin = System::Windows::Forms::Padding(2);
+			this->textBox_ip_or_com->Name = L"textBox_ip_or_com";
+			this->textBox_ip_or_com->Size = System::Drawing::Size(100, 21);
+			this->textBox_ip_or_com->TabIndex = 22;
+			this->textBox_ip_or_com->Text = L"192.168.17.1";
+			// 
+			// cb_connect_mpu
+			// 
+			this->cb_connect_mpu->AutoSize = true;
+			this->cb_connect_mpu->Enabled = false;
+			this->cb_connect_mpu->Location = System::Drawing::Point(191, 63);
+			this->cb_connect_mpu->Name = L"cb_connect_mpu";
+			this->cb_connect_mpu->Size = System::Drawing::Size(66, 16);
+			this->cb_connect_mpu->TabIndex = 45;
+			this->cb_connect_mpu->Text = L"GET_MPU";
+			this->cb_connect_mpu->UseVisualStyleBackColor = true;
+			this->cb_connect_mpu->Visible = false;
+			this->cb_connect_mpu->CheckedChanged += gcnew System::EventHandler(this, &MyForm::cb_connect_mpu_CheckedChanged);
+			// 
+			// btn_imu_calibrate
+			// 
+			this->btn_imu_calibrate->Location = System::Drawing::Point(45, 415);
+			this->btn_imu_calibrate->Name = L"btn_imu_calibrate";
+			this->btn_imu_calibrate->Size = System::Drawing::Size(155, 23);
+			this->btn_imu_calibrate->TabIndex = 48;
+			this->btn_imu_calibrate->Text = L"IMU Calibrate";
+			this->btn_imu_calibrate->UseVisualStyleBackColor = true;
+			this->btn_imu_calibrate->Click += gcnew System::EventHandler(this, &MyForm::btn_imu_calibrate_Click);
+			// 
+			// btn_record_video
+			// 
+			this->btn_record_video->Location = System::Drawing::Point(45, 469);
+			this->btn_record_video->Name = L"btn_record_video";
+			this->btn_record_video->Size = System::Drawing::Size(155, 23);
+			this->btn_record_video->TabIndex = 47;
+			this->btn_record_video->Text = L"Record Video";
+			this->btn_record_video->UseVisualStyleBackColor = true;
+			this->btn_record_video->Click += gcnew System::EventHandler(this, &MyForm::btn_record_video_Click);
+			// 
+			// btn_init_location
+			// 
+			this->btn_init_location->Location = System::Drawing::Point(45, 386);
+			this->btn_init_location->Name = L"btn_init_location";
+			this->btn_init_location->Size = System::Drawing::Size(155, 23);
+			this->btn_init_location->TabIndex = 42;
+			this->btn_init_location->Text = L"Init Location";
+			this->btn_init_location->UseVisualStyleBackColor = true;
+			this->btn_init_location->Click += gcnew System::EventHandler(this, &MyForm::btn_init_location_Click);
+			// 
+			// tabPage_speed_control
+			// 
+			this->tabPage_speed_control->Controls->Add(this->panel_speed_control);
+			this->tabPage_speed_control->Location = System::Drawing::Point(4, 22);
+			this->tabPage_speed_control->Name = L"tabPage_speed_control";
+			this->tabPage_speed_control->Padding = System::Windows::Forms::Padding(3);
+			this->tabPage_speed_control->Size = System::Drawing::Size(312, 611);
+			this->tabPage_speed_control->TabIndex = 1;
+			this->tabPage_speed_control->Text = L"Speed Control";
+			this->tabPage_speed_control->UseVisualStyleBackColor = true;
+			// 
+			// panel_speed_control
+			// 
+			this->panel_speed_control->AccessibleName = L"";
+			this->panel_speed_control->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel_speed_control->Controls->Add(this->panel_space);
+			this->panel_speed_control->Controls->Add(this->label_focus_here);
+			this->panel_speed_control->Controls->Add(this->label_w_step);
+			this->panel_speed_control->Controls->Add(this->label_v_step);
+			this->panel_speed_control->Controls->Add(this->textBox_v_step);
+			this->panel_speed_control->Controls->Add(this->textBox_w_step);
+			this->panel_speed_control->Controls->Add(this->panel_D);
+			this->panel_speed_control->Controls->Add(this->panel_w);
+			this->panel_speed_control->Controls->Add(this->panel_A);
+			this->panel_speed_control->Controls->Add(this->panel_S);
+			this->panel_speed_control->Controls->Add(this->textBox_speed_control_key);
+			this->panel_speed_control->Location = System::Drawing::Point(19, 24);
+			this->panel_speed_control->Name = L"panel_speed_control";
+			this->panel_speed_control->Size = System::Drawing::Size(262, 237);
+			this->panel_speed_control->TabIndex = 50;
+			// 
+			// panel_space
+			// 
+			this->panel_space->Controls->Add(this->label_space);
+			this->panel_space->Location = System::Drawing::Point(68, 126);
+			this->panel_space->Name = L"panel_space";
+			this->panel_space->Size = System::Drawing::Size(95, 30);
+			this->panel_space->TabIndex = 39;
+			// 
+			// label_space
+			// 
+			this->label_space->AutoSize = true;
+			this->label_space->Font = (gcnew System::Drawing::Font(L"宋体", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(134)));
+			this->label_space->Location = System::Drawing::Point(12, 4);
+			this->label_space->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label_space->Name = L"label_space";
+			this->label_space->Size = System::Drawing::Size(70, 21);
+			this->label_space->TabIndex = 36;
+			this->label_space->Text = L"SPACE";
+			// 
+			// label_focus_here
+			// 
+			this->label_focus_here->AutoSize = true;
+			this->label_focus_here->Location = System::Drawing::Point(16, 7);
+			this->label_focus_here->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label_focus_here->Name = L"label_focus_here";
+			this->label_focus_here->Size = System::Drawing::Size(167, 12);
+			this->label_focus_here->TabIndex = 52;
+			this->label_focus_here->Text = L"Please Focus in the TextBox";
+			// 
+			// label_w_step
+			// 
+			this->label_w_step->AutoSize = true;
+			this->label_w_step->Location = System::Drawing::Point(139, 173);
+			this->label_w_step->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label_w_step->Name = L"label_w_step";
+			this->label_w_step->Size = System::Drawing::Size(83, 12);
+			this->label_w_step->TabIndex = 51;
+			this->label_w_step->Text = L"w_step(rad/s)";
+			// 
+			// label_v_step
+			// 
+			this->label_v_step->AutoSize = true;
+			this->label_v_step->Location = System::Drawing::Point(37, 172);
+			this->label_v_step->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label_v_step->Name = L"label_v_step";
+			this->label_v_step->Size = System::Drawing::Size(71, 12);
+			this->label_v_step->TabIndex = 50;
+			this->label_v_step->Text = L"v_step(m/s)";
 			// 
 			// textBox_v_step
 			// 
-			this->textBox_v_step->Location = System::Drawing::Point(17, 93);
+			this->textBox_v_step->Location = System::Drawing::Point(36, 195);
 			this->textBox_v_step->Margin = System::Windows::Forms::Padding(2);
 			this->textBox_v_step->Name = L"textBox_v_step";
 			this->textBox_v_step->Size = System::Drawing::Size(76, 21);
 			this->textBox_v_step->TabIndex = 40;
 			this->textBox_v_step->Text = L"0.1";
 			// 
-			// textBox_pitch_step
-			// 
-			this->textBox_pitch_step->Location = System::Drawing::Point(104, 165);
-			this->textBox_pitch_step->Margin = System::Windows::Forms::Padding(2);
-			this->textBox_pitch_step->Name = L"textBox_pitch_step";
-			this->textBox_pitch_step->Size = System::Drawing::Size(76, 21);
-			this->textBox_pitch_step->TabIndex = 39;
-			this->textBox_pitch_step->Text = L"100";
-			// 
 			// textBox_w_step
 			// 
-			this->textBox_w_step->Location = System::Drawing::Point(104, 93);
+			this->textBox_w_step->Location = System::Drawing::Point(140, 195);
 			this->textBox_w_step->Margin = System::Windows::Forms::Padding(2);
 			this->textBox_w_step->Name = L"textBox_w_step";
 			this->textBox_w_step->Size = System::Drawing::Size(76, 21);
 			this->textBox_w_step->TabIndex = 39;
 			this->textBox_w_step->Text = L"0.2";
 			// 
-			// panel8
+			// panel_D
 			// 
-			this->panel8->Controls->Add(this->label14);
-			this->panel8->Location = System::Drawing::Point(220, 47);
-			this->panel8->Name = L"panel8";
-			this->panel8->Size = System::Drawing::Size(30, 30);
-			this->panel8->TabIndex = 38;
+			this->panel_D->Controls->Add(this->label_D);
+			this->panel_D->Location = System::Drawing::Point(133, 90);
+			this->panel_D->Name = L"panel_D";
+			this->panel_D->Size = System::Drawing::Size(30, 30);
+			this->panel_D->TabIndex = 38;
 			// 
-			// label14
+			// label_D
 			// 
-			this->label14->AutoSize = true;
-			this->label14->Font = (gcnew System::Drawing::Font(L"宋体", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label_D->AutoSize = true;
+			this->label_D->Font = (gcnew System::Drawing::Font(L"宋体", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(134)));
-			this->label14->Location = System::Drawing::Point(4, 6);
-			this->label14->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label14->Name = L"label14";
-			this->label14->Size = System::Drawing::Size(22, 21);
-			this->label14->TabIndex = 36;
-			this->label14->Text = L"D";
+			this->label_D->Location = System::Drawing::Point(4, 6);
+			this->label_D->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label_D->Name = L"label_D";
+			this->label_D->Size = System::Drawing::Size(22, 21);
+			this->label_D->TabIndex = 36;
+			this->label_D->Text = L"D";
 			// 
-			// panel6
+			// panel_w
 			// 
-			this->panel6->Controls->Add(this->label12);
-			this->panel6->Location = System::Drawing::Point(185, 11);
-			this->panel6->Name = L"panel6";
-			this->panel6->Size = System::Drawing::Size(30, 30);
-			this->panel6->TabIndex = 38;
+			this->panel_w->Controls->Add(this->label_W);
+			this->panel_w->Location = System::Drawing::Point(98, 54);
+			this->panel_w->Name = L"panel_w";
+			this->panel_w->Size = System::Drawing::Size(30, 30);
+			this->panel_w->TabIndex = 38;
 			// 
-			// label12
+			// label_W
 			// 
-			this->label12->AutoSize = true;
-			this->label12->Font = (gcnew System::Drawing::Font(L"宋体", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label_W->AutoSize = true;
+			this->label_W->Font = (gcnew System::Drawing::Font(L"宋体", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(134)));
-			this->label12->Location = System::Drawing::Point(4, 5);
-			this->label12->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label12->Name = L"label12";
-			this->label12->Size = System::Drawing::Size(22, 21);
-			this->label12->TabIndex = 36;
-			this->label12->Text = L"W";
+			this->label_W->Location = System::Drawing::Point(4, 5);
+			this->label_W->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label_W->Name = L"label_W";
+			this->label_W->Size = System::Drawing::Size(22, 21);
+			this->label_W->TabIndex = 36;
+			this->label_W->Text = L"W";
 			// 
-			// panel5
+			// panel_A
 			// 
-			this->panel5->Controls->Add(this->label9);
-			this->panel5->Location = System::Drawing::Point(155, 47);
-			this->panel5->Name = L"panel5";
-			this->panel5->Size = System::Drawing::Size(30, 30);
-			this->panel5->TabIndex = 38;
+			this->panel_A->Controls->Add(this->label_A);
+			this->panel_A->Location = System::Drawing::Point(68, 90);
+			this->panel_A->Name = L"panel_A";
+			this->panel_A->Size = System::Drawing::Size(30, 30);
+			this->panel_A->TabIndex = 38;
 			// 
-			// label9
+			// label_A
 			// 
-			this->label9->AutoSize = true;
-			this->label9->Font = (gcnew System::Drawing::Font(L"宋体", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label_A->AutoSize = true;
+			this->label_A->Font = (gcnew System::Drawing::Font(L"宋体", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(134)));
-			this->label9->Location = System::Drawing::Point(4, 5);
-			this->label9->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(22, 21);
-			this->label9->TabIndex = 36;
-			this->label9->Text = L"A";
+			this->label_A->Location = System::Drawing::Point(4, 5);
+			this->label_A->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label_A->Name = L"label_A";
+			this->label_A->Size = System::Drawing::Size(22, 21);
+			this->label_A->TabIndex = 36;
+			this->label_A->Text = L"A";
 			// 
-			// panel7
+			// panel_S
 			// 
-			this->panel7->Controls->Add(this->label13);
-			this->panel7->Location = System::Drawing::Point(189, 47);
-			this->panel7->Name = L"panel7";
-			this->panel7->Size = System::Drawing::Size(30, 30);
-			this->panel7->TabIndex = 38;
+			this->panel_S->Controls->Add(this->label_S);
+			this->panel_S->Location = System::Drawing::Point(102, 90);
+			this->panel_S->Name = L"panel_S";
+			this->panel_S->Size = System::Drawing::Size(30, 30);
+			this->panel_S->TabIndex = 38;
 			// 
-			// label13
+			// label_S
 			// 
-			this->label13->AutoSize = true;
-			this->label13->Font = (gcnew System::Drawing::Font(L"宋体", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label_S->AutoSize = true;
+			this->label_S->Font = (gcnew System::Drawing::Font(L"宋体", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(134)));
-			this->label13->Location = System::Drawing::Point(4, 5);
-			this->label13->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label13->Name = L"label13";
-			this->label13->Size = System::Drawing::Size(22, 21);
-			this->label13->TabIndex = 36;
-			this->label13->Text = L"S";
+			this->label_S->Location = System::Drawing::Point(4, 5);
+			this->label_S->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label_S->Name = L"label_S";
+			this->label_S->Size = System::Drawing::Size(22, 21);
+			this->label_S->TabIndex = 36;
+			this->label_S->Text = L"S";
 			// 
-			// textBox_key
+			// textBox_speed_control_key
 			// 
-			this->textBox_key->Location = System::Drawing::Point(17, 47);
-			this->textBox_key->Margin = System::Windows::Forms::Padding(2);
-			this->textBox_key->Name = L"textBox_key";
-			this->textBox_key->Size = System::Drawing::Size(76, 21);
-			this->textBox_key->TabIndex = 33;
-			this->textBox_key->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::textBox_key_KeyPress);
+			this->textBox_speed_control_key->Location = System::Drawing::Point(62, 28);
+			this->textBox_speed_control_key->Margin = System::Windows::Forms::Padding(2);
+			this->textBox_speed_control_key->Name = L"textBox_speed_control_key";
+			this->textBox_speed_control_key->Size = System::Drawing::Size(107, 21);
+			this->textBox_speed_control_key->TabIndex = 33;
+			this->textBox_speed_control_key->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::textBox_speed_control_key_KeyPress);
 			// 
-			// menuStrip1
+			// tab_advanced
 			// 
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
-				this->fileToolStripMenuItem,
-					this->editToolStripMenuItem
-			});
-			this->menuStrip1->Location = System::Drawing::Point(0, 0);
-			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(1155, 25);
-			this->menuStrip1->TabIndex = 1;
-			this->menuStrip1->Text = L"menuStrip1";
+			this->tab_advanced->Controls->Add(this->groupBox_update_firmware);
+			this->tab_advanced->Controls->Add(this->groupBox_tasks);
+			this->tab_advanced->Controls->Add(this->btn_optimize_map);
+			this->tab_advanced->Controls->Add(this->btn_send_unified_sensor_data);
+			this->tab_advanced->Controls->Add(this->groupBox_virtual_obstacles);
+			this->tab_advanced->Location = System::Drawing::Point(4, 22);
+			this->tab_advanced->Name = L"tab_advanced";
+			this->tab_advanced->Size = System::Drawing::Size(312, 611);
+			this->tab_advanced->TabIndex = 2;
+			this->tab_advanced->Text = L"Advanced";
+			this->tab_advanced->UseVisualStyleBackColor = true;
 			// 
-			// fileToolStripMenuItem
+			// groupBox_update_firmware
 			// 
-			this->fileToolStripMenuItem->Name = L"fileToolStripMenuItem";
-			this->fileToolStripMenuItem->Size = System::Drawing::Size(37, 21);
-			this->fileToolStripMenuItem->Text = L"file";
+			this->groupBox_update_firmware->Controls->Add(this->btn_update_navipack);
+			this->groupBox_update_firmware->Controls->Add(this->btn_update_lidar);
+			this->groupBox_update_firmware->Location = System::Drawing::Point(20, 426);
+			this->groupBox_update_firmware->Name = L"groupBox_update_firmware";
+			this->groupBox_update_firmware->Size = System::Drawing::Size(272, 108);
+			this->groupBox_update_firmware->TabIndex = 64;
+			this->groupBox_update_firmware->TabStop = false;
+			this->groupBox_update_firmware->Text = L"UPDATE FIRMWARE";
 			// 
-			// editToolStripMenuItem
+			// btn_update_navipack
 			// 
-			this->editToolStripMenuItem->Name = L"editToolStripMenuItem";
-			this->editToolStripMenuItem->Size = System::Drawing::Size(42, 21);
-			this->editToolStripMenuItem->Text = L"edit";
+			this->btn_update_navipack->Enabled = false;
+			this->btn_update_navipack->Location = System::Drawing::Point(15, 33);
+			this->btn_update_navipack->Name = L"btn_update_navipack";
+			this->btn_update_navipack->Size = System::Drawing::Size(185, 23);
+			this->btn_update_navipack->TabIndex = 57;
+			this->btn_update_navipack->Text = L"Update Navipack";
+			this->btn_update_navipack->UseVisualStyleBackColor = true;
+			this->btn_update_navipack->Click += gcnew System::EventHandler(this, &MyForm::btn_update_navipack_Click);
+			// 
+			// btn_update_lidar
+			// 
+			this->btn_update_lidar->Enabled = false;
+			this->btn_update_lidar->Location = System::Drawing::Point(15, 64);
+			this->btn_update_lidar->Name = L"btn_update_lidar";
+			this->btn_update_lidar->Size = System::Drawing::Size(185, 23);
+			this->btn_update_lidar->TabIndex = 59;
+			this->btn_update_lidar->Text = L"Update Lidar";
+			this->btn_update_lidar->UseVisualStyleBackColor = true;
+			this->btn_update_lidar->Click += gcnew System::EventHandler(this, &MyForm::btn_update_lidar_Click);
+			// 
+			// groupBox_tasks
+			// 
+			this->groupBox_tasks->Controls->Add(this->btn_auto_build_map);
+			this->groupBox_tasks->Controls->Add(this->btn_back_to_charge);
+			this->groupBox_tasks->Controls->Add(this->btn_do_clean_task);
+			this->groupBox_tasks->Location = System::Drawing::Point(20, 271);
+			this->groupBox_tasks->Name = L"groupBox_tasks";
+			this->groupBox_tasks->Size = System::Drawing::Size(272, 134);
+			this->groupBox_tasks->TabIndex = 63;
+			this->groupBox_tasks->TabStop = false;
+			this->groupBox_tasks->Text = L"TASKS";
+			// 
+			// btn_auto_build_map
+			// 
+			this->btn_auto_build_map->Enabled = false;
+			this->btn_auto_build_map->Location = System::Drawing::Point(15, 35);
+			this->btn_auto_build_map->Name = L"btn_auto_build_map";
+			this->btn_auto_build_map->Size = System::Drawing::Size(185, 23);
+			this->btn_auto_build_map->TabIndex = 62;
+			this->btn_auto_build_map->Text = L"Auto Build Map";
+			this->btn_auto_build_map->UseVisualStyleBackColor = true;
+			this->btn_auto_build_map->Click += gcnew System::EventHandler(this, &MyForm::btn_auto_build_map_Click);
+			// 
+			// btn_back_to_charge
+			// 
+			this->btn_back_to_charge->Enabled = false;
+			this->btn_back_to_charge->Location = System::Drawing::Point(15, 64);
+			this->btn_back_to_charge->Name = L"btn_back_to_charge";
+			this->btn_back_to_charge->Size = System::Drawing::Size(185, 23);
+			this->btn_back_to_charge->TabIndex = 56;
+			this->btn_back_to_charge->Text = L"Back to Charge";
+			this->btn_back_to_charge->UseVisualStyleBackColor = true;
+			this->btn_back_to_charge->Click += gcnew System::EventHandler(this, &MyForm::btn_back_to_charge_Click);
+			// 
+			// btn_do_clean_task
+			// 
+			this->btn_do_clean_task->Enabled = false;
+			this->btn_do_clean_task->Location = System::Drawing::Point(15, 93);
+			this->btn_do_clean_task->Name = L"btn_do_clean_task";
+			this->btn_do_clean_task->Size = System::Drawing::Size(185, 23);
+			this->btn_do_clean_task->TabIndex = 60;
+			this->btn_do_clean_task->Text = L"Do Clean Task";
+			this->btn_do_clean_task->UseVisualStyleBackColor = true;
+			this->btn_do_clean_task->Click += gcnew System::EventHandler(this, &MyForm::btn_do_clean_task_Click);
+			// 
+			// btn_optimize_map
+			// 
+			this->btn_optimize_map->Location = System::Drawing::Point(21, 62);
+			this->btn_optimize_map->Name = L"btn_optimize_map";
+			this->btn_optimize_map->Size = System::Drawing::Size(232, 23);
+			this->btn_optimize_map->TabIndex = 61;
+			this->btn_optimize_map->Text = L"Optimize Map";
+			this->btn_optimize_map->UseVisualStyleBackColor = true;
+			this->btn_optimize_map->Click += gcnew System::EventHandler(this, &MyForm::btn_optimize_map_Click);
+			// 
+			// btn_send_unified_sensor_data
+			// 
+			this->btn_send_unified_sensor_data->Location = System::Drawing::Point(20, 21);
+			this->btn_send_unified_sensor_data->Name = L"btn_send_unified_sensor_data";
+			this->btn_send_unified_sensor_data->Size = System::Drawing::Size(233, 23);
+			this->btn_send_unified_sensor_data->TabIndex = 58;
+			this->btn_send_unified_sensor_data->Text = L"Send Unified Sensor Data";
+			this->btn_send_unified_sensor_data->UseVisualStyleBackColor = true;
+			this->btn_send_unified_sensor_data->Click += gcnew System::EventHandler(this, &MyForm::btn_send_unified_sensor_data_Click);
+			// 
+			// groupBox_virtual_obstacles
+			// 
+			this->groupBox_virtual_obstacles->Controls->Add(this->btn_clear_virtual_obstacles);
+			this->groupBox_virtual_obstacles->Controls->Add(this->cb_enable_drawing_pen);
+			this->groupBox_virtual_obstacles->Controls->Add(this->btn_send_virtual_obstacles);
+			this->groupBox_virtual_obstacles->Location = System::Drawing::Point(20, 111);
+			this->groupBox_virtual_obstacles->Name = L"groupBox_virtual_obstacles";
+			this->groupBox_virtual_obstacles->Size = System::Drawing::Size(272, 136);
+			this->groupBox_virtual_obstacles->TabIndex = 3;
+			this->groupBox_virtual_obstacles->TabStop = false;
+			this->groupBox_virtual_obstacles->Text = L"VIRTUAL OBSTACLES";
+			// 
+			// btn_clear_virtual_obstacles
+			// 
+			this->btn_clear_virtual_obstacles->Location = System::Drawing::Point(15, 56);
+			this->btn_clear_virtual_obstacles->Name = L"btn_clear_virtual_obstacles";
+			this->btn_clear_virtual_obstacles->Size = System::Drawing::Size(185, 23);
+			this->btn_clear_virtual_obstacles->TabIndex = 2;
+			this->btn_clear_virtual_obstacles->Text = L"Clear Virtual Obstacles";
+			this->btn_clear_virtual_obstacles->UseVisualStyleBackColor = true;
+			this->btn_clear_virtual_obstacles->Click += gcnew System::EventHandler(this, &MyForm::btn_clear_virtual_obstacles_Click);
+			// 
+			// cb_enable_drawing_pen
+			// 
+			this->cb_enable_drawing_pen->AutoSize = true;
+			this->cb_enable_drawing_pen->Location = System::Drawing::Point(15, 31);
+			this->cb_enable_drawing_pen->Name = L"cb_enable_drawing_pen";
+			this->cb_enable_drawing_pen->Size = System::Drawing::Size(132, 16);
+			this->cb_enable_drawing_pen->TabIndex = 0;
+			this->cb_enable_drawing_pen->Text = L"Enable Drawing Pen";
+			this->cb_enable_drawing_pen->UseVisualStyleBackColor = true;
+			// 
+			// btn_send_virtual_obstacles
+			// 
+			this->btn_send_virtual_obstacles->Location = System::Drawing::Point(15, 87);
+			this->btn_send_virtual_obstacles->Name = L"btn_send_virtual_obstacles";
+			this->btn_send_virtual_obstacles->Size = System::Drawing::Size(185, 23);
+			this->btn_send_virtual_obstacles->TabIndex = 1;
+			this->btn_send_virtual_obstacles->Text = L"Send Virtual Obstacles";
+			this->btn_send_virtual_obstacles->UseVisualStyleBackColor = true;
+			this->btn_send_virtual_obstacles->Click += gcnew System::EventHandler(this, &MyForm::btn_send_virtual_obstacles_Click);
 			// 
 			// statusStrip1
 			// 
@@ -1048,38 +1003,44 @@ private: System::Windows::Forms::TextBox^  textBox_key;
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1155, 663);
-			this->Controls->Add(this->panel1);
-			this->Controls->Add(this->menuStrip1);
+			this->Controls->Add(this->panel_all);
 			this->Controls->Add(this->statusStrip1);
-			this->MainMenuStrip = this->menuStrip1;
 			this->Name = L"MyForm";
-			this->Text = L"MyForm";
+			this->Text = L"NaviPackSDKDemo";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
-			this->panel1->ResumeLayout(false);
-			this->panel2->ResumeLayout(false);
-			this->tabControl1->ResumeLayout(false);
-			this->tabPage1->ResumeLayout(false);
+			this->panel_all->ResumeLayout(false);
+			this->panel_display->ResumeLayout(false);
+			this->tabControl_display->ResumeLayout(false);
+			this->tabPage_map_display->ResumeLayout(false);
 			this->panel9->ResumeLayout(false);
 			this->panel9->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxMap))->EndInit();
-			this->panel3->ResumeLayout(false);
-			this->tabControl2->ResumeLayout(false);
-			this->tp_comFunc->ResumeLayout(false);
-			this->tp_comFunc->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar1))->EndInit();
-			this->tp_directionCtrl->ResumeLayout(false);
-			this->panel11->ResumeLayout(false);
-			this->panel11->PerformLayout();
-			this->panel8->ResumeLayout(false);
-			this->panel8->PerformLayout();
-			this->panel6->ResumeLayout(false);
-			this->panel6->PerformLayout();
-			this->panel5->ResumeLayout(false);
-			this->panel5->PerformLayout();
-			this->panel7->ResumeLayout(false);
-			this->panel7->PerformLayout();
-			this->menuStrip1->ResumeLayout(false);
-			this->menuStrip1->PerformLayout();
+			this->panel_control->ResumeLayout(false);
+			this->tabControl_control->ResumeLayout(false);
+			this->tabPage_basic->ResumeLayout(false);
+			this->groupBox_map->ResumeLayout(false);
+			this->groupBox_map->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar_map_scale))->EndInit();
+			this->groupBox_connection->ResumeLayout(false);
+			this->groupBox_connection->PerformLayout();
+			this->tabPage_speed_control->ResumeLayout(false);
+			this->panel_speed_control->ResumeLayout(false);
+			this->panel_speed_control->PerformLayout();
+			this->panel_space->ResumeLayout(false);
+			this->panel_space->PerformLayout();
+			this->panel_D->ResumeLayout(false);
+			this->panel_D->PerformLayout();
+			this->panel_w->ResumeLayout(false);
+			this->panel_w->PerformLayout();
+			this->panel_A->ResumeLayout(false);
+			this->panel_A->PerformLayout();
+			this->panel_S->ResumeLayout(false);
+			this->panel_S->PerformLayout();
+			this->tab_advanced->ResumeLayout(false);
+			this->groupBox_update_firmware->ResumeLayout(false);
+			this->groupBox_tasks->ResumeLayout(false);
+			this->groupBox_virtual_obstacles->ResumeLayout(false);
+			this->groupBox_virtual_obstacles->PerformLayout();
 			this->statusStrip1->ResumeLayout(false);
 			this->statusStrip1->PerformLayout();
 			this->ResumeLayout(false);
@@ -1091,50 +1052,47 @@ private: System::Windows::Forms::TextBox^  textBox_key;
 	private: 
 		System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e);
 		System::Void MainTimer_Tick(System::Object^  sender, System::EventArgs^  e);
-		System::Void textBox_key_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e);
-
-
+		System::Void send_speed_timer_tick(System::Object^  sender, System::EventArgs^  e);
+		
 		System::Void drawMap();
 		System::Void drawLidarData(IplImage* img);
+		
+		System::Void textBox_speed_control_key_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e);
+		System::Void btn_build_map_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void btn_save_map_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void btn_auto_build_map_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void btn_init_location_Click(System::Object^  sender, System::EventArgs^  e);
 
-		//建图
-		System::Void button_start_build_map_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Void button_stop_build_map_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Void button_start_build_map_auto_Click(System::Object^  sender, System::EventArgs^  e);
-		//定位
-		System::Void button_init_map_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void btn_connect_Click(System::Object^  sender, System::EventArgs^  e);
 
-private: System::Void button_send_target_Click(System::Object^  sender, System::EventArgs^  e);
-
-private: 
-private: System::Void button_connect_Click(System::Object^  sender, System::EventArgs^  e);
-
-private: System::Void drawRobot(IplImage* img);
-private: System::Void drawAstarPoints(IplImage* img);
-private: System::Void drawMotionTrajectory(IplImage* img);
+		System::Void drawRobot(IplImage* img);
+		System::Void drawAstarPoints(IplImage* img);
+		System::Void drawMotionTrajectory(IplImage* img);
 
 
-private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e);
-private: System::Void set_pic_show_scale_Click(System::Object^  sender, System::EventArgs^  e);
-private: System::Void pictureBoxMap_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
-private: System::Void pictureBoxMap_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
-private: System::Void pictureBoxMap_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
-private: System::Void button_config_Click(System::Object^  sender, System::EventArgs^  e);
-		// private: System::Void ValidateSimulationOrRealMode();
-private: System::Void checkBox_simulation_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+		System::Void trackBar_map_scale_Scroll(System::Object^  sender, System::EventArgs^  e);
+		System::Void set_pic_show_scale_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void pictureBoxMap_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void pictureBoxMap_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 
-private: System::Void button_save_simplemap_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void btn_record_video_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void btn_imu_calibrate_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void cb_tcp_or_com_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 
-private: System::Void back_charge_Click(System::Object^  sender, System::EventArgs^  e);
-private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void cb_connect_mpu_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+		System::Void btn_update_map_flag_Click(System::Object^  sender, System::EventArgs^  e);
 
-private: System::Void button_video_record_Click(System::Object^  sender, System::EventArgs^  e);
-private: System::Void button_IMU_calibrate_Click(System::Object^  sender, System::EventArgs^  e);
-private: System::Void CB_UseTcp_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
-private: System::Void BTN_UnifiedSensor_Click(System::Object^  sender, System::EventArgs^  e);
-private: System::Void cb_connectMpu_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
-private: System::Void btn_update_map_flag_Click(System::Object^  sender, System::EventArgs^  e);
-private: System::Void send_speed_timer_tick(System::Object^  sender, System::EventArgs^  e);
+
+		System::Void btn_clear_virtual_obstacles_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void btn_send_virtual_obstacles_Click(System::Object^  sender, System::EventArgs^  e);
+
+		System::Void btn_back_to_charge_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void btn_update_navipack_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void btn_update_lidar_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void btn_do_clean_task_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void btn_optimize_map_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void btn_send_unified_sensor_data_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void pictureBoxMap_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 };
 
 }

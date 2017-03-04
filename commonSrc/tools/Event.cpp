@@ -1,4 +1,4 @@
-﻿#include  "tools/Event.h"
+﻿#include  "Event.h"
 
 #include <new>  
 #include <iostream> // for std::cerr  
@@ -38,7 +38,7 @@ void Event::Reset()
 	ResetEvent(mHandle);
 }
 
-int Event::Wait(int timeout)
+int Event::Wait(uint32_t timeout)
 {
 	DWORD rc = WaitForSingleObject(mHandle, timeout);
 	if (rc == WAIT_TIMEOUT)
@@ -93,7 +93,7 @@ void Event::Reset()
 	pthread_mutex_unlock(&mHandle->mutex);
 }
 
-int Event::Wait(int timeout)
+int Event::Wait(uint32_t timeout)
 {
 	int rc = 0;
 	struct timespec abstime;

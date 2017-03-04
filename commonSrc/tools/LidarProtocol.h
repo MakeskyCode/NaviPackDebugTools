@@ -20,6 +20,7 @@
 #define PARSE_LEN           8192    //>1036
 #define MIN_PRO_NUM      14
 
+#pragma pack(push,1)
 typedef enum
 {
     PACK_FAIL,
@@ -46,17 +47,38 @@ typedef struct
 #define P_SUCCESS    1
 
 
+
 /**
- * @brief  数据包ID
- */
-typedef enum
-{
-    PACK_LIDAR_DATA = 0x00,
-    PACK_SET_SPEED = 0x04,          /*!< 设置Lidar速度 */
-    PACK_START_ROTATE = 0x09,       /*!< 开始旋转 */
-    PACK_NULL = 0xff         /*!< 复位值，表明当前没有数据包 */
+* @brief  数据包ID
+*/
+typedef enum {
+	PACK_LIDAR_DATA,
+	PACK_SET_PIXOFFSET,      /*!< 校准像素偏移量  */
+	PACK_FLASH_CONFIG,       /*!< 烧录配置到flash  */
+	PACK_GET_GYROSCOPE_DATA, /*!< 获取陀螺仪数据 */
+	PACK_SET_SPEED,          /*!< 设置Lidar速度 */
+	PACK_FIRMWARE_UPDATE,    /*!< 更新Firmware */
+	PACK_ANGLE_OFFSET,       /*!< 调整角度偏移量*/
+	PACK_CONTROL_LASER,      /*!< 控制激光*/
+	PACK_DEBUG_MODE,         /*!< 调试模式*/
+	PACK_START_ROTATE,       /*!< 开始旋转 */
+	PACK_COM_TEST,           /*!< 通讯测试模式*/
+	PACK_FORCE_LASER_OPEN,   /*!< 强制激光输出*/
+	PACK_OPEN_LASER_DEFAULT,
+	PACK_CONFIDENCE_FILTER,
+	PACK_SET_LASER_MODULATE_PERIOD,
+	PACK_ACK = 0xfd,
+	PACK_SELF_TEST = 0xfe, /*!< 自检模式 */
+	PACK_NULL = 0xff       /*!< 复位值，表明当前没有数据包 */
 } PackageIDTypeDef;
 
+typedef enum {
+	FW_UPDATE_READY,
+	FW_CRC_ERROR,
+	FW_FLASH_ERROR,
+	FW_OK,
+	FW_NULL = 0xff,
+} FirmwareUpdateType;
 
 typedef struct
 {
@@ -74,12 +96,25 @@ typedef struct IMUDataToLidar {
 
 	IMUDataToLidar() {
 		header.deviceAddr = LIDAR_ADDRESS;	//  cmd
-		header.functionCode = 0X03;	// sub cmd
+		header.functionCode = PACK_GET_GYROSCOPE_DATA;	// sub cmd
 		header.startAddr = 0;		//sub sub cmd
 		header.len = 2;
 	}
 }IMUDataToLidar;
 
+typedef struct UpdateCmdToLidar {
+	SdkProtocolHeader header;
+	char update_data[2048];
+
+	UpdateCmdToLidar() {
+		header.deviceAddr = LIDAR_ADDRESS;	//  cmd
+		header.functionCode = PACK_FIRMWARE_UPDATE;	// sub cmd
+		header.startAddr = 0;		//sub sub cmd
+		header.len = 2;
+	}
+}UpdateCmdToLidar;
+
+#pragma pack(pop)
 #endif
 
 

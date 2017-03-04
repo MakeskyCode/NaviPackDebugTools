@@ -140,9 +140,14 @@ public:
 
 	int ImuCalibrate();
 
+	int UpdateLidarFirmware();
+	int DoCleanTask();
+	int OptimizeMap(bool enable_flag);
+
+
 	int SendUnifiedSensor(int id, UnifiedSensorInfo sensorData);
 
-	void SetCallbacks(DeviceMsgCallBack deviceMsgCb, ErrorMsgCallBack errMsgCallBack,
+	void SetCallbacks(DeviceMsgCallBack deviceMsgCb, RobotMsgCallBack errMsgCallBack,
 		MapPackageCallBack mapPackCb, LidarPackageCallBack lidarPackCb);
 	static void RxDataCallBack(int32_t id, void *param, const uint8_t *data, int32_t len);
 
@@ -150,7 +155,7 @@ public:
 private:
 
 	DeviceMsgCallBack mDeviceMsgCallBack;
-	ErrorMsgCallBack mErrorMsgCallBack;
+	RobotMsgCallBack mErrorMsgCallBack;
 	MapPackageCallBack mMapPackageCallBack;
 	LidarPackageCallBack mLidarPackageCb;
 

@@ -63,7 +63,7 @@ NAVIPACK_API int DLLCALL Close(int id)
 /// @param[in] id NaviPack对象ID
 /// @param[in] deviceMsgCb 设备消息回调
 /// @return  返回值小于0，表示失败，等于0 表示成功
-NAVIPACK_API int DLLCALL SetCallback(int id, DeviceMsgCallBack deviceMsgCb, ErrorMsgCallBack errMsgCb, MapPackageCallBack mapPackCb, LidarPackageCallBack lidarPackCb)
+NAVIPACK_API int DLLCALL SetCallback(int id, DeviceMsgCallBack deviceMsgCb, RobotMsgCallBack errMsgCb, MapPackageCallBack mapPackCb, LidarPackageCallBack lidarPackCb)
 {
 	if (id >= MAX_INTERFACE || CNavipackInterface::navi_interface[id] == NULL)
 	{
@@ -457,6 +457,42 @@ NAVIPACK_API int DLLCALL ImuCalibrate(int id)
 	return CNavipackInterface::navi_interface[id]->ImuCalibrate();
 }
 
+/// 升级lidar固件
+/// @param[in] id		NaviPack对象ID
+/// @return 返回值小于0，表示失败，等于0表示成功
+NAVIPACK_API int DLLCALL UpdateLidarFirmware(int id)
+{
+	if (id >= MAX_INTERFACE || CNavipackInterface::navi_interface[id] == NULL)
+	{
+		return -1;
+	}
+	return CNavipackInterface::navi_interface[id]->UpdateLidarFirmware();
+}
+
+/// 进行清扫任务
+/// @param[in] id		NaviPack对象ID
+/// @return 返回值小于0，表示失败，等于0表示成功
+NAVIPACK_API int DLLCALL DoCleanTask(int id)
+{
+	if (id >= MAX_INTERFACE || CNavipackInterface::navi_interface[id] == NULL)
+	{
+		return -1;
+	}
+	return CNavipackInterface::navi_interface[id]->DoCleanTask();
+}
+
+/// 优化地图
+/// @param[in] id		NaviPack对象ID
+/// @param[in] enable_flag		是否启用优化
+/// @return 返回值小于0，表示失败，等于0表示成功
+NAVIPACK_API int DLLCALL OptimizeMap(int id, bool enable_flag)
+{
+	if (id >= MAX_INTERFACE || CNavipackInterface::navi_interface[id] == NULL)
+	{
+		return -1;
+	}
+	return CNavipackInterface::navi_interface[id]->OptimizeMap(enable_flag);
+}
 
 /// 发送自己的传感器数据到NaviPack
 /// @param[in] id				NaviPack对象ID

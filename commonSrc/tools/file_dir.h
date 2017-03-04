@@ -49,5 +49,6 @@ char* getMapDir();
 //void GetAllFiles(string path, vector<string>& files);
 int readFileList(char *basePath,vector<string>& files);
 char* LoadFileBuf(const char *fileName);
+char* LoadBinaryFileBuf_(const char *fileName, int& file_len);
 
 #endif

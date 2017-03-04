@@ -115,7 +115,7 @@ bool CMapDataManager::ReadMapDataFileList()
 		file_name = cur_map_file_name_prefix_ + sensor_suffix[i] + "simplemap";
 		if (!FileDirectoryExists(file_name))
 		{
-			LOGW("%s do not exist!\n", file_name.c_str());
+			//LOGW("%s do not exist!\n", file_name.c_str());
 			if (map_ini_data_->map_required.data&bit_flag)
 			{
 				all_map_file_ready_ = false;

@@ -90,14 +90,14 @@
     <ClCompile Include="..\commonSrc\hardware_interface\BufferProtocol.cpp">
       <Filter>lib\hardware_interface</Filter>
     </ClCompile>
-    <ClCompile Include="..\commonSrc\tools\SDKProtocolPrivate.h">
-      <Filter>lib\tools</Filter>
+    <ClCompile Include="Android\SdkBase\JniSdkBase.cpp">
+      <Filter>Android</Filter>
     </ClCompile>
     <ClCompile Include="Android\NaviPackSdkJni.cpp">
       <Filter>Android</Filter>
     </ClCompile>
-    <ClCompile Include="Android\SdkBase\JniSdkBase.cpp">
-      <Filter>Android</Filter>
+    <ClCompile Include="..\commonSrc\tools\SDKProtocolPrivate.h">
+      <Filter>lib\tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +108,9 @@
     </ClInclude>
     <ClInclude Include="NavipackInterface.h" />
     <ClInclude Include="NaviPackSDK.h" />
+    <ClInclude Include="..\commonSrc\hardware_interface\FileStreamReaderInterface.h">
+      <Filter>lib\hardware_interface</Filter>
+    </ClInclude>
     <ClInclude Include="..\commonSrc\hardware_interface\InterfaceStreamWriter.h">
       <Filter>lib\hardware_interface</Filter>
     </ClInclude>
@@ -198,14 +201,14 @@
     <ClInclude Include="..\commonSrc\hardware_interface\BufferProtocol.h">
       <Filter>lib\hardware_interface</Filter>
     </ClInclude>
-    <ClInclude Include="..\commonSrc\tools\SDKProtocol.h">
-      <Filter>lib\tools</Filter>
+    <ClInclude Include="Android\SdkBase\JniSdkBase.h">
+      <Filter>Android</Filter>
     </ClInclude>
     <ClInclude Include="Android\com_imscv_NaviPackSdk_NaviPackSdk.h">
       <Filter>Android</Filter>
     </ClInclude>
-    <ClInclude Include="Android\SdkBase\JniSdkBase.h">
-      <Filter>Android</Filter>
+    <ClInclude Include="..\commonSrc\tools\SDKProtocol.h">
+      <Filter>lib\tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -231,7 +234,7 @@
       <UniqueIdentifier>{5e5d570d-33d4-419b-996b-916f459a7036}</UniqueIdentifier>
     </Filter>
     <Filter Include="Android">
-      <UniqueIdentifier>{c2d5d535-7ee8-4155-b0ab-845d48ef8360}</UniqueIdentifier>
+      <UniqueIdentifier>{1636baa9-8e4b-4356-981e-bc64bb6645c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -241,8 +244,5 @@
     <None Include="Android\Android.mk">
       <Filter>Android</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\CMakeLists.txt" />
   </ItemGroup>
 </Project>

@@ -534,9 +534,31 @@ char* LoadFileBuf(const char *fileName)
 	buf[size] = '\0';
 	if (fread(buf, size, 1, fp) < 1)
 	{
-		free(buf);
+		delete[] buf;
 		buf = NULL;
 	}
 	fclose(fp);
+	return buf;
+}
+
+char* LoadBinaryFileBuf_(const char *fileName, int& file_len)
+{
+	FILE *fp = NULL;
+	long size = 0;
+	char *buf = NULL;
+	if ((fp = fopen(fileName, "rb")) == NULL)
+		return NULL;
+	fseek(fp, 0, SEEK_END);
+	size = ftell(fp);	//这两句用于获取文件的长度
+	rewind(fp);			//指向开头
+	buf = new char[size + 1];
+	buf[size] = '\0';
+	if (fread(buf, size, 1, fp) < 1)
+	{
+		delete[] buf;
+		buf = NULL;
+	}
+	fclose(fp);
+	file_len = size;
 	return buf;
 }

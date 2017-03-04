@@ -3,10 +3,11 @@
 
 typedef enum
 {
-	L_INFO=0,
-	L_DEBUG,
+
+	L_INFO = 0,
 	L_WARNING, 
 	L_ERROR, 
+	L_DEBUG,
 	L_FATAL,
 	L_LOG_LEVEL_LAST
 }LogLevel;

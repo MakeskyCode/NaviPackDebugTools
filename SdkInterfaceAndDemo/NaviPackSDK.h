@@ -53,7 +53,7 @@ NAVIPACK_API int DLLCALL Close(int id);
 /// @param[in] errMsgCb	   设备错误消息回调
 /// @param[in] lidarPackCb 雷达原始数据回调
 /// @return  返回值小于0，表示失败，等于0 表示成功
-NAVIPACK_API int DLLCALL SetCallback(int id, DeviceMsgCallBack deviceMsgCb, ErrorMsgCallBack errMsgCb, MapPackageCallBack mapPackCb, LidarPackageCallBack lidarPackCb);
+NAVIPACK_API int DLLCALL SetCallback(int id, DeviceMsgCallBack deviceMsgCb, RobotMsgCallBack errMsgCb, MapPackageCallBack mapPackCb, LidarPackageCallBack lidarPackCb);
 
 /// 读取载体的参数
 /// @param[in] id NaviPack对象ID
@@ -329,6 +329,22 @@ NAVIPACK_API int  DLLCALL SetChangeNaviPackMode(int id, int mode);
 /// @return 返回值小于0，表示失败，等于0表示成功
 NAVIPACK_API int DLLCALL ImuCalibrate(int id);
 
+/// 升级lidar固件
+/// @param[in] id		NaviPack对象ID
+/// @return 返回值小于0，表示失败，等于0表示成功
+NAVIPACK_API int DLLCALL UpdateLidarFirmware(int id);
+
+
+/// 进行清扫任务
+/// @param[in] id		NaviPack对象ID
+/// @return 返回值小于0，表示失败，等于0表示成功
+NAVIPACK_API int DLLCALL DoCleanTask(int id);
+
+/// 优化地图
+/// @param[in] id		NaviPack对象ID
+/// @param[in] enable_flag		是否启用优化
+/// @return 返回值小于0，表示失败，等于0表示成功
+NAVIPACK_API int DLLCALL OptimizeMap(int id, bool enable_flag);
 
 /// 发送自己的传感器数据到NaviPack
 /// @param[in] id				NaviPack对象ID

@@ -18,7 +18,7 @@
 /// @note 属性值由3个部分组成: 主版本号(Bits 24 ~31), 子版本号(Bits 16 ~ 23), 编译号(Bits 0 ~ 15)
 #define MAIN_VER		3
 #define CHILD_VER		2
-#define COMPILE_VER		0
+#define COMPILE_VER		2
 #define NAVIPACK_VISION		(MAIN_VER<<24 | CHILD_VER << 16 | COMPILE_VER)
 
 
@@ -94,7 +94,7 @@ enum SensorType
 	ST_ULTRASOUND = 0x01,
 	ST_ENCODER,
 	ST_SWITCH,
-	ST_CARRIAR,
+	ST_CARRIER,
 	//	ST_MPU6500,
 	ST_CAMERA3D,
 	ST_UNIFIED,
@@ -130,6 +130,7 @@ enum NaviPackMode {
 #define ALG_RAWLOG_REVIEW		0x0A
 #define ALG_SET_UNIFIED_SENSOR_DATA 0X0B
 #define ALG_ENABLE_MAP_UPDATE 0x0C
+#define ALG_ENABLE_OPTIMIZE		  0x0D
 
 //ALG_DATA_READ ADDRESS
 #define ALG_DATA_ADDR_LIDAR_MAP      0x01 // correlation struct AlgLidarMapData
@@ -189,13 +190,16 @@ typedef enum DEVICE_CMD_ERROR_CODE
 }DEVICE_CMD_ERROR_CODE;
 //
 
-#define ALG_CR_ADDR_SET_TARGET			0		//设置目标点组
-#define ALG_CR_ADDR_SPEED_CONTROL		16
-#define ALG_CR_ADDR_BACK_CHARGE			24
-#define ALG_CR_ADDR_MAP_BUILDER			34
-#define ALG_CR_ADDR_IDLE				37
-#define ALG_CR_ADDR_IMU_CELIBRATE		50
-#define ALG_CR_ADDR_UNIFIED_SENSOR		51
+#define ALG_CR_ADDR_SET_TARGET				0		//设置目标点组
+#define ALG_CR_ADDR_SPEED_CONTROL			16
+#define ALG_CR_ADDR_BACK_CHARGE				24
+#define ALG_CR_ADDR_MAP_BUILDER				34
+#define ALG_CR_ADDR_IDLE					37
+#define ALG_CR_ADDR_IMU_CELIBRATE			50
+#define ALG_CR_ADDR_UNIFIED_SENSOR			51
+#define ALG_CR_ADDR_LIDAR_FIRMWARE_UPDATE	52
+#define ALG_CR_ADDR_CLEAN					53
+
 
 
 // MCU
@@ -297,6 +301,59 @@ typedef struct {
 	char pwd[64];
 }WifiParam;
 
+/*清扫指令相关*/
+enum CoverMode
+{
+	COVER_MODE_NORMAL,//普通扫
+	COVER_MODE_FINE,//精细扫
+	COVER_MODE_WALL,//虚拟墙
+	COVER_MODE_FIXPT//定点清扫
+};
+enum CleanMode
+{
+	CLEAN_MODE_SWEEP,//扫地
+	CLEAN_MODE_MOP//拖地
+};
+
+typedef enum _CleanPackType
+{
+	START_MID_SWIP,
+	STOP_MID_SWIP,
+	START_EDGE_SWIP,
+	STOP_EDGE_SWIP,
+	CHANGE_WIND_LEVEL
+}CleanPackType;
+
+
+typedef struct
+{
+	float x_min;
+	float y_min;
+	float width;
+	float height;
+	CoverMode cover_mode;
+	CleanMode clean_mode;
+}RegionRect;
+enum InstructionType
+{
+	CI_IDLE,//空指令
+	CI_PAUSE,//暂停当前任务
+	CI_RESUME,//继续当前任务
+	CI_BACK_CHARGE,//新建回充任务
+	CI_CLEAN//新建清扫任务
+};
+#include <vector>
+using namespace std;
+typedef struct
+{
+	InstructionType type;
+	std::vector<RegionRect>RegionRects;
+	void Reset()
+	{
+		RegionRects.clear();
+		type = CI_IDLE;
+	}
+}CleanInstruction;
 
 typedef struct
 {
@@ -498,7 +555,7 @@ typedef struct
 #pragma pack(pop)
 
 typedef void(*DeviceMsgCallBack)(s32 id, s32 funcCode, s32 code, void* param);
-typedef void(*ErrorMsgCallBack)(s32 id, s32 errorLevel, s32 errorCode, char* msg);
+typedef void(*RobotMsgCallBack)(s32 id, s32 Level, s32 Code, char* msg);
 typedef void(*MapPackageCallBack)(s32 id, FileInfo* fileInfo, s32 checkedOk, const u8* buf, u32 len);
 typedef void(*LidarPackageCallBack)(s32 id,const u8 *buffer, s32 len);
 #endif

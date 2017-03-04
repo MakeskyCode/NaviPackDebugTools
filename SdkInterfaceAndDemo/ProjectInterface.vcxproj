@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="..\commonSrc\errordeal\ErrorEvent.h" />
     <ClInclude Include="..\commonSrc\hardware_interface\BufferProtocol.h" />
+    <ClInclude Include="..\commonSrc\hardware_interface\FileStreamReaderInterface.h" />
     <ClInclude Include="..\commonSrc\hardware_interface\HardwareInterface.h" />
     <ClInclude Include="..\commonSrc\hardware_interface\InterfaceStreamWriter.h" />
     <ClInclude Include="..\commonSrc\hardware_interface\Protocol.h" />
@@ -204,9 +205,6 @@
   <ItemGroup>
     <None Include="Android\Android.mk" />
     <None Include="Android\Application.mk" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

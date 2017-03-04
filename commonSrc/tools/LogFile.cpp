@@ -31,7 +31,7 @@
 #define WHITE        "\033[1;37m"
 #endif
 
-#define PRINT_LEVEL L_INFO
+#define PRINT_LEVEL 0
 
 CriticalSection LogoutCS;
 
@@ -49,12 +49,10 @@ void printc(const char* pszContent, ...)
 
 void println(LogLevel log_level, long long uuid, long long userid, const char* pszContent, ...)
 {
-	return;
+	//return;
 	char buf[1024];
-	const char *header[] = { "[DEBUG] ","[INFO] ","[WARNING] ","[ERROR] ","[FATAL] " };
-#ifdef NAVIPACK_WIN
-	unsigned short color = log_level >= L_WARNING ? FOREGROUND_RED : FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
-#endif
+	const char *header[] = { "[INFO] ","[WARNING] ","[ERROR] ","[DEBUG] ","[FATAL] " };
+
 	if ((log_level >= PRINT_LEVEL) && (log_level < L_LOG_LEVEL_LAST))
 	{
 		va_list args;
@@ -66,21 +64,55 @@ void println(LogLevel log_level, long long uuid, long long userid, const char* p
 			LogoutCS.Enter();
 #ifdef NAVIPACK_WIN			
 			HANDLE console_hwnd = GetStdHandle(STD_OUTPUT_HANDLE);//实例化句柄
-			SetConsoleTextAttribute(console_hwnd, color | FOREGROUND_INTENSITY);
+			switch (log_level)
+			{
+			case L_DEBUG:
+				SetConsoleTextAttribute(console_hwnd, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE );
+				break;
+			case L_WARNING:
+				SetConsoleTextAttribute(console_hwnd, FOREGROUND_GREEN | FOREGROUND_RED);
+				break;
+			case L_ERROR:
+				SetConsoleTextAttribute(console_hwnd, FOREGROUND_RED | FOREGROUND_INTENSITY);
+				break;
+			default:
+				SetConsoleTextAttribute(console_hwnd, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE);
+				break;
+			}
 #else
-			if (log_level >= L_WARNING)
+			switch (log_level)
+			{
+			case L_DEBUG:
+				printf(LIGHT_GRAY);
+				break;
+			case L_WARNING:
+				printf(LIGHT_BLUE);
+				break;
+			case L_ERROR:
 				printf(RED);
+				break;
+			default:
+				printf(LIGHT_BLUE);
+				break;
+			}
 #endif
-			printf("%s", header[log_level]);
+			if (log_level != L_INFO)
+			{
+				printf("%s", header[log_level]);
+				printf(" --> %s\n", buf);
+				//static FILE* file = fopen("log.txt", "w");
+				//fprintf(file, "%s --> %s\n",header[log_level], buf);
+				//fflush(file);
+			}
 
 #ifdef USE_WEB_SERVER
 			if (WsLogServer::Instance()) {
-				WsLogServer::Instance()->Log(log_level, buf);
+				if (log_level != L_DEBUG)//INFO
+				{
+					WsLogServer::Instance()->Log(log_level, buf);
+				}
 			}
-#else
-
 #endif
-			printf(" --> %s\n", buf);
 			LogoutCS.Leave();
 		}
 	}

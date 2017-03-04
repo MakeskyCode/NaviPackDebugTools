@@ -120,7 +120,7 @@ CNavipackInterface::CNavipackInterface(ConnectType type)
 
 }
 
-void CNavipackInterface::SetCallbacks(DeviceMsgCallBack deviceMsgCb, ErrorMsgCallBack errMsgCallBack,
+void CNavipackInterface::SetCallbacks(DeviceMsgCallBack deviceMsgCb, RobotMsgCallBack errMsgCallBack,
 	MapPackageCallBack mapPackCb, LidarPackageCallBack lidarPackCb)
 {
 	mDeviceMsgCallBack = deviceMsgCb;
@@ -554,12 +554,12 @@ int CNavipackInterface::SetMapLayer(AlgMapData *map_data, int map_type)
 	SdkProtocolHeader* head = (SdkProtocolHeader*)buf;
 	head->deviceAddr = ALG_ADDRESS;
 	head->functionCode = ALG_DATA_READ;
-	head->functionCode = map_type;
+	head->startAddr = ALG_DATA_ADDR_LIDAR_MAP;
 
 	memcpy(buf+sizeof(SdkProtocolHeader),map_data,sizeof(AlgMapData));
 
 	u32 encodeLen = RunLenghEncoding(map_data->map, map_data->height*map_data->width, buf+sizeof(AlgMapData) + sizeof(SdkProtocolHeader), 255);
-	LOGD("----------------->>>>>>>>>>>>>>>>>>>>>>%d RunLenghEncoding %d  %d ", sizeof(AlgMapData), map_data->height*map_data->width, encodeLen);
+	//LOGD("----------------->>>>>>>>>>>>>>>>>>>>>>%d RunLenghEncoding %d  %d ", sizeof(AlgMapData), map_data->height*map_data->width, encodeLen);
 
 	if (isConnect) {
 		mHwInterface->WriteData(PT_SERAL_PACKAGE, buf, sizeof(AlgMapData) + sizeof(SdkProtocolHeader) + encodeLen);
@@ -842,6 +842,51 @@ int CNavipackInterface::ImuCalibrate()
 	return -1;
 }
 
+
+int CNavipackInterface::UpdateLidarFirmware()
+{
+	SdkProtocolHeader header;
+	header.deviceAddr = ALG_ADDRESS;
+	header.functionCode = ALG_CONTROL_REG;
+	header.startAddr = ALG_CR_ADDR_LIDAR_FIRMWARE_UPDATE;
+	header.len = 0;
+	if (isConnect) {
+		return mHwInterface->WriteData(PT_SERAL_PACKAGE, (uint8_t*)&header, sizeof(SdkProtocolHeader));
+	}
+	return -1;
+}
+
+int CNavipackInterface::DoCleanTask()
+{
+	SdkProtocolHeader header;
+	header.deviceAddr = ALG_ADDRESS;
+	header.functionCode = ALG_CONTROL_REG;
+	header.startAddr = ALG_CR_ADDR_CLEAN;
+	header.len = 0;
+	if (isConnect) {
+		return mHwInterface->WriteData(PT_SERAL_PACKAGE, (uint8_t*)&header, sizeof(SdkProtocolHeader));
+	}
+	return -1;
+}
+
+int CNavipackInterface::OptimizeMap(bool enable_flag)
+{
+	int nEnable = (enable_flag == true ? 1 : 0);
+	SdkProtocolHeader head;
+	int data_len = 0;
+	u8 *buf = new u8[sizeof(SdkProtocolHeader) + sizeof(u8)];
+	head.deviceAddr = ALG_ADDRESS;
+	head.functionCode = ALG_ENABLE_OPTIMIZE;
+	memcpy(buf, (u8*)&head, sizeof(SdkProtocolHeader)); data_len += sizeof(SdkProtocolHeader);
+	memcpy(buf + data_len, (u8*)&nEnable, sizeof(u8)); data_len += sizeof(u8);
+
+	if (isConnect) {
+		mHwInterface->WriteData(PT_SERAL_PACKAGE, buf, data_len);
+	}
+	delete[] buf;
+	return -1;
+}
+
 int CNavipackInterface::SendUnifiedSensor(int id, UnifiedSensorInfo sensorData)
 {
 	UnifiedSensor_S data;
@@ -873,9 +918,6 @@ void CNavipackInterface::RxDataCallBack(int32_t id, void *param, const uint8_t *
 	if (sizeof(SdkProtocolHeader) <= len)
 	{
 		SdkProtocolHeader *header = (SdkProtocolHeader *)data;
-
-		LOG("RxDataCallBack %d %d %d len = %d", header->deviceAddr, header->functionCode,header->startAddr,len);
-		//return;
 		if (header->deviceAddr == ALG_ADDRESS)
 		{
 			switch (header->functionCode)
@@ -966,10 +1008,12 @@ void CNavipackInterface::RxDataCallBack(int32_t id, void *param, const uint8_t *
 			else if (header->functionCode == UPDATE_MAP_LIST)//更新地图列表
 			{
 				memcpy(&(face->mMapListInfo),&data[sizeof(SdkProtocolHeader)],sizeof(MapListInfo));
-				if (face->mDeviceMsgCallBack) face->mDeviceMsgCallBack(id, header->functionCode, face->mMapListInfo.mapListNum, NULL);
+				if (face->mDeviceMsgCallBack) 
+					face->mDeviceMsgCallBack(id, header->functionCode, face->mMapListInfo.mapListNum, NULL);
 			}
 			else {
-				if (face->mDeviceMsgCallBack) face->mDeviceMsgCallBack(id, header->functionCode, header->len, NULL);
+				if (face->mDeviceMsgCallBack) 
+					face->mDeviceMsgCallBack(id, header->functionCode, header->len, NULL);
 			}
 		
 		}

@@ -1,8 +1,8 @@
-﻿#include  "Thread.h"
+﻿#include  "tools/Thread.h"
 
-#include "windowsdef.h"
-#include "LogFile.h"
-
+#include "tools/windowsdef.h"
+#include "tools/LogFile.h"
+using namespace std;
 
 //std::list<Thread *> Thread::mThreadList;
 Thread* Thread::mThreadList[MAX_THREAD_NUM];
@@ -42,7 +42,7 @@ int Thread::Create(const char * name,ThreadCallback callback, void *param)
 	{
 		mThreadList[pos] = this;
 	}
-	LOGD("Thread [%s] Created, Total Thread Num:%d", mThreadName, mThreadCnt);
+	//LOGD("Thread [%s] Created, Total Thread Num:%d", mThreadName, mThreadCnt);
 
 #if NAVIPACK_WIN
 	mThreadHandle = CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)WorkThread, this, NULL, NULL);
@@ -64,7 +64,8 @@ int Thread::Exit(int timeout /* = -1 */)
 		CloseHandle(mThreadHandle);
 #else
 		void *status;
-		pthread_join(mThreadHandle, &status);
+	//	pthread_join(mThreadHandle, &status);
+	//	pthread_exit(mThreadHandle, &status);
 #endif
 		mThreadHandle = INVALID_HANDLE_VALUE;
 		return 0;
@@ -74,7 +75,7 @@ int Thread::Exit(int timeout /* = -1 */)
 
 int Thread::Start()
 {
-	LOGD("[%s] Thread::Start", mThreadName);
+	//LOGD("[%s] Thread::Start", mThreadName);
 	mExitFlag = 0;//gk add 2016/07/30 退出标记置为1
 	if (mThreadHandle == INVALID_HANDLE_VALUE)
 	{
@@ -98,7 +99,7 @@ void Thread::Suspend()
 		}
 		Sleep(1);
 	}
-	LOGD("Thread Suspend success!");
+	//LOGD("Thread Suspend success!");
 }
 
 void Thread::Resume()
@@ -112,7 +113,7 @@ void Thread::Resume()
 
 void Thread::WorkThreadLoop()
 {
-	LOGD( "Thread [%s] Started", mThreadName);
+	//LOGD( "Thread [%s] Started", mThreadName);
 
 	if (strcmp(mThreadName, "mWorkerThread IdleCommander") == 0)
 	{
@@ -139,7 +140,7 @@ void Thread::WorkThreadLoop()
 			{
 				if (mExitFlag)
 				{
-					LOGD("[%s] mExitFlag is true , WorkThreadLoop exit", mThreadName);
+					//LOGD("[%s] mExitFlag is true , WorkThreadLoop exit", mThreadName);
 					return;
 				}
 				
@@ -147,7 +148,7 @@ void Thread::WorkThreadLoop()
 				if (-1 == mCallBack(mUserParam))
 				{
 					mExitFlag = true;
-					LOGD("[%s] mCallBack return -1 ,WorkThreadLoop exit", mThreadName);
+					//LOGD("[%s] mCallBack return -1 ,WorkThreadLoop exit", mThreadName);
 					return;
 				}
 				mTimeInterval.Tac();

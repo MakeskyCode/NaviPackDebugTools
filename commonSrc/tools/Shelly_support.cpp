@@ -3,6 +3,8 @@
 #include <string>
 #include <cstdarg>
 #include "tools/Shelly_support.h"
+// #include "serial_communication/compress/CFileInputStream.h"
+// #include "serial_communication/compress/CFileOutputStream.h"
 
 #include "tools/file_dir.h"
 #ifdef SHELLY_OS_WINDOWS
@@ -63,7 +65,24 @@ string shelly::format(const char *fmt, ...)
 	string s(&buffer[0]);
 	return s;
 }
+//
+//unsigned __int64 shelly::time_tToTimestamp(const double &t)
+//{
+//	return (unsigned __int64)(t*10000000.0) + ((unsigned __int64)116444736 * 1000000000);
+//}
 
+//unsigned __int64  shelly::GetCurrentTick()
+//{
+//#ifdef SHELLY_OS_WINDOWS
+//	FILETIME		t;
+//	GetSystemTimeAsFileTime(&t);
+//	return (((unsigned __int64)t.dwHighDateTime) << 32) | ((unsigned __int64)t.dwLowDateTime);
+//#else
+//	timespec  tim;
+//	clock_gettime(CLOCK_REALTIME, &tim);
+//	return time_tToTimestamp(tim.tv_sec) + tim.tv_nsec / 100;
+//#endif
+//}
 
 bool shelly::vectorToBinaryFile(const vector<char> &vec, const std::string &fileName)
 {

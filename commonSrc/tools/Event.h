@@ -22,7 +22,7 @@ typedef struct
 #endif
 
 #define IMMEDIATELY_RETUREN 0
-#define INFINITE_WAIT -1
+#define INFINITE_WAIT 0xFFFFFFFF
 
 class Event
 {
@@ -33,7 +33,7 @@ public:
 
 	void Set();
 	void Reset();
-	int Wait(int timeout);
+	int Wait(uint32_t timeout);
 
 private:
 
