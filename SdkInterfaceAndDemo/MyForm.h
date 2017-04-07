@@ -191,6 +191,15 @@ private: System::Windows::Forms::Panel^  panel_space;
 private: System::Windows::Forms::Label^  label_space;
 private: System::Windows::Forms::GroupBox^  groupBox_update_firmware;
 private: System::Windows::Forms::GroupBox^  groupBox_tasks;
+private: System::Windows::Forms::TabPage^  tabPage1;
+private: System::Windows::Forms::OpenFileDialog^  openFileDialog;
+private: System::Windows::Forms::GroupBox^  groupBox1;
+private: System::Windows::Forms::Button^  btnUpload;
+private: System::Windows::Forms::Button^  btnDownloadMap;
+
+private: System::Windows::Forms::SaveFileDialog^  saveFileDialog;
+
+
 
 
 
@@ -273,12 +282,18 @@ private: System::Windows::Forms::GroupBox^  groupBox_tasks;
 			this->btn_clear_virtual_obstacles = (gcnew System::Windows::Forms::Button());
 			this->cb_enable_drawing_pen = (gcnew System::Windows::Forms::CheckBox());
 			this->btn_send_virtual_obstacles = (gcnew System::Windows::Forms::Button());
+			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
+			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->btnUpload = (gcnew System::Windows::Forms::Button());
+			this->btnDownloadMap = (gcnew System::Windows::Forms::Button());
 			this->statusStrip1 = (gcnew System::Windows::Forms::StatusStrip());
 			this->toolStripStatusLabel1 = (gcnew System::Windows::Forms::ToolStripStatusLabel());
 			this->toolStripStatusLabel2 = (gcnew System::Windows::Forms::ToolStripStatusLabel());
 			this->toolStripStatusLabel3 = (gcnew System::Windows::Forms::ToolStripStatusLabel());
 			this->send_speed_timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->MainTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->saveFileDialog = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->panel_all->SuspendLayout();
 			this->panel_display->SuspendLayout();
 			this->tabControl_display->SuspendLayout();
@@ -302,6 +317,8 @@ private: System::Windows::Forms::GroupBox^  groupBox_tasks;
 			this->groupBox_update_firmware->SuspendLayout();
 			this->groupBox_tasks->SuspendLayout();
 			this->groupBox_virtual_obstacles->SuspendLayout();
+			this->tabPage1->SuspendLayout();
+			this->groupBox1->SuspendLayout();
 			this->statusStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -382,6 +399,7 @@ private: System::Windows::Forms::GroupBox^  groupBox_tasks;
 			this->tabControl_control->Controls->Add(this->tabPage_basic);
 			this->tabControl_control->Controls->Add(this->tabPage_speed_control);
 			this->tabControl_control->Controls->Add(this->tab_advanced);
+			this->tabControl_control->Controls->Add(this->tabPage1);
 			this->tabControl_control->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->tabControl_control->Font = (gcnew System::Drawing::Font(L"宋体", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(134)));
@@ -958,6 +976,47 @@ private: System::Windows::Forms::GroupBox^  groupBox_tasks;
 			this->btn_send_virtual_obstacles->UseVisualStyleBackColor = true;
 			this->btn_send_virtual_obstacles->Click += gcnew System::EventHandler(this, &MyForm::btn_send_virtual_obstacles_Click);
 			// 
+			// tabPage1
+			// 
+			this->tabPage1->Controls->Add(this->groupBox1);
+			this->tabPage1->Location = System::Drawing::Point(4, 22);
+			this->tabPage1->Name = L"tabPage1";
+			this->tabPage1->Size = System::Drawing::Size(312, 611);
+			this->tabPage1->TabIndex = 3;
+			this->tabPage1->Text = L"Update";
+			this->tabPage1->UseVisualStyleBackColor = true;
+			// 
+			// groupBox1
+			// 
+			this->groupBox1->Controls->Add(this->btnUpload);
+			this->groupBox1->Controls->Add(this->btnDownloadMap);
+			this->groupBox1->Location = System::Drawing::Point(34, 115);
+			this->groupBox1->Name = L"groupBox1";
+			this->groupBox1->Size = System::Drawing::Size(272, 108);
+			this->groupBox1->TabIndex = 65;
+			this->groupBox1->TabStop = false;
+			this->groupBox1->Text = L"UPLOAD AND DOWMLOAD MAP";
+			// 
+			// btnUpload
+			// 
+			this->btnUpload->Location = System::Drawing::Point(15, 33);
+			this->btnUpload->Name = L"btnUpload";
+			this->btnUpload->Size = System::Drawing::Size(185, 23);
+			this->btnUpload->TabIndex = 57;
+			this->btnUpload->Text = L"UploadMAp";
+			this->btnUpload->UseVisualStyleBackColor = true;
+			this->btnUpload->Click += gcnew System::EventHandler(this, &MyForm::btnUploadMap);
+			// 
+			// btnDownloadMap
+			// 
+			this->btnDownloadMap->Location = System::Drawing::Point(15, 64);
+			this->btnDownloadMap->Name = L"btnDownloadMap";
+			this->btnDownloadMap->Size = System::Drawing::Size(185, 23);
+			this->btnDownloadMap->TabIndex = 59;
+			this->btnDownloadMap->Text = L"DownloadMap";
+			this->btnDownloadMap->UseVisualStyleBackColor = true;
+			this->btnDownloadMap->Click += gcnew System::EventHandler(this, &MyForm::btnDownloadMap_Click);
+			// 
 			// statusStrip1
 			// 
 			this->statusStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
@@ -997,6 +1056,10 @@ private: System::Windows::Forms::GroupBox^  groupBox_tasks;
 			// 
 			this->MainTimer->Enabled = true;
 			this->MainTimer->Tick += gcnew System::EventHandler(this, &MyForm::MainTimer_Tick);
+			// 
+			// openFileDialog
+			// 
+			this->openFileDialog->FileName = L"openFileDialog";
 			// 
 			// MyForm
 			// 
@@ -1041,6 +1104,8 @@ private: System::Windows::Forms::GroupBox^  groupBox_tasks;
 			this->groupBox_tasks->ResumeLayout(false);
 			this->groupBox_virtual_obstacles->ResumeLayout(false);
 			this->groupBox_virtual_obstacles->PerformLayout();
+			this->tabPage1->ResumeLayout(false);
+			this->groupBox1->ResumeLayout(false);
 			this->statusStrip1->ResumeLayout(false);
 			this->statusStrip1->PerformLayout();
 			this->ResumeLayout(false);
@@ -1093,6 +1158,9 @@ private: System::Windows::Forms::GroupBox^  groupBox_tasks;
 		System::Void btn_optimize_map_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void btn_send_unified_sensor_data_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void pictureBoxMap_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+
+		 System::Void btnUploadMap(System::Object^  sender, System::EventArgs^  e);
+		 System::Void btnDownloadMap_Click(System::Object ^ sender, System::EventArgs ^ e);
 };
 
 }

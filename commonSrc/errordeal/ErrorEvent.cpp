@@ -46,7 +46,7 @@ void ErrorEvent::AddErrorMsg(int32_t errorLevel, int32_t errorCode, uint8_t isNe
 		len = 128;
 	}
 
-	LOGE("AddErrorMsg code = %d msg = %s", errorCode, buf);
+	//LOGE("AddErrorMsg code = %d msg = %s", errorCode, buf);
 
 	if (isNeedSendToRemote)
 	{

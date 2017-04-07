@@ -212,7 +212,7 @@ int TCPServerInterface::ListenThreadLoop(void * param)
 		tcpsi->mClientSocket = sock;
 
 		int remotePartPort = ntohs(tcpsi->mClientAddr.sin_port);
-		LOG("\n\n %s [CTCPServer::accept] ---->  Conection accepted from %s:%u, client sock=%d \n\n", tcpsi->mFileName,
+		LOGD("\n\n %s [CTCPServer::accept] ---->  Conection accepted from %s:%u, client sock=%d \n\n", tcpsi->mFileName,
 			inet_ntoa(tcpsi->mClientAddr.sin_addr), remotePartPort, tcpsi->mClientSocket);
 		tcpsi->mIsOpened = 1;
 		

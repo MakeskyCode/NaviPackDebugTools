@@ -21,13 +21,14 @@ public:
 
 
 	char* getFileName();
-
+	char* getFullName();
 	int mNeedLen;
 
 private:
 	FILE* m_pFile;
 	char mFileName[64];
 	char mFileDirName[128];
+	char mFileFullName[128];
 	int mWriteLen;
 };
 

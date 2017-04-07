@@ -8,6 +8,7 @@
 #include "tools/file_dir.h"
 
 #include "tools/SDKProtocolPrivate.h"
+#include "lz4/lz4.h"
 
 
 #ifdef NAVIPACK_WIN
@@ -490,7 +491,7 @@ int CNavipackInterface::SetGetCurrentMap()
 /// @return 返回值小于0，表示失败，等于0 表示成功
 int CNavipackInterface::LoadLocalMap(const char* local_map_path, int map_id)
 {
-	return -1;
+	return SendFile(SEND_FILE_TYPE_MAP_PACKAGE, local_map_path);
 }
 
 /// 保存当前的NaviPack上运行的地图到上位机本地
@@ -502,7 +503,37 @@ int CNavipackInterface::LoadLocalMap(const char* local_map_path, int map_id)
 /// @return 返回值小于0，表示失败，等于0 表示成功
 int CNavipackInterface::SaveMapToLocal(const char * local_map_path, int picture_flag)
 {
-	return -1;
+	LOGD("CNavipackInterface::SaveMapToLocal local_map_path(%s)", local_map_path);
+
+	char file[FILE_PATH_MAX_LEN];
+	if (strlen(local_map_path) >= sizeof(file))
+	{
+		LOGD("Path Name too long");
+		return -2;
+	}
+
+	memset(file, 0, sizeof(file));
+
+	int data_len = sizeof(SdkProtocolHeader) + sizeof(file);
+	int ret = -1;
+
+	u8 *buffer = new u8[data_len];
+	SdkProtocolHeader *head = (SdkProtocolHeader*)buffer;
+	head->deviceAddr = DEVICE_MSG;
+	head->functionCode = SET_NAVAPACK_UPLOAD_MAP;
+
+	sprintf(file, "%s", local_map_path);
+
+	memcpy(&buffer[sizeof(SdkProtocolHeader)], file, sizeof(file));
+
+	LOGD("SetSaveMap file(%s) name(%s)", file, &buffer[sizeof(SdkProtocolHeader)]);
+
+	if (isConnect) {
+		ret = mHwInterface->WriteData(PT_SERAL_PACKAGE, buffer, data_len);
+	}
+
+	return ret;
+
 }
 
 static void GetMapLayerData(AlgMapData* mapDst, AlgMapData* mapSrc)
@@ -606,8 +637,8 @@ int CNavipackInterface::InitLocation()
 	delete[] buf;
 	return 0;
 }
-#define T_BUF_SIZE (128*1024)
-
+//#define T_BUF_SIZE (128*1024)
+#define T_BUF_SIZE (120*1024)
 int  CNavipackInterface::SendFile(u8 type, const char * fileName)
 {
 	//step 1 check file exist
@@ -687,19 +718,19 @@ int  CNavipackInterface::SendFile(u8 type, const char * fileName)
 			fileInfo->partLen = bytes;
 			md5.GetBufferMd5(pmd5, pBak + sizeof(SdkProtocolHeader) + sizeof(FileInfo), bytes);
 			memcpy(fileInfo->md5, pmd5, sizeof(fileInfo->md5));
-			LOGE("%d,%d UpdateNaviPack packName--> %s md5:%s", bytes, fileInfo->partLen, packName, pmd5);
+			//LOGE("%d,%d UpdateNaviPack packName--> %s md5:%s", bytes, fileInfo->partLen, packName, pmd5);
 			if (isConnect)
 			{
 				int n = mHwInterface->WriteData(PT_SERAL_PACKAGE, (uint8_t*)pBak, sizeof(SdkProtocolHeader) + sizeof(FileInfo) + bytes);
 				if (n != sizeof(SdkProtocolHeader) + sizeof(FileInfo) + bytes)
 				{
-					LOGE("-------------->mHwInterface->WriteData = %d needWrite = %d",n, sizeof(SdkProtocolHeader) + sizeof(FileInfo) + bytes);
+					//LOGE("-------------->mHwInterface->WriteData = %d needWrite = %d  partNum=%d",n, sizeof(SdkProtocolHeader) + sizeof(FileInfo) + bytes, fileInfo->partNum);
 				}
 			}
 		}
 		if (bytes < T_BUF_SIZE) //complete
 		{
-			LOGE("bytes < T_BUF_SIZE write over");
+			//LOGE("bytes < T_BUF_SIZE write over");
 			fclose(pFile);
 			pFile = NULL;
 			break;
@@ -742,6 +773,7 @@ int CNavipackInterface::SetSaveMap(const char* filePath, const char* fileName)
 	char file[FILE_PATH_MAX_LEN];
 	if (strlen(filePath) + strlen(fileName) + sizeof(char) >= sizeof(file))
 	{
+		LOGD("Path Name too long");
 		return -2;
 	}
 
@@ -901,6 +933,20 @@ int CNavipackInterface::SendUnifiedSensor(int id, UnifiedSensorInfo sensorData)
 	return -1;
 }
 
+void CNavipackInterface::GetAlgMapDataFromRxDataLz4(AlgMapData* mapData, const uint8_t* data, uint32_t len)
+{
+	memcpy((u8*)(mapData), &data[sizeof(SdkProtocolHeader)], (sizeof(AlgMapData) - sizeof(mapData->map)));
+	int encDataLen = len - (sizeof(AlgMapData) + sizeof(SdkProtocolHeader));
+	int decLen = LZ4_decompress_safe((char *)&data[sizeof(SdkProtocolHeader) + sizeof(AlgMapData)], (char *)mapData->map, encDataLen, MAX_MAP_SIZE);
+//	if (deccLen == w*h)
+//	{
+//		return true;
+//	}
+//	return false;
+	//int decLen = RunLenghDecoding(&data[sizeof(SdkProtocolHeader) + sizeof(AlgMapData)], encDataLen, mapData->map, MAX_MAP_SIZE);
+	//LOG("%d RunLenghDecoding IN(%d) OUT(%d)", sizeof(AlgMapData), encDataLen, decLen);
+}
+
 void CNavipackInterface::GetAlgMapDataFromRxData(AlgMapData* mapData,const uint8_t* data, uint32_t len)
 {
 	memcpy((u8*)(mapData), &data[sizeof(SdkProtocolHeader)], (sizeof(AlgMapData) - sizeof(mapData->map)));
@@ -908,7 +954,7 @@ void CNavipackInterface::GetAlgMapDataFromRxData(AlgMapData* mapData,const uint8
 	int encDataLen = len - (sizeof(AlgMapData) + sizeof(SdkProtocolHeader));
 	int decLen = RunLenghDecoding(&data[sizeof(SdkProtocolHeader) + sizeof(AlgMapData)], encDataLen, mapData->map, MAX_MAP_SIZE);
 	//LOG("%d RunLenghDecoding IN(%d) OUT(%d)", sizeof(AlgMapData), encDataLen, decLen);
-
+	//check...
 }
 
 void CNavipackInterface::RxDataCallBack(int32_t id, void *param, const uint8_t *data, int32_t len)
@@ -923,6 +969,7 @@ void CNavipackInterface::RxDataCallBack(int32_t id, void *param, const uint8_t *
 			switch (header->functionCode)
 			{
 			case ALG_DATA_READ:
+			{
 
 				switch (header->startAddr)
 				{
@@ -938,6 +985,15 @@ void CNavipackInterface::RxDataCallBack(int32_t id, void *param, const uint8_t *
 				{
 					face->lidar_cs.Enter();
 					face->GetAlgMapDataFromRxData(face->mLidarMap, data,len);
+					if (face->mDeviceMsgCallBack) face->mDeviceMsgCallBack(id, UPDATE_MAP, LIDAR_MAP, NULL);
+					face->lidar_cs.Leave();
+					break;
+				}
+				case ALG_DATA_ADDR_LIDAR_MAP_LZ4:
+				{
+					face->lidar_cs.Enter();
+					static long i = 0;
+					face->GetAlgMapDataFromRxDataLz4(face->mLidarMap, data, len);
 					if (face->mDeviceMsgCallBack) face->mDeviceMsgCallBack(id, UPDATE_MAP, LIDAR_MAP, NULL);
 					face->lidar_cs.Leave();
 					break;
@@ -968,13 +1024,15 @@ void CNavipackInterface::RxDataCallBack(int32_t id, void *param, const uint8_t *
 				}
 				case ALG_DATA_ADDR_LIDAR_RAW_DATA:		//得到了雷达原始数据
 				{
-					LOGD("get lidar raw data %d",len);
-				}
-				break;
-				default:
+					LOGD("get lidar raw data %d", len);
 					break;
 				}
 
+				default:
+					break;
+				}
+				break;
+			}
 			default:
 				break;
 			}
@@ -993,7 +1051,7 @@ void CNavipackInterface::RxDataCallBack(int32_t id, void *param, const uint8_t *
 					memcpy(fileInfoMd5, fileInfo->md5, sizeof(pmd5));
 					fileInfoMd5[32] = 0;
 					md5.GetBufferMd5(pmd5, (char*)(data + sizeof(SdkProtocolHeader) + sizeof(FileInfo)), fileInfo->partLen);
-					LOGD(" %d md5 cmp \n\t%s \n\t%s", fileInfo->partLen, fileInfoMd5, pmd5);
+				//	LOGD(" %d md5 cmp \n\t%s \n\t%s", fileInfo->partLen, fileInfoMd5, pmd5);
 					if (memcmp(pmd5, fileInfo->md5, sizeof(fileInfo->md5)) == 0)//校验成功
 					{
 						checkedOk = 1;

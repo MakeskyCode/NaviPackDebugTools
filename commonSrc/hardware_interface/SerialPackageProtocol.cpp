@@ -126,6 +126,13 @@ int SerialPackageProtocol::PushBuffer(const uint8_t * points, int32_t len)
 	//LOGW("SerialPackageProtocol push buffer mCallBackInfoArraySize %d %d\n", mCallBackInfoArraySize, len);
 	//LOGW("PushBuffer %x %x %x %x %x %x %x %x %x %x %x %x", points[0], points[1], points[2], points[3], points[4],
 	//	 points[5], points[6], points[7], points[8], points[9], points[10], points[11]);
+
+
+	//Sleep(80);
+	/* Sleep here might solve the Packet loss problem 
+	    when  the size of uint8_t txBuf[] in HardwareInterface::TxThreadLoop is 2048
+		---ldw 170317
+	*/
 	for (int i = 0; i < len; i++)
 	{
 		if (PushByte(points[i]))
@@ -167,7 +174,7 @@ int SerialPackageProtocol::PushBuffer(const uint8_t * points, int32_t len)
 					float time2 = (float)(clock() * 1000 / CLOCKS_PER_SEC);
 					if (time2 - time1 > 10.0f)//如果时间大于10ms
 					{
-						LOG("cost too much time in callback function! using time = %.2f\n", time2 - time1);
+						//LOGD("cost too much time in callback function! using time = %.2f\n", time2 - time1);
 					}
 				}
 			}	

@@ -11,7 +11,7 @@
 char g_divideChar = '\\';
 #else
 char g_divideChar = '/';
-#endif
+#endif	
 
 const char* tempFileName = "tempFile";
 
@@ -19,6 +19,8 @@ CFile::CFile()
 {
 	m_pFile = NULL;
 	memset(mFileName,0,sizeof(mFileName));
+	memset(mFileDirName, 0, sizeof(mFileDirName));
+	memset(mFileFullName, 0, sizeof(mFileFullName));
 }
 
 CFile::~CFile()
@@ -69,10 +71,13 @@ int CFile::Open(const char* fileDir, const char* fileName, OpenMode mode)
 			LOGE("fileName is too long ");
 			return -5;
 		}
-		char* file = new char[strlen(fileDir) + strlen(tempFileName) + sizeof(g_divideChar)];
+		char* file = new char[strlen(fileDir) + strlen(tempFileName) + sizeof(g_divideChar)+1];
+		memset(file, 0, (strlen(fileDir) + strlen(tempFileName) + sizeof(g_divideChar))+1);
 		memcpy(file, fileDir, strlen(fileDir));
 		file[strlen(fileDir)] = divideChar;
+		//*(file + strlen(fileDir)) = divideChar;
 		memcpy(file + strlen(fileDir) + sizeof(divideChar), tempFileName, strlen(tempFileName));
+		//*(file + strlen(fileDir) + sizeof(divideChar) + strlen(tempFileName)) = '\0';
 		m_pFile = fopen(file, "wb");
 		if (m_pFile == NULL)
 		{
@@ -87,8 +92,8 @@ int CFile::Open(const char* fileDir, const char* fileName, OpenMode mode)
 //×·¼ÓÄÚÈÝ
 int CFile::AddBuf(char *buf, int len)
 {
-	LOGE("CFile::AddBuf:");
-	LOGE("AddBuf %s %d", mFileName, len);
+	//LOGE("CFile::AddBuf:");
+	//LOGE("AddBuf %s %d", mFileName, len);
 	if (m_pFile == NULL)
 	{
 		LOGE("m_pFile is null");
@@ -97,7 +102,7 @@ int CFile::AddBuf(char *buf, int len)
 	int writeLen = 0;
 	while (writeLen < len)
 	{
-		LOGD("writeLen = %d %d %p", writeLen,len,buf);
+		//LOGD("writeLen = %d %d %p", writeLen,len,buf);
 		writeLen += fwrite(buf + writeLen, 1, len - writeLen, m_pFile);
 	}
 
@@ -131,20 +136,35 @@ int CFile::Close(int needSave,int isNeedMove)
 	mNeedLen = 0;
 	char cmd[256];
 	memset(cmd,0,sizeof(cmd));
-	sprintf(cmd,"mv %s%c%s %s%c%s",mFileDirName,divideChar,tempFileName,mFileDirName, divideChar,mFileName);
+#ifdef NAVIPACK_WIN
+	sprintf(cmd,"move %s%c%s %s%c%s",mFileDirName,divideChar,tempFileName,mFileDirName, divideChar,mFileName);
+#else
+	sprintf(cmd, "mv %s%c%s %s%c%s", mFileDirName, divideChar, tempFileName, mFileDirName, divideChar, mFileName);
+#endif
 	LOGD("cmd:%s",cmd);
-
+	sprintf(mFileFullName, "%s%c%s",mFileDirName, divideChar, mFileName);
 
 	if (isNeedSave == 1)
 	{
 		system(cmd);
 	}
 
-	memset(mFileName,0,sizeof(mFileName));
+	//why clean mFileName? --ldw
+	//memset(mFileName,0,sizeof(mFileName));
 	return 0;
 }
 
 char* CFile::getFileName()
 {
 	return mFileName;
+}
+
+char* CFile::getFullName()
+{
+	/*
+	char tmpFullName[512];
+	memset(tmpFullName, 0, sizeof(tmpFullName));
+	sprintf(tmpFullName, "%s%c%s", mFileDirName, divideChar, mFileName);
+	*/
+	return mFileFullName;
 }

@@ -99,6 +99,9 @@
     <ClCompile Include="..\commonSrc\tools\SDKProtocolPrivate.h">
       <Filter>lib\tools</Filter>
     </ClCompile>
+    <ClCompile Include="..\commonSrc\lz4\lz4.cpp">
+      <Filter>lib\lz4</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h" />
@@ -210,6 +213,9 @@
     <ClInclude Include="..\commonSrc\tools\SDKProtocol.h">
       <Filter>lib\tools</Filter>
     </ClInclude>
+    <ClInclude Include="..\commonSrc\lz4\lz4.h">
+      <Filter>lib\lz4</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx" />
@@ -235,6 +241,9 @@
     </Filter>
     <Filter Include="Android">
       <UniqueIdentifier>{1636baa9-8e4b-4356-981e-bc64bb6645c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\lz4">
+      <UniqueIdentifier>{e13e260b-b9f5-4458-9d9e-b3f54b4cc8e2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

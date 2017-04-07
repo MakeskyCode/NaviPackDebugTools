@@ -2,9 +2,11 @@
 #include "tools/LogFile.h"
 
 int32_t HardwareInterface::mIdCounter = MAX_INTERFACE_ID;
+InterfaceStreamWriter* HardwareInterface::mInterfaceStreamWriter = NULL;
 
 void HardwareInterface::initInterfaceParam(uint32_t MaxTxBufferSize)
 {
+	mIsNeedWriteToFile = false;
 	ResetCounters();
 
 	for (int i = 0; i < MAX_PROTOCOL_NUM; i++)
@@ -89,6 +91,9 @@ int HardwareInterface::RxFun()
 
 		mCS.Enter();
 
+		if (mIsNeedWriteToFile) {
+			mInterfaceStreamWriter->Write(mId, (const char *)buf, readed);
+		}
 
 		for (int32_t i = 0; i < mProtocolArraySize; i++)
 		{
@@ -143,7 +148,29 @@ int HardwareInterface::TxThreadLoop(void * param)
 	return 0;
 }
 
+void HardwareInterface::EnableStreamToFile(const char * stream_file_name)
+{
 
+	//对于来自文件的接口，不再进行录制
+	if (GetInterfaceType() == FILE_STREAM_READER)
+		return;
+
+	mCS.Enter();
+	if (mInterfaceStreamWriter == NULL)
+	{
+		mInterfaceStreamWriter = new InterfaceStreamWriter(stream_file_name);
+	}
+	mIsNeedWriteToFile = true;
+
+	mCS.Leave();
+}
+
+void HardwareInterface::DisableStreamToFile()
+{
+	mCS.Enter();
+	mIsNeedWriteToFile = false;
+	mCS.Leave();
+}
 
 const char * HardwareInterface::GetInterfaceTypeName(InterfaceType it)
 {
@@ -159,7 +186,7 @@ const char * HardwareInterface::GetInterfaceTypeName(InterfaceType it)
 
 int HardwareInterface::AddRxCallBack(ProtocolType type, HardwareInterfaceCallBack func, void *param,uint32_t maxRxBufferSize)
 {
-	LOGD("%s AddRxCallBack", mFileName);
+	//LOGD("%s AddRxCallBack", mFileName);
 	int i;
 	mCS.Enter();
 	for(i = 0 ; i < mProtocolArraySize ; i ++)

@@ -197,6 +197,7 @@ private:
 	static int navi_interfaceidex;
 
 	void GetAlgMapDataFromRxData(AlgMapData* mapData, const uint8_t* data,uint32_t len);
+	void GetAlgMapDataFromRxDataLz4(AlgMapData* mapData, const uint8_t* data, uint32_t len);
 
 	CFile mSaveMapFile;
 

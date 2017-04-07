@@ -171,6 +171,7 @@ jint JniSetSaveMap(JNIEnv *env, jobject obj, jint id,jstring filePath, jstring f
 jint JniSendFile(JNIEnv *env, jobject obj, jint id, jint type, jstring filePath, jstring fileName);
 jint JniSetChangeNaviPackMode(JNIEnv *env, jobject obj, jint id, jint mode);
 jint JniImuCalibrate(JNIEnv *env, jobject obj, jint id);
+jint JniEnableUpdateMap(JNIEnv *env, jobject obj,jint id, jboolean bUpdate_flag);
 //jobject JniGetAlgMapData(JNIEnv *env, jobject obj, jint id, jint type);
 
 #endif

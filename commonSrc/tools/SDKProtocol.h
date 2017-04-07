@@ -12,12 +12,12 @@
 #define UNIFIED_SENSOR_RESOLUTION 360
 #define MAX_MAP_SIZE	(2000*2000)
 
-#define FILE_PATH_MAX_LEN 64
+#define FILE_PATH_MAX_LEN 128
 /// 获得当前SDK的版本号
 /// @return 返回NaviPack对象的ID
 /// @note 属性值由3个部分组成: 主版本号(Bits 24 ~31), 子版本号(Bits 16 ~ 23), 编译号(Bits 0 ~ 15)
 #define MAIN_VER		3
-#define CHILD_VER		2
+#define CHILD_VER		3
 #define COMPILE_VER		2
 #define NAVIPACK_VISION		(MAIN_VER<<24 | CHILD_VER << 16 | COMPILE_VER)
 
@@ -122,7 +122,7 @@ enum NaviPackMode {
 #define ALG_CONTROL_REG_READ   0x02
 #define ALG_CONTROL_REG        0x03
 #define ALG_SAVE_MAP		   0x04
-#define ALG_DATA_READ		   0x05
+#define ALG_DATA_READ		   0x05		//old
 #define ALG_BUILD_MAP_MANUAL   0x06
 #define ALG_BUILD_MAP_AUTO     0x07
 #define ALG_NAVIGATION         0x08
@@ -133,7 +133,7 @@ enum NaviPackMode {
 #define ALG_ENABLE_OPTIMIZE		  0x0D
 
 //ALG_DATA_READ ADDRESS
-#define ALG_DATA_ADDR_LIDAR_MAP      0x01 // correlation struct AlgLidarMapData
+#define ALG_DATA_ADDR_LIDAR_MAP      0x01 // correlation struct AlgLidarMapData,MapData RunLengthCode Format
 #define ALG_DATA_ADDR_TARGET_POINTS  0x02
 #define ALG_DATA_ADDR_ULTROSON_MAP   0x03
 #define ALG_DATA_ADDR_SWITCH_MAP     0x04
@@ -144,6 +144,7 @@ enum NaviPackMode {
 #define ALG_DATA_ADDR_REAL_ULTROSON_DATA 0x09
 #define ALG_DATA_ADDR_REAL_COLLISION_DATA 0x0A
 #define ALG_DATA_ADDR_LIDAR_RAW_DATA 0X10	//激光雷达原始数据
+#define  ALG_DATA_ADDR_LIDAR_MAP_LZ4	0x11 //MapData Lz4 Format
 
 //ALG_RAWLOG_REVIEW ADDRESS
 #define ALG_RAW_ADDR_BUILDMAP	0x01
@@ -273,7 +274,7 @@ typedef struct {
 	u16 temp;
 	u32 partLen;
 	u32 fileLen;
-	char fileName[64];
+	char fileName[FILE_PATH_MAX_LEN];
 	char md5[32];
 }FileInfo;
 

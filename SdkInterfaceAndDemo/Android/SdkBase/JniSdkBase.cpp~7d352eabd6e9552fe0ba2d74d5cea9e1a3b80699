@@ -426,11 +426,6 @@ void JniOnGetMapPackageMsg(s32 id, FileInfo* fileInfo, s32 checkedOk, const u8* 
 
 }
 
-void JniOnGetLidarCallBack(s32 id, const u8 *buffer, s32 len)
-{
-	LOGD("JniOnGetLidarCallBack %d",len);
-}
-
 int JniSdkInit(JNIEnv *env, jobject obj)
 {
 	signal(SIGPIPE, DefSignalFun);
@@ -513,7 +508,7 @@ int JniOpen(JNIEnv *env, jobject obj, jint id, jstring fileName, jint port)
 	env->ReleaseStringUTFChars(fileName, ip_utf);
 	if (ret == 0)
 	{
-		SetCallback(id, JniOnGetDeviceMsg, JniOnGetErrorMsg, JniOnGetMapPackageMsg, JniOnGetLidarCallBack);
+		SetCallback(id, JniOnGetDeviceMsg, JniOnGetErrorMsg, JniOnGetMapPackageMsg);
 	}
 	return ret;
 
@@ -823,15 +818,5 @@ jint JniSendFile(JNIEnv *env, jobject obj, jint id, jint type,jstring filePath, 
 jint JniSetChangeNaviPackMode(JNIEnv *env, jobject obj, jint id, jint mode)
 {
 	return SetChangeNaviPackMode(id,mode);
-}
-
-jint JniImuCalibrate(JNIEnv *env, jobject obj, jint id)
-{
-	return ImuCalibrate(id);
-}
-
-jint JniEnableUpdateMap(JNIEnv *env, jobject obj, jint id, jboolean bUpdate_flag)
-{
-	return EnableMapUpdate(id, bUpdate_flag);
 }
 #endif

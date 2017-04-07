@@ -12,13 +12,15 @@
 #include <windows.h>
 #include "visualScrop/VisualScope.h"
 #include "tools/CriticalSection.h"
-
+#include "tools/file_dir.h"
+#include "tools/CFile.h"
+#include "tools/systemenc/md5.h"
 using namespace std;
 using namespace System;
 using namespace System::Diagnostics;
 using namespace System::Reflection;
 using namespace ProjectInterface;
-
+using namespace System::Windows::Forms;
 #ifndef M_PIf
 #define M_PIf  3.14159265358979f
 #endif
@@ -29,6 +31,7 @@ AlgMapData *algMapData = new AlgMapData;
 AlgSensorData *algLidarMapData = new AlgSensorData;
 AlgSensorData *algRealLidarData = new AlgSensorData;
 
+CFile mUpdateFile;
 
 //绘图使用
 TMapParam param;
@@ -120,6 +123,13 @@ void Pixel2TPoint_Origin(TPixcelPoint &p1, TPoint &p2)
 void OnGetDeviceMsg(int id, int msgType, int msgCode, void* param)
 {
 	//LOG("OnGetDeviceMsg %d", msgType);
+	switch (msgType) {
+		case GET_NAVIPACK_VERSION:
+			printf("GET_NAVIPACK_VERSION %d.%d.%d\n", (msgCode >> 24 & 0xff), (msgCode >> 16 & 0xff), (msgCode & 0xffff));
+		break;
+		default:
+		break;
+	}
 }
 
 void OnGetRobotMsg(s32 id, s32 Level, s32 Code, char* msg)
@@ -127,6 +137,60 @@ void OnGetRobotMsg(s32 id, s32 Level, s32 Code, char* msg)
 	LOGW("%s", msg);
 }
 
+void OnGetMapPackage(s32 id, FileInfo* fileInfo, s32 checkedOk, const u8* buf, u32 len) {
+
+	
+	static u32 writeLen;
+	//FileInfo* fileInfo = (FileInfo*)(data + sizeof(SdkProtocolHeader));
+	LOGD(" ---> SaveUpdateFiles partNum = %d len = %d", fileInfo->partNum, len);
+	
+	if (fileInfo->partNum == 1)//表示当前是第一帧
+	{
+	
+		
+		
+		//char* exeDir = GetSelfExeCutaleDir();
+		//string filePath(exeDir);
+
+		string fullFilePath(fileInfo->fileName);
+		//1 存储到临时文件中
+		//filePath = filePath + divideChar + "update_file";
+
+		string dirPath(fullFilePath.substr(0, fullFilePath.find_last_of(divideChar)).c_str());
+		string fileName(fullFilePath.substr(fullFilePath.find_last_of(divideChar) + 1, fullFilePath.length()).c_str());
+		//LOGD("dirPath == %s", dirPath.c_str());
+		//LOGD("fileName == %s", fileName.c_str());
+
+		int openRet = mUpdateFile.Open(dirPath.c_str(), fileName.c_str(), CFile::WRITE);
+		if (openRet < 0)
+		{
+			LOGD("Download file failed !can not open file!");
+		
+		}
+
+		writeLen = 0;
+		//delete[] exeDir;
+		
+	}
+
+	writeLen += fileInfo->partLen;
+
+		int saveRet = mUpdateFile.AddBuf((char*)buf, fileInfo->partLen);
+		if (saveRet != fileInfo->partLen)
+		{
+			LOGD("saveRet != fileInfo->partLen");
+			mUpdateFile.Close(0);
+		}
+
+		if (writeLen == fileInfo->fileLen)
+		{
+			LOGD("writeLen == fileInfo->fileLen");
+			mUpdateFile.Close(1);
+		}
+	
+	
+
+}
 void RxDataCallBack(int32_t id, void *param, const uint8_t *data, int32_t len)
 {
 	if (g_SerPortInterface.IsOpened())
@@ -210,7 +274,7 @@ System::Void MyForm::btn_connect_Click(System::Object^  sender, System::EventArg
 			if (ret == 0)
 			{
 				btn_connect->Text = "Disconnect";
-				SetCallback(navipackInterfaceId, OnGetDeviceMsg, OnGetRobotMsg, NULL, NULL);
+				SetCallback(navipackInterfaceId, OnGetDeviceMsg, OnGetRobotMsg, OnGetMapPackage, NULL);
 
 				if (cb_connect_mpu->CheckState == CheckState::Checked)
 				{
@@ -772,4 +836,34 @@ System::Void MyForm::btn_send_virtual_obstacles_Click(System::Object ^ sender, S
 
 
 
+System::Void MyForm::btnUploadMap(System::Object^  sender, System::EventArgs^  e)
+{
+	if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+		//printf("openFileDialog result=%s\n ", openFileDialog->FileName);
+
+		char fileName[512];
+		sprintf(fileName, "%s", openFileDialog->FileName);
+		//UpdateNaviPackFile(navipackInterfaceId, "E:\\workspace\\VS2013\\Win\\navipack_2.0\\bin\\android\\armeabi-v7a\\NaviPack");
+		LoadLocalMap(navipackInterfaceId, fileName,0);
+	}
+	else {
+		printf("No File selected\n");
+	}
+	return;
+}
+System::Void ProjectInterface::MyForm::btnDownloadMap_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	if (saveFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+		//printf("openFileDialog result=%s\n ", openFileDialog->FileName);
+
+		char fileName[512];
+		sprintf(fileName, "%s%s", saveFileDialog->FileName,".tar.gz");
+		//printf("fileName=%s\n", fileName);
+		SaveMapToLocal(navipackInterfaceId, fileName, 0);
+	}
+	else {
+		printf("No File selected\n");
+	}
+	return;
+}
 #endif

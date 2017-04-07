@@ -45,6 +45,7 @@ static const JNINativeMethod gMethods[] =
 	{ "native_sendFile","(IILjava/lang/String;Ljava/lang/String;)I",(void*)JniSendFile },
 	{ "native_setChangeNaviPackMode","(II)I",(void*) JniSetChangeNaviPackMode},
 	{ "native_imuCalibrate","(I)I",(void*)JniImuCalibrate},
+	{ "native_enableUpdateMap","(IZ)I",(void*)JniEnableUpdateMap},
 	//{ "native_getAlgMapData", "(II)Lcom/imscv/NaviPackSdk/data/AlgMapData", (void*)JniGetAlgMapData },
 
 };

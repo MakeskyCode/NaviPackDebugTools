@@ -126,6 +126,7 @@
     <ClCompile Include="..\commonSrc\hardware_interface\SerialPortInterface.cpp" />
     <ClCompile Include="..\commonSrc\hardware_interface\TCPClientInterface.cpp" />
     <ClCompile Include="..\commonSrc\hardware_interface\TCPServerInterface.cpp" />
+    <ClCompile Include="..\commonSrc\lz4\lz4.cpp" />
     <ClCompile Include="..\commonSrc\tools\BmpFile.cpp" />
     <ClCompile Include="..\commonSrc\tools\CfgTxtFile.cpp" />
     <ClCompile Include="..\commonSrc\tools\CFile.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="..\commonSrc\hardware_interface\SerialPortInterface.h" />
     <ClInclude Include="..\commonSrc\hardware_interface\TCPClientInterface.h" />
     <ClInclude Include="..\commonSrc\hardware_interface\TCPServerInterface.h" />
+    <ClInclude Include="..\commonSrc\lz4\lz4.h" />
     <ClInclude Include="..\commonSrc\tools\BmpFile.h" />
     <ClInclude Include="..\commonSrc\tools\CfgTxtFile.h" />
     <ClInclude Include="..\commonSrc\tools\CFile.h" />
