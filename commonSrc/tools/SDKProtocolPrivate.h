@@ -4,11 +4,12 @@
 
 #pragma pack(push, 1) 
 
-typedef struct UnifiedSensor_S
+typedef struct _UnifiedSensor_S
 {
 	SdkProtocolHeader header;
 	UnifiedSensorInfo sensorInfo;
-};
+}UnifiedSensor_S;
+
 
 #pragma pack(pop)
 

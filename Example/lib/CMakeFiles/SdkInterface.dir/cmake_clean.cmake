@@ -1,0 +1,43 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/SdkInterface.dir/commonSrc/errordeal/ErrorEvent.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/hardware_interface/BufferProtocol.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/hardware_interface/HardwareInterface.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/hardware_interface/InterfaceStreamWriter.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/hardware_interface/Protocol.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/hardware_interface/SerialPackageProtocol.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/hardware_interface/SerialPortInterface.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/hardware_interface/TCPClientInterface.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/hardware_interface/TCPServerInterface.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/lz4/lz4.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/BmpFile.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/CfgTxtFile.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/CFile.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/CFrameList.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/CMapDataManager.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/CommonFunctions.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/CriticalSection.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/DateTime.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/Event.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/FifoBuffer.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/file_dir.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/FrameQueue.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/GeomDef.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/Hough.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/LogFile.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/Matrix.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/Shelly_support.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/systemenc/Compress.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/systemenc/Des.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/systemenc/md5.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/tools/Thread.cpp.o"
+  "CMakeFiles/SdkInterface.dir/commonSrc/visualScrop/VisualScope.cpp.o"
+  "CMakeFiles/SdkInterface.dir/SdkInterfaceAndDemo/NaviPackSDK.cpp.o"
+  "CMakeFiles/SdkInterface.dir/SdkInterfaceAndDemo/NavipackInterface.cpp.o"
+  "libSdkInterface.pdb"
+  "libSdkInterface.so"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/SdkInterface.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

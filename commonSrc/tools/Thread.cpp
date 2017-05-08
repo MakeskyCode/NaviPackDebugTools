@@ -2,7 +2,7 @@
 
 #include "tools/windowsdef.h"
 #include "tools/LogFile.h"
-using namespace std;
+//using namespace std;
 
 //std::list<Thread *> Thread::mThreadList;
 Thread* Thread::mThreadList[MAX_THREAD_NUM];
