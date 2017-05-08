@@ -122,11 +122,39 @@ void Pixel2TPoint_Origin(TPixcelPoint &p1, TPoint &p2)
 
 void OnGetDeviceMsg(int id, int msgType, int msgCode, void* param)
 {
+	static int i = 0;
 	//LOG("OnGetDeviceMsg %d", msgType);
 	switch (msgType) {
 		case GET_NAVIPACK_VERSION:
 			printf("GET_NAVIPACK_VERSION %d.%d.%d\n", (msgCode >> 24 & 0xff), (msgCode >> 16 & 0xff), (msgCode & 0xffff));
-		break;
+			break;
+		case NAVIGATION_STATUS:
+			
+			switch (msgCode) {
+			
+			case REACH_POINT:
+				printf("到达目标点\n");
+				break;
+			case TERMINATED:
+				printf("运动终止\n");
+				break;
+			case PATH_UPGRADE:
+				printf("路径有更新 %d\n",i++);
+				break;
+			case START_NAVIGATION:
+				printf("开始导航 %d\n",i++);
+				break;
+
+			case CANNOT_REACH:
+				printf("无法到达该目标，规划最近的点。 %d\n", i++);
+				break;
+			case FIND_WAY_OUT:
+				printf("脱困处理中 %d\n", i++);
+				break;
+			default:
+				break;
+			}
+			break;
 		default:
 		break;
 	}

@@ -166,6 +166,7 @@ private:
 	AlgStatusRegister* mStatusRegister;
 	AlgTargetPos* mSetTargetPos;
 	AlgTargetPos* mPlanedPathPos;
+	AlgTargetPos* mLastPlanedPathPos;
 	AlgSensorData* mRealLidarData;
 	AlgSensorData* mRealUltrasonData;
 	AlgSensorData* mRealCollisionData;

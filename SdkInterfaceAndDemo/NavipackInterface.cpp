@@ -80,6 +80,8 @@ CNavipackInterface::CNavipackInterface(ConnectType type)
 	mStatusRegister = new AlgStatusRegister;
 	mSetTargetPos = new AlgTargetPos;
 	mPlanedPathPos = new AlgTargetPos;
+	mLastPlanedPathPos = new AlgTargetPos;
+	mLastPlanedPathPos->nTargetPosNum = 0;
 	mRealLidarData = new AlgSensorData;
 	mRealLidarData->num = 0;
 	mRealUltrasonData = new AlgSensorData;
@@ -137,6 +139,7 @@ CNavipackInterface::~CNavipackInterface()
 	delete mStatusRegister;
 	delete mSetTargetPos;
 	delete mPlanedPathPos;
+	delete mLastPlanedPathPos;
 	delete mRealLidarData;
 	delete mRealUltrasonData;
 	delete mRealCollisionData;
@@ -1003,7 +1006,22 @@ void CNavipackInterface::RxDataCallBack(int32_t id, void *param, const uint8_t *
 					face->Path_cs.Enter();
 					memcpy(face->mPlanedPathPos, (u8*)header + sizeof(SdkProtocolHeader), sizeof(AlgTargetPos));
 					face->Path_cs.Leave();
-					if (face->mDeviceMsgCallBack) face->mDeviceMsgCallBack(id, NAVIGATION_STATUS, PATH_UPGRADE, NULL);
+					if (face->mDeviceMsgCallBack) {
+						if((face->mLastPlanedPathPos->nTargetPosNum!= face->mPlanedPathPos->nTargetPosNum//目标点数量不等
+							|| face->mLastPlanedPathPos->PathPosX[0]!= face->mPlanedPathPos->PathPosX[0]//起始点不等
+							|| face->mLastPlanedPathPos->PathPosY[0] != face->mPlanedPathPos->PathPosY[0])
+							&&(face->mPlanedPathPos->nTargetPosNum!=0)//已经结束规划
+							&&(face->mPlanedPathPos->nTargetPosNum!=1)//只显示目标点
+							&& (face->mLastPlanedPathPos->nTargetPosNum != 1)//初次规划
+							&& (face->mLastPlanedPathPos->nTargetPosNum != 0)
+							){ 
+							face->mDeviceMsgCallBack(id, NAVIGATION_STATUS, PATH_UPGRADE, NULL);
+							//printf("路径有更新~~  old num=%d new num=%d\n", face->mLastPlanedPathPos->nTargetPosNum, face->mPlanedPathPos->nTargetPosNum);
+						}
+						face->Path_cs.Enter();
+						memcpy(face->mLastPlanedPathPos, face->mPlanedPathPos, sizeof(AlgTargetPos));
+						face->Path_cs.Leave();
+					}
 					break;
 				}
 				case ALG_DATA_ADDR_MAP:

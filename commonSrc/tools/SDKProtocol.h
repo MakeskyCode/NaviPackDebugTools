@@ -18,7 +18,7 @@
 /// @note 属性值由3个部分组成: 主版本号(Bits 24 ~31), 子版本号(Bits 16 ~ 23), 编译号(Bits 0 ~ 15)
 #define MAIN_VER		3
 #define CHILD_VER		3
-#define COMPILE_VER		2
+#define COMPILE_VER		12
 #define NAVIPACK_VISION		(MAIN_VER<<24 | CHILD_VER << 16 | COMPILE_VER)
 
 
@@ -72,7 +72,7 @@ typedef volatile unsigned char  const vuc8;   /* Read Only */
 #define MAX_MAP_LIST 8
 #define  ULTRASOUND_NUM      8
 
-
+#define SN_CODE_LEN 64
 
 enum mapType
 {
@@ -110,8 +110,11 @@ enum NaviPackMode {
 #define LIDAR_ADDRESS 0X10
 #define ALG_ADDRESS 0x11
 #define MCU_ADDRESS 0x12
-#define MF_COMPARE_MAP_DATA  0x13       //MF开头的消息表示生产制造相关
-#define MF_CREATE_SN  0x14       //MF开头的消息表示生产制造相关
+#define MF_COMPARE_MAP_DATA  0x13     
+#define MF_CREATE_SN  0x14       
+#define MF_ADDRESS  0x15       //MF开头的消息表示生产制造相关。
+                               //新加的生产制造相关通讯，统一放到这个设备地址里面-- ldw 170318
+
 #define DEVICE_MSG 0x20		//表示状态的更新
 #define ERROR_MSG 0x21		//表示错误的处理
 #define SELF_MSG 0X22		//表示自定义消息
@@ -179,9 +182,12 @@ typedef enum {
 }DEVICE_CMD_SUB;
 
 typedef enum {
-	REACH_POINT = 0X00,				//到达运动点
-	TERMINAL = 0x01,				//终止
-	PATH_UPGRADE = 0X02,			//路径有更新
+	REACH_POINT = 0X00,				//Reach Target Point 到达运动点 
+	TERMINATED = 0x01,				//Motion Terminated  终止
+	PATH_UPGRADE = 0X02,			//Path Upgrade       路径有更新
+	START_NAVIGATION = 0X03,		//Start Navigation   开始导航
+	CANNOT_REACH=0x04,              //Cannot reach the target. Find a near target to Reach. 无法到达规划点，规划最靠近的路线
+	FIND_WAY_OUT=0x05   ,           //Find way out        脱困
 }TatgetStatus;
 
 typedef enum DEVICE_CMD_ERROR_CODE
@@ -287,7 +293,7 @@ typedef struct CompareMapData_S
 	unsigned char exists;
 	unsigned char align[2];
 	long long timeForSN;
-	char sn[32];
+	char sn[SN_CODE_LEN];
 	float distanceoofUpDownLeftRight[4];
 	CompareMapData_S()
 	{
