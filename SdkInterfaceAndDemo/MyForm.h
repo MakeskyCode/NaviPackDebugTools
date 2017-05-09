@@ -198,6 +198,7 @@ private: System::Windows::Forms::Button^  btnUpload;
 private: System::Windows::Forms::Button^  btnDownloadMap;
 
 private: System::Windows::Forms::SaveFileDialog^  saveFileDialog;
+private: System::Windows::Forms::Button^  btnSaveMapInfo;
 
 
 
@@ -294,6 +295,7 @@ private: System::Windows::Forms::SaveFileDialog^  saveFileDialog;
 			this->MainTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->saveFileDialog = (gcnew System::Windows::Forms::SaveFileDialog());
+			this->btnSaveMapInfo = (gcnew System::Windows::Forms::Button());
 			this->panel_all->SuspendLayout();
 			this->panel_display->SuspendLayout();
 			this->tabControl_display->SuspendLayout();
@@ -978,6 +980,7 @@ private: System::Windows::Forms::SaveFileDialog^  saveFileDialog;
 			// 
 			// tabPage1
 			// 
+			this->tabPage1->Controls->Add(this->btnSaveMapInfo);
 			this->tabPage1->Controls->Add(this->groupBox1);
 			this->tabPage1->Location = System::Drawing::Point(4, 22);
 			this->tabPage1->Name = L"tabPage1";
@@ -1060,6 +1063,16 @@ private: System::Windows::Forms::SaveFileDialog^  saveFileDialog;
 			// openFileDialog
 			// 
 			this->openFileDialog->FileName = L"openFileDialog";
+			// 
+			// btnSaveMapInfo
+			// 
+			this->btnSaveMapInfo->Location = System::Drawing::Point(49, 399);
+			this->btnSaveMapInfo->Name = L"btnSaveMapInfo";
+			this->btnSaveMapInfo->Size = System::Drawing::Size(97, 32);
+			this->btnSaveMapInfo->TabIndex = 66;
+			this->btnSaveMapInfo->Text = L"SaveMapInfo";
+			this->btnSaveMapInfo->UseVisualStyleBackColor = true;
+			this->btnSaveMapInfo->Click += gcnew System::EventHandler(this, &MyForm::btnSaveMapInfo_Click);
 			// 
 			// MyForm
 			// 
@@ -1161,6 +1174,7 @@ private: System::Windows::Forms::SaveFileDialog^  saveFileDialog;
 
 		 System::Void btnUploadMap(System::Object^  sender, System::EventArgs^  e);
 		 System::Void btnDownloadMap_Click(System::Object ^ sender, System::EventArgs ^ e);
+         System::Void btnSaveMapInfo_Click(System::Object^  sender, System::EventArgs^  e);
 };
 
 }

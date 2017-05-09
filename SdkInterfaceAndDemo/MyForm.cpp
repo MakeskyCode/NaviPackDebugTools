@@ -53,6 +53,8 @@ float w = 0;
 AlgMapData *virtual_wall_map = new AlgMapData;
 vector<TPoint> virtual_obstacles;
 
+//保存数据用
+IplImage saved_img;
 #pragma pack(push, 1) 
 typedef struct _Mpu6500Data
 {
@@ -419,7 +421,8 @@ System::Void MyForm::drawMap()
 		}
 	}
 
-	cvSaveImage("BmpMap.bmp", origin_img_);
+	//cvSaveImage("BmpMap.bmp", origin_img_);
+	memcpy(&saved_img, origin_img_, sizeof(IplImage));
 	//添加虚拟墙
 	for (int i = 0; i < virtual_obstacles.size(); i++)
 	{
@@ -894,5 +897,23 @@ System::Void ProjectInterface::MyForm::btnDownloadMap_Click(System::Object ^ sen
 		printf("No File selected\n");
 	}
 	return;
+}
+System::Void ProjectInterface::MyForm::btnSaveMapInfo_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	GetMapLayer(navipackInterfaceId, algMapData, LIDAR_MAP);
+	std::string mapPath = string(GetSelfExeCutaleDir());
+	mapPath += "BmpMap.bmp";
+	cvSaveImage(mapPath.c_str(), &saved_img);
+	CFile file;
+	char info[128];
+	memset(info, 0, sizeof(info));
+	file.Open(GetSelfExeCutaleDir(),"mapinfo",CFile::WRITE);
+	sprintf(info, "x_min=%f \r\ny_min=%f \r\nresolotion=%f \r\nheight =%d\r\nwidth=%d\r\n", param.x_min,param.y_min,param.resolution,param.height, param.width);
+	file.AddBuf(info,strlen(info));
+	file.Close(1);
+	memset(info, 0, sizeof(info));
+	sprintf(info,"%s\\%s", GetSelfExeCutaleDir(),"RawMapData.tar.gz");
+	SaveMapToLocal(navipackInterfaceId, info, 0);
+	return System::Void();
 }
 #endif
