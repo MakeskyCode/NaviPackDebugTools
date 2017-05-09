@@ -419,6 +419,7 @@ System::Void MyForm::drawMap()
 		}
 	}
 
+	cvSaveImage("BmpMap.bmp", origin_img_);
 	//Ìí¼ÓĞéÄâÇ½
 	for (int i = 0; i < virtual_obstacles.size(); i++)
 	{
