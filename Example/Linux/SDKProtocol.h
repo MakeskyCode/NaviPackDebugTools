@@ -9,16 +9,16 @@
 
 #define LIDAR_RESOLUTION 360
 #define MAX_TARGET_LIST_SIZE 360
-#define MAX_MAP_SIZE	(2000*2000)
 #define UNIFIED_SENSOR_RESOLUTION 360
+#define MAX_MAP_SIZE	(2000*2000)
 
-#define FILE_PATH_MAX_LEN 64
+#define FILE_PATH_MAX_LEN 128
 /// 获得当前SDK的版本号
 /// @return 返回NaviPack对象的ID
 /// @note 属性值由3个部分组成: 主版本号(Bits 24 ~31), 子版本号(Bits 16 ~ 23), 编译号(Bits 0 ~ 15)
 #define MAIN_VER		3
-#define CHILD_VER		0
-#define COMPILE_VER		6
+#define CHILD_VER		4
+#define COMPILE_VER		0
 #define NAVIPACK_VISION		(MAIN_VER<<24 | CHILD_VER << 16 | COMPILE_VER)
 
 
@@ -72,7 +72,7 @@ typedef volatile unsigned char  const vuc8;   /* Read Only */
 #define MAX_MAP_LIST 8
 #define  ULTRASOUND_NUM      8
 
-
+#define SN_CODE_LEN 64
 
 enum mapType
 {
@@ -94,9 +94,10 @@ enum SensorType
 	ST_ULTRASOUND = 0x01,
 	ST_ENCODER,
 	ST_SWITCH,
-	ST_CARRIAR,
+	ST_CARRIER,
 	//	ST_MPU6500,
 	ST_CAMERA3D,
+	ST_UNIFIED,
 	ST_LAST
 };
 
@@ -109,8 +110,11 @@ enum NaviPackMode {
 #define LIDAR_ADDRESS 0X10
 #define ALG_ADDRESS 0x11
 #define MCU_ADDRESS 0x12
-#define MF_COMPARE_MAP_DATA  0x13       //MF开头的消息表示生产制造相关
-#define MF_CREATE_SN  0x14       //MF开头的消息表示生产制造相关
+#define MF_COMPARE_MAP_DATA  0x13     
+#define MF_CREATE_SN  0x14       
+#define MF_ADDRESS  0x15       //MF开头的消息表示生产制造相关。
+                               //新加的生产制造相关通讯，统一放到这个设备地址里面-- ldw 170318
+
 #define DEVICE_MSG 0x20		//表示状态的更新
 #define ERROR_MSG 0x21		//表示错误的处理
 #define SELF_MSG 0X22		//表示自定义消息
@@ -121,16 +125,18 @@ enum NaviPackMode {
 #define ALG_CONTROL_REG_READ   0x02
 #define ALG_CONTROL_REG        0x03
 #define ALG_SAVE_MAP		   0x04
-#define ALG_DATA_READ		   0x05
+#define ALG_DATA_READ		   0x05		//old
 #define ALG_BUILD_MAP_MANUAL   0x06
 #define ALG_BUILD_MAP_AUTO     0x07
 #define ALG_NAVIGATION         0x08
 #define ALG_LOCATION_PF         0x09
-#define ALG_RAWLOG_REVIEW	 0x0A
-
+#define ALG_RAWLOG_REVIEW		0x0A
+#define ALG_SET_UNIFIED_SENSOR_DATA 0X0B
+#define ALG_ENABLE_MAP_UPDATE 0x0C
+#define ALG_ENABLE_OPTIMIZE		  0x0D
 
 //ALG_DATA_READ ADDRESS
-#define ALG_DATA_ADDR_LIDAR_MAP      0x01 // correlation struct AlgLidarMapData
+#define ALG_DATA_ADDR_LIDAR_MAP      0x01 // correlation struct AlgLidarMapData,MapData RunLengthCode Format
 #define ALG_DATA_ADDR_TARGET_POINTS  0x02
 #define ALG_DATA_ADDR_ULTROSON_MAP   0x03
 #define ALG_DATA_ADDR_SWITCH_MAP     0x04
@@ -141,16 +147,18 @@ enum NaviPackMode {
 #define ALG_DATA_ADDR_REAL_ULTROSON_DATA 0x09
 #define ALG_DATA_ADDR_REAL_COLLISION_DATA 0x0A
 #define ALG_DATA_ADDR_LIDAR_RAW_DATA 0X10	//激光雷达原始数据
+#define  ALG_DATA_ADDR_LIDAR_MAP_LZ4	0x11 //MapData Lz4 Format
 
 //ALG_RAWLOG_REVIEW ADDRESS
-#define ALG_RAW_ADDR_BUILDMAP	0x01
-#define ALG_RAW_ADDR_DEBUG		0x02
+#define MCU_DATA_CHASSIS_STATUS	0x01
+
+//#define ALG_RAW_ADDR_BUILDMAP	0x01
 
 typedef enum {
 	ERROR_CODE = 0X00,				//有错误 错误码
 	UPDATE_MAP = 0x01,				//地图有更新
 	UPDATE_SENSOR_DATA = 0x02,		//传感器数据有更新
-	INIT_LOCATION_SUCCESS = 0X03,		//初始定位成功
+	INIT_LOCATION_STATUS = 0X03,		//初始定位状态
 	UPDATE_ALG_ATATUS_REG = 0X04,	//状态寄存器有更新
 	NAVIGATION_STATUS = 0X05,	//目标点设置有更新
 	GET_NAVIPACK_VERSION = 0X06,//获取版本号
@@ -160,24 +168,43 @@ typedef enum {
 	UPDATE_MAP_LIST = 0X10,			//更新地图列表
 	SWITCH_NAVIPACK_MODE = 0X11,	//更改NaviPack模式
 	MAPPINGAUTO_STATUS = 0X12,		//自动建图状态
+	IMU_CALIBRATE_SUCCESS = 0X13,   //IMU标定成功
 
+	//以下是需要回调的
+	SET_CHARGE_POSITION = 0XA0,		//设置充电桩位置
+	SET_UPDATE_FILE = 0XA1,		//设置更新包
+	SET_WIFI_PARAM = 0XA2,		//设置wifi
+	CHANGE_LIDAR_TO_SENSOR_MODE = 0XA3,//设置雷达到传感器模式
+	CHANGE_LIDAR_TO_PACK_MODE = 0XA4,	//设置雷达为NaviPack模式
+	LIDAR_CTRL_SELF_STREAM = 0XA5,		//自定义数据
+	SEND_FILE_TYPE_MAP_PACKAGE = 0xA6,	//发送地图文件
 
-									//以下是需要回调的
-									SET_CHARGE_POSITION = 0XA0,		//设置充电桩位置
-									SET_UPDATE_FILE = 0XA1,		//设置更新包
-									SET_WIFI_PARAM = 0XA2,		//设置wifi
-									CHANGE_LIDAR_TO_SENSOR_MODE = 0XA3,//设置雷达到传感器模式
-									CHANGE_LIDAR_TO_PACK_MODE = 0XA4,	//设置雷达为NaviPack模式
-									LIDAR_CTRL_SELF_STREAM = 0XA5,		//自定义数据
-									SEND_FILE_TYPE_MAP_PACKAGE = 0xA6,	//发送地图文件
-
-
+	//底盘相关
+	MCU_REG_DEVICE_MSG = 0xB1,
+	
 }DEVICE_CMD_SUB;
 
+typedef enum  {
+	USER_REG_READ = 0X00,				//用户自定义数据
+}MCUDeviceCode;
+
 typedef enum {
-	REACH_POINT = 0X00,				//到达运动点
-	TERMINAL = 0x01,				//终止
-	PATH_UPGRADE = 0X02,			//路径有更新
+	INIT_STATUS_BEGIN = 0x00,           //开始初始定位
+	INIT_STATUS_SUCCESS = 0X01,		    //初始定位完毕
+}InitStatusCode;
+
+
+
+#define MCU_USER_REG_BUFFERSIZE 32
+
+typedef enum {
+
+	REACH_POINT = 0X00,				//Reach Target Point 到达运动点 
+	TERMINATED = 0x01,				//Motion Terminated  终止
+	PATH_UPGRADE = 0X02,			//Path Upgrade       路径有更新
+	START_NAVIGATION = 0X03,		//Start Navigation   开始导航
+	CANNOT_REACH=0x04,              //Cannot reach the target. Find a near target to Reach. 无法到达规划点，规划最靠近的路线
+	FIND_WAY_OUT=0x05   ,           //Find way out        脱困
 }TatgetStatus;
 
 typedef enum DEVICE_CMD_ERROR_CODE
@@ -187,12 +214,16 @@ typedef enum DEVICE_CMD_ERROR_CODE
 }DEVICE_CMD_ERROR_CODE;
 //
 
-#define ALG_CR_ADDR_SET_TARGET			0		//设置目标点组
-#define ALG_CR_ADDR_SPEED_CONTROL		16
-#define ALG_CR_ADDR_BACK_CHARGE			24
-#define ALG_CR_ADDR_MAP_BUILDER			34
-#define ALG_CR_ADDR_IDLE				37
-#define ALG_CR_ADDR_IMU_CELIBRATE		50
+#define ALG_CR_ADDR_SET_TARGET				0		//设置目标点组
+#define ALG_CR_ADDR_SPEED_CONTROL			16
+#define ALG_CR_ADDR_BACK_CHARGE				24
+#define ALG_CR_ADDR_MAP_BUILDER				34
+#define ALG_CR_ADDR_IDLE					37
+#define ALG_CR_ADDR_IMU_CELIBRATE			50
+#define ALG_CR_ADDR_UNIFIED_SENSOR			51
+#define ALG_CR_ADDR_LIDAR_FIRMWARE_UPDATE	52
+#define ALG_CR_ADDR_CLEAN					53
+
 
 
 // MCU
@@ -204,6 +235,12 @@ typedef enum DEVICE_CMD_ERROR_CODE
 #define MCU_USER_REG_WRITE     0x06
 
 
+#define OFFSET_OF(TYPE, MEMBER) ((int)(&((TYPE *)0)->MEMBER))
+#define LENGTH_OF(TYPE, MEMBER_START, MEMBER_END) (OFFSET_OF(TYPE, MEMBER_END) - OFFSET_OF(TYPE, MEMBER_START) + ((int)sizeof(((TYPE *)0)->MEMBER_END)))
+
+//MF
+#define MF_READ_SN             0x01
+
 #pragma pack(push, 1) 
 
 typedef struct
@@ -214,17 +251,30 @@ typedef struct
 	u32 len;
 }SdkProtocolHeader;
 
-typedef struct _LidarAdjust {
-	SdkProtocolHeader header;
-	short gyro_z;
+typedef struct  
+{
+	s32 x;
+	s32 y;
+}IntPoint;
 
-	_LidarAdjust() {
-		header.deviceAddr = LIDAR_ADDRESS;	//  cmd
-		header.functionCode = 0X03;	// sub cmd
-		header.startAddr = 0;		//sub sub cmd
-		header.len = 2;
-	}
-}LidarAdjust;
+//统一传感器数据结构（每次发一帧过来）
+typedef struct
+{
+	s32 sensorPosX;//单位mm，传感器相对小车的安装位置X
+	s32 sensorPosY;//单位mm，传感器相对小车的安装位置Y
+	s32 sensorPosPhi;//单位mrad，传感器相对于小车的安装角度phi
+	u32 minValidDis;//单位mm，最短有效距离（盲区）
+	u32 maxValidDis;//单位mm，最大有效距离
+
+	u32 detectedData[UNIFIED_SENSOR_RESOLUTION];//单位mm，
+												//一圈等分，以传感器安装角度正前方开始
+												//逆时针计数（目前为0°- 359°）
+												//若为开关量，只认detectedData[0]=0为无，=1为有
+	u8 sensorType;//0->距离传感器 1->开关量
+	u32 delayTime;//单位ms，该帧数据采集的延时
+	u32 memoryTime;//单位s，该帧数据在地图上的保留时间
+}UnifiedSensorInfo;
+
 
 struct TMapParam
 {
@@ -253,7 +303,7 @@ typedef struct {
 	u16 temp;
 	u32 partLen;
 	u32 fileLen;
-	char fileName[64];
+	char fileName[FILE_PATH_MAX_LEN];
 	char md5[32];
 }FileInfo;
 
@@ -266,7 +316,7 @@ typedef struct CompareMapData_S
 	unsigned char exists;
 	unsigned char align[2];
 	long long timeForSN;
-	char sn[32];
+	char sn[SN_CODE_LEN];
 	float distanceoofUpDownLeftRight[4];
 	CompareMapData_S()
 	{
@@ -281,10 +331,59 @@ typedef struct {
 	char pwd[64];
 }WifiParam;
 
-typedef struct {
-	s32 x;
-	s32 y;
-}IntPoint;
+/*清扫指令相关*/
+enum CoverMode
+{
+	COVER_MODE_NORMAL,//普通扫
+	COVER_MODE_FINE,//精细扫
+	COVER_MODE_WALL,//虚拟墙
+	COVER_MODE_FIXPT//定点清扫
+};
+enum CleanMode
+{
+	CLEAN_MODE_SWEEP,//扫地
+	CLEAN_MODE_MOP//拖地
+};
+
+typedef enum _CleanPackType
+{
+	START_MID_SWIP,
+	STOP_MID_SWIP,
+	START_EDGE_SWIP,
+	STOP_EDGE_SWIP,
+	CHANGE_WIND_LEVEL
+}CleanPackType;
+
+
+typedef struct
+{
+	float x_min;
+	float y_min;
+	float width;
+	float height;
+	CoverMode cover_mode;
+	CleanMode clean_mode;
+}RegionRect;
+enum InstructionType
+{
+	CI_IDLE,//空指令
+	CI_PAUSE,//暂停当前任务
+	CI_RESUME,//继续当前任务
+	CI_BACK_CHARGE,//新建回充任务
+	CI_CLEAN//新建清扫任务
+};
+#include <vector>
+using namespace std;
+typedef struct
+{
+	InstructionType type;
+	std::vector<RegionRect>RegionRects;
+	void Reset()
+	{
+		RegionRects.clear();
+		type = CI_IDLE;
+	}
+}CleanInstruction;
 
 typedef struct
 {
@@ -324,7 +423,7 @@ typedef struct
 	s16 chassisShapeParamX[8];
 	s16 chassisShapeParamY[8];
 	u16 minTurningRadius; //载体线速度为0原地旋转一周载体覆盖区域外接圆半径
-						  //超声波传感器
+	//超声波传感器
 	u8 ultrasoundSensorNum;
 	s16 ultrasoundSensorX[8];
 	s16 ultrasoundSensorY[8];
@@ -332,7 +431,7 @@ typedef struct
 	u16 ultrasoundSensorMinMeasureDistance;
 	u16 ultrasoundSensorMaxMeasureDistance;
 	u16 ultrasoundSensorFOV; //视场角
-							 //防跌落传感器
+	//防跌落传感器
 	u8 dropSensorNum;
 	s16 dropSensorX[8];
 	s16 dropSensorY[8];
@@ -383,7 +482,7 @@ typedef struct
 	s32 PathPosY[MAX_TARGET_LIST_SIZE];
 }AlgTargetPos;
 
-#ifdef USE_OPENWRT
+
 typedef struct mpu6500_info {
 	s32 acce_x;
 	s32 acce_y;
@@ -395,29 +494,16 @@ typedef struct mpu6500_info {
 
 	s32 temperature;
 }mpu6500_info;
-#else
-typedef struct mpu6500_info {
-	short acce_x;
-	short acce_y;
-	short acce_z;
 
-	short gyro_x;
-	short gyro_y;
-	short gyro_z;
 
-	char gpio_status;
-	int access_time;
-}mpu6500_info;
 
-#endif
-
-typedef struct Mpu6500PointsStr {
-	char acce_x_str[256];
-	char acce_y_str[256];
-	char acce_z_str[256];
-	char gyro_x_str[256];
-	char gyro_y_str[256];
-	char gyro_z_str[256];
+typedef struct Mpu6500PointsStr{
+	char acce_x_str[320];
+	char acce_y_str[320];
+	char acce_z_str[320];
+	char gyro_x_str[320];
+	char gyro_y_str[320];
+	char gyro_z_str[320];
 
 	int acce_x_str_len;
 	int acce_y_str_len;
@@ -426,23 +512,7 @@ typedef struct Mpu6500PointsStr {
 	int gyro_y_str_len;
 	int gyro_z_str_len;
 }Mpu6500PointsStr;
-//统一传感器数据结构（每次发一帧过来）
-typedef struct
-{
-	s32 sensorPosX;//单位mm，传感器相对小车的安装位置X
-	s32 sensorPosY;//单位mm，传感器相对小车的安装位置Y
-	s32 sensorPosPhi;//单位mrad，传感器相对于小车的安装角度phi
-	u32 minValidDis;//单位mm，最短有效距离（盲区）
-	u32 maxValidDis;//单位mm，最大有效距离
 
-	u32 detectedData[UNIFIED_SENSOR_RESOLUTION];//单位mm，
-												//一圈等分，以传感器安装角度正前方开始
-												//逆时针计数（目前为0°- 359°）
-												//若为开关量，只认detectedData[0]=0为无，=1为有
-	u8 sensorType;//0->距离传感器 1->开关量
-	u32 delayTime;//单位ms，该帧数据采集的延时
-	u32 memoryTime;//单位s，该帧数据在地图上的保留时间
-}UnifiedSensorInfo;
 typedef struct Alg3DSensorData
 {
 	int frameWidth;
@@ -453,7 +523,7 @@ typedef struct Alg3DSensorData
 	{
 		frameWidth = 80;
 		frameHeight = 60;
-		xyzRawData = new s32[frameWidth *frameHeight * 3];
+		xyzRawData = new s32[frameWidth *frameHeight *3];
 	}
 	~Alg3DSensorData()
 	{
@@ -496,12 +566,12 @@ typedef struct AlgMapData
 #endif
 }AlgMapData;
 
-typedef struct
+typedef struct  
 {
 	s32 LidarPosX;
 }CarrierParam;
 
-typedef struct
+typedef struct 
 {
 	s16 maxLineVelocity;
 	s16 minLineVelocity;
@@ -515,7 +585,7 @@ typedef struct
 #pragma pack(pop)
 
 typedef void(*DeviceMsgCallBack)(s32 id, s32 funcCode, s32 code, void* param);
-typedef void(*ErrorMsgCallBack)(s32 id, s32 errorLevel, s32 errorCode, char* msg);
+typedef void(*RobotMsgCallBack)(s32 id, s32 Level, s32 Code, char* msg);
 typedef void(*MapPackageCallBack)(s32 id, FileInfo* fileInfo, s32 checkedOk, const u8* buf, u32 len);
-typedef void(*LidarPackageCallBack)(s32 id, const u8 *buffer, s32 len);
+typedef void(*LidarPackageCallBack)(s32 id,const u8 *buffer, s32 len);
 #endif

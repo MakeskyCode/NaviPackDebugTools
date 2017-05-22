@@ -15,6 +15,9 @@
 #include "tools/file_dir.h"
 #include "tools/CFile.h"
 #include "tools/systemenc/md5.h"
+
+#include "errorDeal/ErrorEvent.h"
+#include "tools/CommonFunctions.h"
 using namespace std;
 using namespace System;
 using namespace System::Diagnostics;
@@ -30,7 +33,7 @@ int navipackInterfaceId = -1;
 AlgMapData *algMapData = new AlgMapData;
 AlgSensorData *algLidarMapData = new AlgSensorData;
 AlgSensorData *algRealLidarData = new AlgSensorData;
-
+AlgStatusRegister res;
 CFile mUpdateFile;
 
 //绘图使用
@@ -127,13 +130,28 @@ void OnGetDeviceMsg(int id, int msgType, int msgCode, void* param)
 	static int i = 0;
 	//LOG("OnGetDeviceMsg %d", msgType);
 	switch (msgType) {
-		case GET_NAVIPACK_VERSION:
-			printf("GET_NAVIPACK_VERSION %d.%d.%d\n", (msgCode >> 24 & 0xff), (msgCode >> 16 & 0xff), (msgCode & 0xffff));
-			break;
-		case NAVIGATION_STATUS:
-			
-			switch (msgCode) {
-			
+	case GET_NAVIPACK_VERSION:
+		printf("GET_NAVIPACK_VERSION %d.%d.%d\n", (msgCode >> 24 & 0xff), (msgCode >> 16 & 0xff), (msgCode & 0xffff));
+		break;
+	case MCU_REG_DEVICE_MSG:
+		switch (msgCode) {
+		case USER_REG_READ:
+		{
+			int len = 0;
+			char data[128];
+			ReadMessageFromCarrier(navipackInterfaceId, data, &len);
+			if (len > 0) {
+				PrintBuf(data, len, "USER_REG_READ");
+			}
+			else {
+				printf("USER_REG_READ Fail\n");
+			}
+		}
+		break;
+		}
+		break;
+	case NAVIGATION_STATUS:
+		switch (msgCode) {
 			case REACH_POINT:
 				printf("到达目标点\n");
 				break;
@@ -157,14 +175,44 @@ void OnGetDeviceMsg(int id, int msgType, int msgCode, void* param)
 				break;
 			}
 			break;
+	case INIT_LOCATION_STATUS:
+		switch(msgCode){
+		case INIT_STATUS_BEGIN:
+			printf("开始初始定位\n");
+			break;
+		case INIT_STATUS_SUCCESS:
+			printf("初始定位完成\n");
+			break;
 		default:
+			break;
+		}
 		break;
-	}
+	default:
+			break;
+		}
+	
 }
 
 void OnGetRobotMsg(s32 id, s32 Level, s32 Code, char* msg)
 {
-	LOGW("%s", msg);
+	switch (Level) {
+	
+	case EL_INFO:
+		if (Code == GENERAL_TEXT_MSG) {
+			LOGW("[TEXT MSG FROM ROBOT]%s", msg);
+			break;
+		}
+		
+//	case EL_WARNING:
+//		break;
+//	case EL_ERROR:
+//		break;
+	default:
+		LOGW("[DEFAULT MSG]%s", msg);
+		break;
+
+	}
+
 }
 
 void OnGetMapPackage(s32 id, FileInfo* fileInfo, s32 checkedOk, const u8* buf, u32 len) {
@@ -646,7 +694,11 @@ System::Void MyForm::pictureBoxMap_MouseMove(System::Object^  sender, System::Wi
 	System::String^ str = gcnew System::String("");
 	float x = ((int)(p.x * 100))*1.00 / 100;
 	float y = ((int)(p.y * 100))*1.00 / 100;
-	str = str->Format("Coordinate：x={0}, y={1}", x, y);
+	TPoint  p_lidar;
+	p_lidar.x = 0.2;
+	p_lidar.y = 0.0;
+	str = str->Format("Coordinate：x={0}, y={1} d={2:N3} S={3:N2} res.posX={4} res.posY={5} res.Sita={6} ", x, y,sqrt((double)( pow(x-(res.posX/1000.0),2)+ pow(y - (res.posY/1000.0), 2))), TwoPIToAngle((float) atan2(y- (res.posY/1000.0),x- (res.posX/1000.0))-(res.posSita/1000.0)), res.posX/1000.0, res.posY/1000.0,res.posSita);
+	//str = str->Format("Coordinate：x={0}, y={1} d={2:N3} S={3} ", x, y,sqrt((double)( pow(x,2)+ pow(y, 2))), atan(y / x));
 	toolStripStatusLabel1->Text = str;
 
 	static TPoint last_pt = TPoint(x, y);
@@ -672,7 +724,17 @@ System::Void MyForm::btn_back_to_charge_Click(System::Object^ sender, System::Ev
 
 System::Void MyForm::btn_update_navipack_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
-	UpdateNaviPackFile(navipackInterfaceId, "E:\\workspace\\VS2013\\Win\\navipack_2.0\\bin\\android\\armeabi-v7a\\NaviPack");
+	if(openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK){
+	//printf("openFileDialog result=%s\n ", openFileDialog->FileName);
+	
+	char fileName[512];
+	sprintf(fileName, "%s", openFileDialog->FileName);
+	//UpdateNaviPackFile(navipackInterfaceId, "E:\\workspace\\VS2013\\Win\\navipack_2.0\\bin\\android\\armeabi-v7a\\NaviPack");
+	UpdateNaviPackFile(navipackInterfaceId, fileName);
+	}
+	else {
+		printf("No File selected\n");
+	}
 }
 
 System::Void MyForm::btn_record_video_Click(System::Object ^ sender, System::EventArgs ^ e)
@@ -902,13 +964,13 @@ System::Void ProjectInterface::MyForm::btnSaveMapInfo_Click(System::Object ^ sen
 {
 	GetMapLayer(navipackInterfaceId, algMapData, LIDAR_MAP);
 	std::string mapPath = string(GetSelfExeCutaleDir());
-	mapPath += "BmpMap.bmp";
+	mapPath += "\\BmpMap.bmp";
 	cvSaveImage(mapPath.c_str(), &saved_img);
 	CFile file;
 	char info[128];
 	memset(info, 0, sizeof(info));
 	file.Open(GetSelfExeCutaleDir(),"mapinfo",CFile::WRITE);
-	sprintf(info, "x_min=%f \r\ny_min=%f \r\nresolotion=%f \r\nheight =%d\r\nwidth=%d\r\n", param.x_min,param.y_min,param.resolution,param.height, param.width);
+	sprintf(info, "x_TopLeft=%f \r\ny_TopLeft=%f \r\nresolotion=%f \r\nheight =%d\r\nwidth=%d\r\n", param.x_min/ param.resolution,(-param.y_min)/ param.resolution,param.resolution,param.height, param.width);
 	file.AddBuf(info,strlen(info));
 	file.Close(1);
 	memset(info, 0, sizeof(info));

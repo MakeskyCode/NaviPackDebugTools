@@ -69,7 +69,7 @@
 
 #ifndef _LGY_MD5_H
 #define _LGY_MD5_H
-
+#include <inttypes.h>
 /* MD5 Class. */
 class MD5_CTX {
 public:
@@ -79,8 +79,8 @@ public:
 	bool GetBufferMd5(char *pMd5, const char *pBuffer,unsigned int len);
 private:
 
-	unsigned long int state[4];					/* state (ABCD) */
-	unsigned long int count[2];					/* number of bits, modulo 2^64 (lsb first) */
+	uint32_t state[4];					/* state (ABCD) */
+	uint32_t count[2];					/* number of bits, modulo 2^64 (lsb first) */
 	unsigned char buffer[64];       /* input buffer */
 	unsigned char PADDING[64];		/* What? */
 
@@ -88,10 +88,10 @@ private:
 	void MD5Init ();
 	void MD5Update( unsigned char *input, unsigned int inputLen);
 	void MD5Final (unsigned char digest[16]);
-	void MD5Transform (unsigned long int state[4], unsigned char block[64]);
+	void MD5Transform (uint32_t state[4], unsigned char block[64]);
 	void MD5_memcpy (unsigned char* output, unsigned char* input,unsigned int len);
-	void Encode (unsigned char *output, unsigned long int *input,unsigned int len);
-	void Decode (unsigned long int *output, unsigned char *input, unsigned int len);
+	void Encode (unsigned char *output, uint32_t *input,unsigned int len);
+	void Decode (uint32_t *output, unsigned char *input, unsigned int len);
 	void MD5_memset (unsigned char* output,int value,unsigned int len);
 };
 

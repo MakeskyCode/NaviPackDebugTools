@@ -53,7 +53,7 @@ NAVIPACK_API int DLLCALL Close(int id);
 /// @param[in] errMsgCb	   设备错误消息回调
 /// @param[in] lidarPackCb 雷达原始数据回调
 /// @return  返回值小于0，表示失败，等于0 表示成功
-NAVIPACK_API int DLLCALL SetCallback(int id, DeviceMsgCallBack deviceMsgCb, ErrorMsgCallBack errMsgCb, MapPackageCallBack mapPackCb, LidarPackageCallBack lidarPackCb);
+NAVIPACK_API int DLLCALL SetCallback(int id, DeviceMsgCallBack deviceMsgCb, RobotMsgCallBack errMsgCb, MapPackageCallBack mapPackCb, LidarPackageCallBack lidarPackCb);
 
 /// 读取载体的参数
 /// @param[in] id NaviPack对象ID

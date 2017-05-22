@@ -19,6 +19,7 @@ struct ErrorInfo {
 };
 
 enum ErrorCode {
+	GENERAL_TEXT_MSG = 997,		//通用的文字信息
 	NAVIPACK_INIT_COMPLETE = 998,		//设备初始化成功
 	NAVIPACK_INIT_NOT_COMPLETE = 999,	//设备还没有初始化
 

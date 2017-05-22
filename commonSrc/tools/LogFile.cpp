@@ -98,8 +98,8 @@ void println(LogLevel log_level, long long uuid, long long userid, const char* p
 #endif
 			if (log_level != L_INFO)
 			{
-		//		printf("%s", header[log_level]);
-		//		printf(" --> %s\n", buf);
+				printf("%s", header[log_level]);
+				printf(" --> %s\n", buf);
 				//static FILE* file = fopen("log.txt", "w");
 				//fprintf(file, "%s --> %s\n",header[log_level], buf);
 				//fflush(file);

@@ -237,6 +237,8 @@ inttypes.h
 -
 
 ../../commonSrc/tools/systemenc/md5.h
+inttypes.h
+-
 
 ../../commonSrc/tools/windowsdef.h
 windows.h
@@ -911,6 +913,8 @@ md5.h
 /mnt/hgfs/E-2/Code_Set/Code00/mycode/NaviPackDebugTools/commonSrc/tools/systemenc/md5.h
 
 /mnt/hgfs/E-2/Code_Set/Code00/mycode/NaviPackDebugTools/commonSrc/tools/systemenc/md5.h
+inttypes.h
+-
 
 /mnt/hgfs/E-2/Code_Set/Code00/mycode/NaviPackDebugTools/commonSrc/tools/windowsdef.h
 windows.h

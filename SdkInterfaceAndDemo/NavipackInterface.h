@@ -125,6 +125,7 @@ public:
 	int ReadStatusRegister(AlgStatusRegister& status);
 
 	int InitLocation();
+	int StopInitLocation();
 
 	int UpdateNaviPackFile(const char * fileName);
 

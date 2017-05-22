@@ -640,6 +640,27 @@ int CNavipackInterface::InitLocation()
 	delete[] buf;
 	return 0;
 }
+
+int CNavipackInterface::StopInitLocation()
+{
+	SdkProtocolHeader head;
+	int data_len = 0;
+	u8 *buf = new u8[sizeof(SdkProtocolHeader) + sizeof(u8) + 2];
+	head.deviceAddr = ALG_ADDRESS;
+	head.functionCode = ALG_LOCATION_STOP;
+	//head.startAddr = ALG_CR_ADDR_IDLE;
+
+	memcpy(buf, (u8*)&head, sizeof(SdkProtocolHeader));
+	data_len += sizeof(SdkProtocolHeader);
+
+	if (isConnect) {
+		mHwInterface->WriteData(PT_SERAL_PACKAGE, buf, data_len);
+	}
+	delete[] buf;
+	return 0;
+}
+
+
 //#define T_BUF_SIZE (128*1024)
 #define T_BUF_SIZE (120*1024)
 int  CNavipackInterface::SendFile(u8 type, const char * fileName)
@@ -721,7 +742,10 @@ int  CNavipackInterface::SendFile(u8 type, const char * fileName)
 			fileInfo->partLen = bytes;
 			md5.GetBufferMd5(pmd5, pBak + sizeof(SdkProtocolHeader) + sizeof(FileInfo), bytes);
 			memcpy(fileInfo->md5, pmd5, sizeof(fileInfo->md5));
-			//LOGE("%d,%d UpdateNaviPack packName--> %s md5:%s", bytes, fileInfo->partLen, packName, pmd5);
+			LOGE("%d,%d UpdateNaviPack packName--> %s md5:%s", bytes, fileInfo->partLen, packName, pmd5);
+			if (fileInfo->partNum == 1) {
+				//PrintBuf(pBak + sizeof(SdkProtocolHeader) + sizeof(FileInfo), 1000, "DemoData");
+			}
 			if (isConnect)
 			{
 				int n = mHwInterface->WriteData(PT_SERAL_PACKAGE, (uint8_t*)pBak, sizeof(SdkProtocolHeader) + sizeof(FileInfo) + bytes);
@@ -1059,8 +1083,10 @@ void CNavipackInterface::RxDataCallBack(int32_t id, void *param, const uint8_t *
 		{
 			if (header->functionCode == SET_NAVAPACK_UPLOAD_MAP)
 			{
+				LOGD("header->functionCode == SET_NAVAPACK_UPLOAD_MAP");
 				FileInfo* fileInfo = (FileInfo*)(data + sizeof(SdkProtocolHeader));
 				if (face->mMapPackageCallBack) {
+					LOGD("face->mMapPackageCallBack");
 					int checkedOk = 0;
 					MD5_CTX md5;
 					char pmd5[32 + 1];

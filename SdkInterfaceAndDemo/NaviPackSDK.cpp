@@ -347,6 +347,16 @@ NAVIPACK_API int DLLCALL InitLocation(int id)
 	return CNavipackInterface::navi_interface[id]->InitLocation();
 }
 
+
+//终止初始定位
+NAVIPACK_API int DLLCALL StopInitLocation(int id)
+{
+	if (id >= MAX_INTERFACE || CNavipackInterface::navi_interface[id] == NULL)
+	{
+		return -1;
+	}
+	return CNavipackInterface::navi_interface[id]->StopInitLocation();
+}
 //释放资源，销毁句柄
 NAVIPACK_API void DLLCALL Destroy(int id)
 {

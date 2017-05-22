@@ -264,12 +264,16 @@ NAVIPACK_API int  DLLCALL GetSensorData(int id, AlgSensorData *sensor_data, int 
 /// @return 返回值小于0，表示失败，等于0 表示成功
 NAVIPACK_API int  DLLCALL GetStatus(int id, AlgStatusRegister *status);
 
-/// 强制NaviPack重新进行初始定位
+/// 初始定位
 /// @param[in] id NaviPack对象ID
-/// @param[out] status StatusRegister 结构体，用于存储数据
-/// @note 该功能正确执行的前提是，地图已经载入
 /// @return 返回值小于0，表示失败，等于0 表示成功
 NAVIPACK_API int  DLLCALL InitLocation(int id);
+
+
+/// 结束初始定位
+/// @param[in] id NaviPack对象ID
+/// @return 返回值小于0，表示失败，等于0 表示成功
+NAVIPACK_API int  DLLCALL StopInitLocation(int id);
 
 /// 设置WIFI参数
 /// @param[in] id NaviPack对象ID

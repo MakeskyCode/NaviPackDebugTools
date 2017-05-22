@@ -17,8 +17,8 @@
 /// @return 返回NaviPack对象的ID
 /// @note 属性值由3个部分组成: 主版本号(Bits 24 ~31), 子版本号(Bits 16 ~ 23), 编译号(Bits 0 ~ 15)
 #define MAIN_VER		3
-#define CHILD_VER		3
-#define COMPILE_VER		12
+#define CHILD_VER		4
+#define COMPILE_VER		0
 #define NAVIPACK_VISION		(MAIN_VER<<24 | CHILD_VER << 16 | COMPILE_VER)
 
 
@@ -134,6 +134,7 @@ enum NaviPackMode {
 #define ALG_SET_UNIFIED_SENSOR_DATA 0X0B
 #define ALG_ENABLE_MAP_UPDATE 0x0C
 #define ALG_ENABLE_OPTIMIZE		  0x0D
+#define ALG_LOCATION_STOP         0x0E  
 
 //ALG_DATA_READ ADDRESS
 #define ALG_DATA_ADDR_LIDAR_MAP      0x01 // correlation struct AlgLidarMapData,MapData RunLengthCode Format
@@ -150,14 +151,15 @@ enum NaviPackMode {
 #define  ALG_DATA_ADDR_LIDAR_MAP_LZ4	0x11 //MapData Lz4 Format
 
 //ALG_RAWLOG_REVIEW ADDRESS
-#define ALG_RAW_ADDR_BUILDMAP	0x01
-#define ALG_RAW_ADDR_DEBUG		0x02
+#define MCU_DATA_CHASSIS_STATUS	0x01
+
+//#define ALG_RAW_ADDR_BUILDMAP	0x01
 
 typedef enum {
 	ERROR_CODE = 0X00,				//有错误 错误码
 	UPDATE_MAP = 0x01,				//地图有更新
 	UPDATE_SENSOR_DATA = 0x02,		//传感器数据有更新
-	INIT_LOCATION_SUCCESS = 0X03,		//初始定位成功
+	INIT_LOCATION_STATUS = 0X03,		//初始定位状态
 	UPDATE_ALG_ATATUS_REG = 0X04,	//状态寄存器有更新
 	NAVIGATION_STATUS = 0X05,	//目标点设置有更新
 	GET_NAVIPACK_VERSION = 0X06,//获取版本号
@@ -178,10 +180,27 @@ typedef enum {
 	LIDAR_CTRL_SELF_STREAM = 0XA5,		//自定义数据
 	SEND_FILE_TYPE_MAP_PACKAGE = 0xA6,	//发送地图文件
 
-
+	//底盘相关
+	MCU_REG_DEVICE_MSG = 0xB1,
+	
 }DEVICE_CMD_SUB;
 
+typedef enum  {
+	USER_REG_READ = 0X00,				//用户自定义数据
+}MCUDeviceCode;
+
 typedef enum {
+	INIT_STATUS_BEGIN = 0x00,           //开始初始定位
+	INIT_STATUS_SUCCESS = 0X01,		    //初始定位完毕
+	INIT_STATUS_STOP = 0X02,		    //终止初始定位
+}InitStatusCode;
+
+
+
+#define MCU_USER_REG_BUFFERSIZE 32
+
+typedef enum {
+
 	REACH_POINT = 0X00,				//Reach Target Point 到达运动点 
 	TERMINATED = 0x01,				//Motion Terminated  终止
 	PATH_UPGRADE = 0X02,			//Path Upgrade       路径有更新
@@ -217,6 +236,12 @@ typedef enum DEVICE_CMD_ERROR_CODE
 #define MCU_USER_REG_READ      0x05
 #define MCU_USER_REG_WRITE     0x06
 
+
+#define OFFSET_OF(TYPE, MEMBER) ((int)(&((TYPE *)0)->MEMBER))
+#define LENGTH_OF(TYPE, MEMBER_START, MEMBER_END) (OFFSET_OF(TYPE, MEMBER_END) - OFFSET_OF(TYPE, MEMBER_START) + ((int)sizeof(((TYPE *)0)->MEMBER_END)))
+
+//MF
+#define MF_READ_SN             0x01
 
 #pragma pack(push, 1) 
 
