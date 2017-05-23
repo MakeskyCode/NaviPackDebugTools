@@ -137,6 +137,7 @@ void OnGetDeviceMsg(int id, int msgType, int msgCode, void* param)
 		switch (msgCode) {
 		case USER_REG_READ:
 		{
+			/*
 			int len = 0;
 			char data[128];
 			ReadMessageFromCarrier(navipackInterfaceId, data, &len);
@@ -146,6 +147,7 @@ void OnGetDeviceMsg(int id, int msgType, int msgCode, void* param)
 			else {
 				printf("USER_REG_READ Fail\n");
 			}
+			*/
 		}
 		break;
 		}
@@ -183,7 +185,22 @@ void OnGetDeviceMsg(int id, int msgType, int msgCode, void* param)
 		case INIT_STATUS_SUCCESS:
 			printf("初始定位完成\n");
 			break;
+		case INIT_STATUS_STOP:
+			printf("结束初始定位\n");
+			break;
 		default:
+			break;
+		}
+		break;
+	case SEND_FILE_TYPE_MAP_PACKAGE:
+		switch(msgCode){
+		case SEND_MAP_FILE_SUCCESS:
+			printf("发送地图文件成功\n");
+			break;
+		case SEND_MAP_FILE_FAILED:
+			printf("发送地图文件失败\n");
+			break;
+			default:
 			break;
 		}
 		break;
@@ -959,6 +976,11 @@ System::Void ProjectInterface::MyForm::btnDownloadMap_Click(System::Object ^ sen
 		printf("No File selected\n");
 	}
 	return;
+}
+System::Void ProjectInterface::MyForm::btn_StopInitLocation_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	StopInitLocation(navipackInterfaceId);
+	return System::Void();
 }
 System::Void ProjectInterface::MyForm::btnSaveMapInfo_Click(System::Object ^ sender, System::EventArgs ^ e)
 {

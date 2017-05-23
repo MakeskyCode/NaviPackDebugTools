@@ -199,6 +199,7 @@ private: System::Windows::Forms::Button^  btnDownloadMap;
 
 private: System::Windows::Forms::SaveFileDialog^  saveFileDialog;
 private: System::Windows::Forms::Button^  btnSaveMapInfo;
+private: System::Windows::Forms::Button^  btnStopInitLocation;
 
 
 
@@ -232,6 +233,7 @@ private: System::Windows::Forms::Button^  btnSaveMapInfo;
 			this->panel_control = (gcnew System::Windows::Forms::Panel());
 			this->tabControl_control = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage_basic = (gcnew System::Windows::Forms::TabPage());
+			this->btnStopInitLocation = (gcnew System::Windows::Forms::Button());
 			this->groupBox_map = (gcnew System::Windows::Forms::GroupBox());
 			this->btn_set_map_scale = (gcnew System::Windows::Forms::Button());
 			this->textBox_map_scale = (gcnew System::Windows::Forms::TextBox());
@@ -284,6 +286,7 @@ private: System::Windows::Forms::Button^  btnSaveMapInfo;
 			this->cb_enable_drawing_pen = (gcnew System::Windows::Forms::CheckBox());
 			this->btn_send_virtual_obstacles = (gcnew System::Windows::Forms::Button());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
+			this->btnSaveMapInfo = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->btnUpload = (gcnew System::Windows::Forms::Button());
 			this->btnDownloadMap = (gcnew System::Windows::Forms::Button());
@@ -295,7 +298,6 @@ private: System::Windows::Forms::Button^  btnSaveMapInfo;
 			this->MainTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->saveFileDialog = (gcnew System::Windows::Forms::SaveFileDialog());
-			this->btnSaveMapInfo = (gcnew System::Windows::Forms::Button());
 			this->panel_all->SuspendLayout();
 			this->panel_display->SuspendLayout();
 			this->tabControl_display->SuspendLayout();
@@ -413,6 +415,7 @@ private: System::Windows::Forms::Button^  btnSaveMapInfo;
 			// 
 			// tabPage_basic
 			// 
+			this->tabPage_basic->Controls->Add(this->btnStopInitLocation);
 			this->tabPage_basic->Controls->Add(this->groupBox_map);
 			this->tabPage_basic->Controls->Add(this->groupBox_connection);
 			this->tabPage_basic->Controls->Add(this->btn_imu_calibrate);
@@ -425,6 +428,16 @@ private: System::Windows::Forms::Button^  btnSaveMapInfo;
 			this->tabPage_basic->TabIndex = 0;
 			this->tabPage_basic->Text = L"Basic";
 			this->tabPage_basic->UseVisualStyleBackColor = true;
+			// 
+			// btnStopInitLocation
+			// 
+			this->btnStopInitLocation->Location = System::Drawing::Point(45, 415);
+			this->btnStopInitLocation->Name = L"btnStopInitLocation";
+			this->btnStopInitLocation->Size = System::Drawing::Size(155, 23);
+			this->btnStopInitLocation->TabIndex = 55;
+			this->btnStopInitLocation->Text = L"Stop Init Location";
+			this->btnStopInitLocation->UseVisualStyleBackColor = true;
+			this->btnStopInitLocation->Click += gcnew System::EventHandler(this, &MyForm::btn_StopInitLocation_Click);
 			// 
 			// groupBox_map
 			// 
@@ -989,6 +1002,16 @@ private: System::Windows::Forms::Button^  btnSaveMapInfo;
 			this->tabPage1->Text = L"Update";
 			this->tabPage1->UseVisualStyleBackColor = true;
 			// 
+			// btnSaveMapInfo
+			// 
+			this->btnSaveMapInfo->Location = System::Drawing::Point(49, 399);
+			this->btnSaveMapInfo->Name = L"btnSaveMapInfo";
+			this->btnSaveMapInfo->Size = System::Drawing::Size(97, 32);
+			this->btnSaveMapInfo->TabIndex = 66;
+			this->btnSaveMapInfo->Text = L"SaveMapInfo";
+			this->btnSaveMapInfo->UseVisualStyleBackColor = true;
+			this->btnSaveMapInfo->Click += gcnew System::EventHandler(this, &MyForm::btnSaveMapInfo_Click);
+			// 
 			// groupBox1
 			// 
 			this->groupBox1->Controls->Add(this->btnUpload);
@@ -1063,16 +1086,6 @@ private: System::Windows::Forms::Button^  btnSaveMapInfo;
 			// openFileDialog
 			// 
 			this->openFileDialog->FileName = L"openFileDialog";
-			// 
-			// btnSaveMapInfo
-			// 
-			this->btnSaveMapInfo->Location = System::Drawing::Point(49, 399);
-			this->btnSaveMapInfo->Name = L"btnSaveMapInfo";
-			this->btnSaveMapInfo->Size = System::Drawing::Size(97, 32);
-			this->btnSaveMapInfo->TabIndex = 66;
-			this->btnSaveMapInfo->Text = L"SaveMapInfo";
-			this->btnSaveMapInfo->UseVisualStyleBackColor = true;
-			this->btnSaveMapInfo->Click += gcnew System::EventHandler(this, &MyForm::btnSaveMapInfo_Click);
 			// 
 			// MyForm
 			// 
@@ -1175,6 +1188,8 @@ private: System::Windows::Forms::Button^  btnSaveMapInfo;
 		 System::Void btnUploadMap(System::Object^  sender, System::EventArgs^  e);
 		 System::Void btnDownloadMap_Click(System::Object ^ sender, System::EventArgs ^ e);
          System::Void btnSaveMapInfo_Click(System::Object^  sender, System::EventArgs^  e);
+
+		System::Void btn_StopInitLocation_Click(System::Object^  sender, System::EventArgs^  e);
 };
 
 }

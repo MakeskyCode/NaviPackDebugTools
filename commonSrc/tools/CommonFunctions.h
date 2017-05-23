@@ -36,7 +36,7 @@ double AngleToPI(double ang);
 
 int AngleTo2PI(int ang);
 int AngleToPI(int ang);
-
+float TwoPIToAngle(float rad);
 void ShowImg(unsigned char *img_data, int width, int height, const char name_prefix[]);
 
 int BlockReceive(int sock, char* pBuffer, int readSize, int nTimeOut);

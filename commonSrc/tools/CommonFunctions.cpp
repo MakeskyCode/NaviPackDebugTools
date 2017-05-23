@@ -23,6 +23,10 @@
 
 int NormalToPI(int ang)
 {
+	if (abs(ang)>10000000)
+	{
+		return 0;
+	}
 	while (ang > 180)
 	{
 		ang -= 360;
@@ -36,6 +40,10 @@ int NormalToPI(int ang)
 
 float NormalToPI(float ang)
 {
+	if (abs(ang)>10000000)
+	{
+		return 0;
+	}
 	while (ang > M_PI)
 	{
 		ang -= (float)M_2PI;
@@ -49,6 +57,10 @@ float NormalToPI(float ang)
 
 int NormalTo2PI(int ang)
 {
+	if (abs(ang)>10000000)
+	{
+		return 0;
+	}
 	while (ang > 360)
 	{
 		ang -= 360;
@@ -62,6 +74,10 @@ int NormalTo2PI(int ang)
 
 float NormalTo2PI(float ang)
 {
+	if (abs(ang)>10000000)
+	{
+		return 0;
+	}
 	while (ang > M_2PI)
 	{
         ang -= (float)M_2PI;
@@ -75,6 +91,10 @@ float NormalTo2PI(float ang)
 
 double AngleTo2PI(double ang)
 {
+	if (abs(ang)>10000000)
+	{
+		return 0;
+	}
 	while (ang < 0)
 	{
 		ang += M_2PI;
@@ -88,6 +108,10 @@ double AngleTo2PI(double ang)
 
 double AngleToPI(double ang)
 {
+	if (abs(ang)>10000000)
+	{
+		return 0;
+	}
 	while (ang < -M_PI)
 	{
 		ang += M_2PI;
@@ -101,6 +125,10 @@ double AngleToPI(double ang)
 
 int AngleTo2PI(int ang)
 {
+	if (abs(ang)>10000000)
+	{
+		return 0;
+	}
     while (ang < 0)
     {
         ang += 360;
@@ -114,6 +142,10 @@ int AngleTo2PI(int ang)
 
 int AngleToPI(int ang)
 {
+	if (abs(ang)>10000000)
+	{
+		return 0;
+	}
     while (ang < -180)
     {
         ang += 360;
@@ -125,6 +157,16 @@ int AngleToPI(int ang)
     return ang;
 }
 
+float TwoPIToAngle(float rad)
+{
+	if (abs(rad)>10000000)
+	{
+		return 0;
+	}
+	rad = NormalTo2PI(rad);
+
+	return (rad/ M_2PI)*360.0;
+}
 void ShowImg(unsigned char *img_data, int width, int height, const char name_prefix[])
 {
 #if NAVIPACK_WIN

@@ -195,7 +195,10 @@ typedef enum {
 	INIT_STATUS_STOP = 0X02,		    //终止初始定位
 }InitStatusCode;
 
-
+typedef enum {
+	SEND_MAP_FILE_SUCCESS = 0x00,       // 发送地图文件成功
+	SEND_MAP_FILE_FAILED = 0x01,        // 发送地图文件失败
+}SendMapFileCode;
 
 #define MCU_USER_REG_BUFFERSIZE 32
 
