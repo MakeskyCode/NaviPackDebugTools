@@ -208,3 +208,8 @@ Icon?
 Thumbs.db
 
 #CMakeLists.txt
+Example/Linux/CMakeCache.txt
+Example/Linux/Makefile
+Example/Linux/SdkDemo
+Example/Linux/CMakeFiles/
+Example/Linux/cmake_install.cmake

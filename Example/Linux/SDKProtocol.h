@@ -67,8 +67,6 @@ typedef volatile unsigned int  const vuc32;  /* Read Only */
 typedef volatile unsigned short const vuc16;  /* Read Only */
 typedef volatile unsigned char  const vuc8;   /* Read Only */
 
-
-
 #define MAX_MAP_LIST 8
 #define  ULTRASOUND_NUM      8
 
@@ -134,6 +132,7 @@ enum NaviPackMode {
 #define ALG_SET_UNIFIED_SENSOR_DATA 0X0B
 #define ALG_ENABLE_MAP_UPDATE 0x0C
 #define ALG_ENABLE_OPTIMIZE		  0x0D
+#define ALG_LOCATION_STOP         0x0E  
 
 //ALG_DATA_READ ADDRESS
 #define ALG_DATA_ADDR_LIDAR_MAP      0x01 // correlation struct AlgLidarMapData,MapData RunLengthCode Format
@@ -191,9 +190,13 @@ typedef enum  {
 typedef enum {
 	INIT_STATUS_BEGIN = 0x00,           //开始初始定位
 	INIT_STATUS_SUCCESS = 0X01,		    //初始定位完毕
+	INIT_STATUS_STOP = 0X02,		    //终止初始定位
 }InitStatusCode;
 
-
+typedef enum {
+	SEND_MAP_FILE_SUCCESS = 0x00,       // 发送地图文件成功
+	SEND_MAP_FILE_FAILED = 0x01,        // 发送地图文件失败
+}SendMapFileCode;
 
 #define MCU_USER_REG_BUFFERSIZE 32
 
@@ -306,8 +309,6 @@ typedef struct {
 	char fileName[FILE_PATH_MAX_LEN];
 	char md5[32];
 }FileInfo;
-
-
 
 
 typedef struct CompareMapData_S
@@ -495,8 +496,6 @@ typedef struct mpu6500_info {
 	s32 temperature;
 }mpu6500_info;
 
-
-
 typedef struct Mpu6500PointsStr{
 	char acce_x_str[320];
 	char acce_y_str[320];
@@ -550,7 +549,7 @@ typedef struct AlgMapData
 	float resolution;
 	float x_min;
 	float y_min;
-	u8* map;	//80*80米
+	u8* map;	
 
 #ifdef __cplusplus
 	AlgMapData()

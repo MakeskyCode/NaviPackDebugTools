@@ -27,7 +27,85 @@ enum ErrorCode {
 };
 void OnGetDeviceMsg(int id, int msgType, int msgCode, void* param)
 {
-	//printf("OnGetDeviceMsg %d %d %d \n", id, msgType, msgCode);
+	static int i = 0;
+	switch (msgType) {
+	case GET_NAVIPACK_VERSION:
+		printf("GET_NAVIPACK_VERSION %d.%d.%d\n", (msgCode >> 24 & 0xff), (msgCode >> 16 & 0xff), (msgCode & 0xffff));
+		break;
+	case MCU_REG_DEVICE_MSG:
+		switch (msgCode) {
+		case USER_REG_READ:
+		{
+			/*
+			int len = 0;
+			char data[128];
+			ReadMessageFromCarrier(navipackInterfaceId, data, &len);
+			if (len > 0) {
+				PrintBuf(data, len, "USER_REG_READ");
+			}
+			else {
+				printf("USER_REG_READ Fail\n");
+			}
+			*/
+		}
+		break;
+		}
+		break;
+	case NAVIGATION_STATUS:
+		switch (msgCode) {
+			case REACH_POINT:
+				printf("到达目标点\n");
+				break;
+			case TERMINATED:
+				printf("运动终止\n");
+				break;
+			case PATH_UPGRADE:
+				printf("路径有更新 %d\n", i++);
+				break;
+			case START_NAVIGATION:
+				printf("开始导航 %d\n", i++);
+				break;
+			case CANNOT_REACH:
+				printf("无法到达该目标，规划最近的点。 %d\n", i++);
+				break;
+			case FIND_WAY_OUT:
+				printf("脱困处理中 %d\n", i++);
+				break;
+			default:
+				break;
+			}
+			break;
+	case INIT_LOCATION_STATUS:
+		switch(msgCode){
+		case INIT_STATUS_BEGIN:
+			printf("开始初始定位\n");
+			break;
+		case INIT_STATUS_SUCCESS:
+			printf("初始定位完成\n");
+			break;
+		case INIT_STATUS_STOP:
+			printf("结束初始定位\n");
+			break;
+		default:
+			break;
+		}
+		break;
+	case SEND_FILE_TYPE_MAP_PACKAGE:
+		switch(msgCode){
+		case SEND_MAP_FILE_SUCCESS:
+			printf("发送地图文件成功\n");
+			break;
+		case SEND_MAP_FILE_FAILED:
+			printf("发送地图文件失败\n");
+			break;
+			default:
+			break;
+		}
+		break;
+	default:
+			break;
+		}
+	
 }
 
 void OnGetRobotMsg(int id, s32 Level, s32 Code, char* msg)
@@ -59,7 +137,7 @@ int main(int argc,char* argv[])
 	printf("argc=%d\n",argc);
 
 	
-	int naviId = Create(TCP_CONNECT);
+	int naviId = Create(SERIAL_CONNECT);
 
 	if (naviId < 0)
 	{
@@ -67,8 +145,8 @@ int main(int argc,char* argv[])
 		return -1;
 	}
 
-	r = Open(naviId,"192.168.17.1",9977);
-	//r = Open(naviId,"/dev/ttyACM0",115200);
+	//r = Open(naviId,"192.168.17.1",9977);
+	r = Open(naviId,"/dev/ttyACM0",115200);
 	if (r < 0)
 	{
 		printf("connect to server failed\n");
@@ -82,11 +160,46 @@ int main(int argc,char* argv[])
 		printf("local Map Path==%s\n len=%ld\n",argv[2],strlen(argv[2]));
 		LoadLocalMap(naviId,argv[2],0);
 	}
+
+	
+	char * paraVector[10]={};
+	char keyboardBuffer[1024]={};
+	
+	char* para=NULL;
+	char space[]=" \r\n";
+	int paraNum=0;
+	while(fgets(keyboardBuffer,1024,stdin)!=NULL){
+		paraNum=0;
+		printf("get string=%s\n",keyboardBuffer);
+		para=strtok(keyboardBuffer,space);
+		while(para !=NULL){
+			paraVector[paraNum]=para;
+			//printf("Para=%s\n",para);
+			para=strtok(NULL,space);
+			paraNum++;
+		}
+		//检查传入参数个数是否正确
+		for(int i=0;i<paraNum;i++){
+			printf("paraVector[%d]=%s\n",i,paraVector[i]);
+			printf("str=%ld\n",strlen(paraVector[i]));
+		}
+		if(strcmp("initlocal",paraVector[0])==0){
+			printf("cmd initlocal\n");
+			InitLocation(naviId);
+		}else if(strcmp("stopinitlocal",paraVector[0])==0){
+			//InitLocation(naviId);
+		}
+		
+	}
+	/*
 	while (true)
 	{
+		
 		SetSpeed(naviId,0,0);
 		usleep(1000*1000);
 	}
+	*/
+	
 
 	return 0;
 }
